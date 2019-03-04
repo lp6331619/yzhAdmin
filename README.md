@@ -1,5 +1,5 @@
-# qytAdmin
-## 青游堂后台程序
+# qzhAdmin
+## 柚子汇后台程序
 ```
     npm install
     npm run dev
