@@ -29,7 +29,7 @@ module.exports = {
 		assetsPublicPath  : '/',
 		proxyTable        : {
 			'/AdminApi'  : {
-				target      : 'http://admin.quitang.com',
+				target      : 'http://yzh.jiqimao.uiping.com',
 				changeOrigin: true,
 				pathRewrite : {
 					'^/AdminApi': ''

@@ -6,7 +6,7 @@
                     <div class="login-logo">青游堂旅行</div>
                     <div class="btm">
                         The backstage management system<br>
-                        后台管理系统
+                        柚子汇管理系统
                     </div>
                 </div>
             </div>

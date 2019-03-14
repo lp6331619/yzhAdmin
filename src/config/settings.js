@@ -1,8 +1,8 @@
 var env = process.env;
 
 var gbs={
-	host: 'http://admin-api.quitang.com',
-	// host: '/AdminApi', //接口根地址。本地代理到slsadmin.api.sls.com,线上使用的是Nginx代理
+	// host: 'http://admin-api.quitang.com',
+	host: '/AdminApi', //接口根地址。本地代理到slsadmin.api.sls.com,线上使用的是Nginx代理
 	// db_prefix: 'sls_admin_', //本地存储的key
 	//状态码字段
 	api_status_key_field:'error_code',
@@ -10,36 +10,36 @@ var gbs={
 	api_status_value_field:0,
 	api_data_field:'data',
 	api_custom:{
-		10001:function (res) {
-			this.$store.dispatch('remove_userinfo').then(() => {
-				this.$alert(res.status + ',' + res.msg + '！', '登录错误', {
-					confirmButtonText: '确定',
-					callback: action => {
-						this.$router.push('/login');
-					}
-				});
-			});
-		},
-		10002:function (res) {
-			this.$store.dispatch('remove_userinfo').then(() => {
-				this.$alert(res.status + ',' + res.msg + '！', '登录错误', {
-					confirmButtonText: '确定',
-					callback: action => {
-						this.$router.push('/login');
-					}
-				});
-			});
-		},
-		10003:function (res) {
-			this.$store.dispatch('remove_userinfo').then(() => {
-				this.$alert(res.status + ',' + res.msg + '！', '登录错误', {
-					confirmButtonText: '确定',
-					callback: action => {
-						this.$router.push('/login');
-					}
-				});
-			});
-		}
+		// 10001:function (res) {
+		// 	this.$store.dispatch('remove_userinfo').then(() => {
+		// 		this.$alert(res.status + ',' + res.msg + '！', '登录错误', {
+		// 			confirmButtonText: '确定',
+		// 			callback: action => {
+		// 				this.$router.push('/login');
+		// 			}
+		// 		});
+		// 	});
+		// },
+		// 10002:function (res) {
+		// 	this.$store.dispatch('remove_userinfo').then(() => {
+		// 		this.$alert(res.status + ',' + res.msg + '！', '登录错误', {
+		// 			confirmButtonText: '确定',
+		// 			callback: action => {
+		// 				this.$router.push('/login');
+		// 			}
+		// 		});
+		// 	});
+		// },
+		// 10003:function (res) {
+		// 	this.$store.dispatch('remove_userinfo').then(() => {
+		// 		this.$alert(res.status + ',' + res.msg + '！', '登录错误', {
+		// 			confirmButtonText: '确定',
+		// 			callback: action => {
+		// 				this.$router.push('/login');
+		// 			}
+		// 		});
+		// 	});
+		// }
 	}
 };
 

@@ -35,7 +35,7 @@ new Vue({
 router.beforeEach((to, from, next) => {
     document.title = to.name;
     next()
-    if(store.state.user.userinfo.state){
-        next('/login')
-    }
+    // if(store.state.user.userinfo.state){
+    //     next('/login')
+    // }
 })
