@@ -5,9 +5,9 @@ var gbs={
 	host: '/AdminApi', //接口根地址。本地代理到slsadmin.api.sls.com,线上使用的是Nginx代理
 	// db_prefix: 'sls_admin_', //本地存储的key
 	//状态码字段
-	api_status_key_field:'error_code',
+	api_status_key_field:'status',
 	//状态码value
-	api_status_value_field:0,
+	api_status_value_field:1,
 	api_data_field:'data',
 	api_custom:{
 		// 10001:function (res) {
@@ -52,7 +52,7 @@ var cbs={
 		if (err.status !== 404) {
 			this.$message({
 				showClose: true,
-				message: err.msg,
+				message: err.info,
 				type: 'error'
 			});
 		} //else {

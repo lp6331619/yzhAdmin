@@ -1,15 +1,15 @@
 /*登录*/
 .pageCpLogin{background: #4d4d4d;background-position: center; background-size: cover;width: 100%;height: 100%;color: #4F5A61;
-    .panelCont{width: 750px;height: 410px;background: #fff;border-radius: 5px;position: absolute;left: 50%;top: 50%;margin: -210px 0 0 -375px; overflow:hidden;
+    .panelCont{width: 750px;min-height: 410px; background: #fff;border-radius: 5px;position: absolute;left: 50%;top: 50%;margin: -210px 0 0 -375px; overflow:hidden;
         .leftPanel{width: 320px;height: 100%;float: left;background: #009688;color: #fff;}
         .rightPanel{width: 430px;height: 100%;float: left;}
         .leftPanel {
-            .inner{position: relative;margin: 70px 40px 0;height: 290px;}
+            .inner{position: relative;padding: 70px 40px 20px;height: 464px;}
             .CpLogo{width: 160px;}
-            .btm{position: absolute;bottom: 0; line-height: 24px; font-family: "PingHei", "PingFang SC", Helvetica, Arial, sans-serif;-webkit-font-smoothing: antialiased;}
+            .btm{position: absolute;bottom: 20px; line-height: 24px; font-family: "PingHei", "PingFang SC", Helvetica, Arial, sans-serif;-webkit-font-smoothing: antialiased;}
         }
     }
-    .userForm{margin: 60px 35px 0;
+    .userForm{margin: 15px 35px 0;
         .loginheader{font-size: 24px;font-weight: 500;color: #009688; margin-bottom: 40px;}
     }
     .formRow{position: relative;padding-left: 30px;border-bottom: 1px #DBE0E3 solid;margin-bottom: 14px;}
@@ -21,3 +21,10 @@
 .pageCpLogin .btnWrap{text-align: center;margin-top: 20px;padding: 20px 0 10px;position: relative;}
 .pageCpLogin .layui-btn{padding: 0 40px;}
 .rightPanel .iconfont:before{font-size: 26px;}
+
+.verifyImg,.smsBtn{
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1;
+}
