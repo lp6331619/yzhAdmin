@@ -3,26 +3,26 @@
  */
 
 import {Home,Content} from 'layout/';
-import {Appraisal} from 'views/';
+import {Notice} from 'views/';
 
 export default {
-	path: '/appraisal',
-	name: '评价管理',
+	path: '',
+	name: '',
   child:true,
 	component: Home,
-  redirect: '/appraisal/shop/list',
+  redirect: '/notice/list',
 	children:[{
-        path: 'shop',
-				icon: 'pingjia1',
+        path: '/notice',
         name: '评价列表',
-        redirect: '/appraisal/shop/list',
+        redirect: '/notice/list',
         component: Content,
         children:[{
             path: 'list',
-            component: Appraisal.List,
+            component: Notice.List,
         },{
             path: 'edit',
-            component: Appraisal.Edit,
+            hidden:true,
+            component: Notice.Edit,
         }]
     }]
 };

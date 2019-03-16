@@ -8,26 +8,10 @@
                     <img src="../../assets/logo-sm.png" class='logo' alt="">
                   </router-link>
                 </el-col>
-                <el-col :span="16">
-                    <el-menu theme="dark" :default-active="$store.state.router.headerCurRouter" class="el-menu-demo"
-                             mode="horizontal" unique-opened router>
-                        <el-menu-item
-                            v-for='(item,index) in $router.options.routes'
-                            :index="item.path"
-                            :key='item.path'
-                            v-if='!item.hidden'>
-                            {{item.name}}
-                        </el-menu-item>
-                    </el-menu>
+                <el-col :span="16"> 
+                     &nbsp;
                 </el-col>
                 <el-col :span="4" class="userinfo">
-                    <!-- <span class='username'>
-                        <i v-if="!user_info.avartar" class='iconfont icon-user'></i>
-                        <span v-else class="imgBox">
-                            <img :src="user_info.avartar" alt="">
-                        </span>
-                        {{this.user_info.realname}}
-                    </span> -->
                     <span class='username'>
                         <el-dropdown
                             trigger="click"

@@ -6,7 +6,6 @@ export default {
             this.setSize();
         });
         this.updateCurMenu()
-        console.log(this.type, 333)
     },
     data() {
         return {

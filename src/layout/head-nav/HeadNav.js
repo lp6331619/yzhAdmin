@@ -44,7 +44,6 @@ export default {
         }
     },
     mounted() {
-        this.getTips()
     },
     methods: {
         /**
@@ -87,29 +86,6 @@ export default {
                 }
             })
         },
-        getTips() {
-            var myAuto = document.querySelector('#mp3');
-            var time = 0
-            setInterval(() => {
-                this.$$api_user_order_notify({
-                    data: { utime: time },
-                    fn: data => {
-                        time = data.utime
-                        if (data.has_new == 1) {
-                            myAuto.play();
-                            this.$notify({
-                                title: '警告',
-                                message: 'new order！！',
-                                type: 'warning',
-                                offset: 50
-                            });
-                        }
-                    },
-                    errFn: (err) => {
-                        this.$message.error(err.msg);
-                    },
-                });
-            }, 10000);
-        }
+       
     }
 }

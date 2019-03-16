@@ -43,4 +43,43 @@ export default [
         path: '/Public/reset_passwd',
         type: 'post',
     },
+    {
+        name: '公告列表',
+        method: 'notice_list',
+        path: '/Notice/index',
+        type: 'post',
+    },
+    {
+        name: '公告详情',
+        method: 'notice',
+        path: '/Notice/detail',
+        type: 'post',
+    },
+
+    {
+        name: '商户账户信息',
+        method: 'accountInfo',
+        path: '/Customer/accountInfo',
+        type: 'post',
+    },
+    {
+        name: '商户信息接口',
+        method: 'info',
+        path: '/Customer/info',
+        type: 'post',
+    },
+    {
+        name: '修改QQ信息',
+        method: 'editQQ',
+        path: '/Customer/editQQ',
+        type: 'post',
+    },
+    {
+        name: '修改Email信息',
+        method: 'editEmail',
+        path: '/Customer/editEmail',
+        type: 'post',
+    },
+
+    
 ];

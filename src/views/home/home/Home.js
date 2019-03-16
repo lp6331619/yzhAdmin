@@ -1,7 +1,7 @@
 export default {
     name: 'list',
     created: function () {
-        this.getList()
+        // this.getList()
     },
     data() {
         return {

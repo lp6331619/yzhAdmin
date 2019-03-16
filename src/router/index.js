@@ -6,15 +6,8 @@ import Router from 'vue-router';
 Vue.use(Router);
 
 import {Home, Content} from 'layout/';
-import {Login,HomeBox,Iframe} from 'views/';
-
-import Order from './order/';
+import {Login,HomeBox} from 'views/';
 import Product from './product/';
-import Supplier from './supplier/';
-import Admin from './admin/';
-import Appraisal from './appraisal/';
-import HardCurrency from './hardCurrency/';
-import Finance from './finance/';
 
 export default new Router({
 	routes: [
@@ -23,14 +16,8 @@ export default new Router({
 			name  : 'home',
 			hidden: true,
 			redirect(to){
-				return 'product/home';
+				return '/home';
 			}
-		},
-		{
-			path     : '/iframe',
-			name     : 'iframe',
-			hidden   : true,
-			component: Iframe
 		},
 		{
 			path     : '/login',
@@ -38,12 +25,6 @@ export default new Router({
 			hidden   : true,
 			component: Login
 		},
-		Order,
 		Product,
-		HardCurrency,
-		Supplier,
-		Appraisal,
-		Finance,
-		Admin
 	]
 })

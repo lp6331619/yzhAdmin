@@ -10,36 +10,16 @@ var gbs={
 	api_status_value_field:1,
 	api_data_field:'data',
 	api_custom:{
-		// 10001:function (res) {
-		// 	this.$store.dispatch('remove_userinfo').then(() => {
-		// 		this.$alert(res.status + ',' + res.msg + '！', '登录错误', {
-		// 			confirmButtonText: '确定',
-		// 			callback: action => {
-		// 				this.$router.push('/login');
-		// 			}
-		// 		});
-		// 	});
-		// },
-		// 10002:function (res) {
-		// 	this.$store.dispatch('remove_userinfo').then(() => {
-		// 		this.$alert(res.status + ',' + res.msg + '！', '登录错误', {
-		// 			confirmButtonText: '确定',
-		// 			callback: action => {
-		// 				this.$router.push('/login');
-		// 			}
-		// 		});
-		// 	});
-		// },
-		// 10003:function (res) {
-		// 	this.$store.dispatch('remove_userinfo').then(() => {
-		// 		this.$alert(res.status + ',' + res.msg + '！', '登录错误', {
-		// 			confirmButtonText: '确定',
-		// 			callback: action => {
-		// 				this.$router.push('/login');
-		// 			}
-		// 		});
-		// 	});
-		// }
+		'-100':function (res) {
+			this.$store.dispatch('remove_userinfo').then(() => {
+				this.$alert(res.status + ',' + res.info + '！', '登录错误', {
+					confirmButtonText: '确定',
+					callback: action => {
+						this.$router.push('/login');
+					}
+				});
+			});
+		},
 	}
 };
 
@@ -55,21 +35,23 @@ var cbs={
 				message: err.info,
 				type: 'error'
 			});
-		} //else {
-		// 	this.$store.dispatch('remove_userinfo').then(() => {
-		// 		this.$alert(err.status + ',' + err.msg + '！', '登录错误', {
-		// 			confirmButtonText: '确定',
-		// 			callback: action => {
-		// 				this.$router.push('/login');
-		// 			}
-		// 		});
-		// 	});
-		// }
+		} else {
+			
+			this.$store.dispatch('remove_userinfo').then(() => {
+				this.$alert(err.status + ',' + err.info + '！', '登录错误', {
+					confirmButtonText: '确定',
+					callback: action => {
+						this.$router.push('/login');
+					}
+				});
+			});
+		}
 	},
 	/**
 	 * ajax请求网络出错时调用
 	 */
 	requestError(err,err2) {
+		console.log(1111,err,222,err2)
 		this.$message({
 			showClose: true,
 			message: '请求错误',

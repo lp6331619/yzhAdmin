@@ -2,139 +2,127 @@
  * Created by sailengsi on 2017/5/11.
  */
 import { Home, Content } from 'layout/';
-import { Product, HomeBox } from 'views/';
+import { Product, HomeBox,Notice } from 'views/';
 
 export default {
-    path: '/product',
-    name: '产品管理',
-    child: true,
+    path: '',
+    name: '首页',
     component: Home,
-    redirect: '/product/travel/list1',
+    // redirect: '',
     children: [{
-        path: 'home',
-        name: '首页',
-        icon: 'lvxing',
-        hidden: true,
-        redirect: '/product/home',
+        path: '/home',
+        name: '任务列表',
+        redirect: '/home',
+        component: Content,
+        children: [{
+            path: '/home',
+            name: '首页1',
+            component: HomeBox.HomeIndex,
+        }]
+    },{
+        path: '/orderList',
+        name: '订单列表',
+        redirect: '/orderList',
         component: Content,
         children: [{
             path: '',
-            name: '首页',
+            name: '',
             component: HomeBox.HomeIndex,
         }]
-    }, {
-        path: 'travel',
-        name: '旅行产品',
-        type: '3',
-        child: true,
-        icon: 'lvxing',
-        redirect: '/product/travel/list1',
+    },{
+        path: '/orderList',
+        name: '资金记录',
+        redirect: '/orderList',
         component: Content,
         children: [{
-            path: 'list1',
-            name: '吃',
-            component: Product.Travel.List,
-        }, {
-            path: 'list2',
-            name: '住',
-            component: Product.Travel.List2,
-        }, {
-            path: 'list3',
-            name: '行',
-            component: Product.Travel.List3,
-        }, {
-            path: 'list4',
-            name: '娱',
-            component: Product.Travel.List4,
-        }, {
-            path: 'list5',
-            name: '购',
-            component: Product.Travel.List5,
-        }, {
-            path: 'list6',
-            name: '游',
-            component: Product.Travel.List6,
-        }, {
-            path: 'list7',
-            name: '路线',
-            component: Product.Travel.List7,
-        }, {
-            path: 'list8',
-            name: '通讯',
-            component: Product.Travel.List8,
-        }, {
-            path: 'list9',
-            name: '金融',
-            component: Product.Travel.List9,
-        }, {
-            path: 'list10',
-            name: '其他',
-            component: Product.Travel.List10,
-        }, {
-            path: 'edit',
-            name: '编辑',
-            hidden: true,
-            component: Product.Travel.Edit,
+            path: '',
+            name: '',
+            component: HomeBox.HomeIndex,
         }]
-    }, {
-        path: 'ticket',
-        name: '票务产品',
-        type: '2',
-        icon: 'f4',
-        child: true,
+    },{
+        path: '/orderList',
+        name: '账户信息',
+        redirect: '/orderList',
         component: Content,
         children: [{
-            path: 'train',
-            name: '火车票',
-            child: true,
-            component: Content,
-            children: [{
-                path: 'ticketClerk2',
-                name: '票务',
-                component: Product.Ticket.ListTick,
-            }, {
-                path: 'safeguarding2',
-                name: '站点维护',
-                component: Product.Ticket.List,
-            }, {
-                path: 'editTicket',
-                name: '编辑',
-                hidden: true,
-                component: Product.Ticket.EditTicket,
-            }, {
-                path: 'edit',
-                name: '编辑',
-                hidden: true,
-                component: Product.Ticket.EditSafeguarding,
-            }]
-        }, {
-            path: 'automobile',
-            name: '汽车票',
-            child: true,
-            component: Content,
-            children: [{
-                path: 'ticketClerk1',
-                name: '票务',
-                component: Product.Ticket.ListTick2,
-            }, {
-                path: 'safeguarding1',
-                name: '站点维护',
-                component: Product.Ticket.List2,
-            }]
-        }, {
-            path: 'steamboat',
-            name: '船票',
-            child: true,
-            component: Content,
-            children: [{
-                path: 'ticketClerk3',
-                name: '票务',
-                component: Product.Ticket.ListTick3,
-            }, {
-                path: 'safeguarding3',
-                name: '站点维护',
-                component: Product.Ticket.List3,
-            }]
+            path: '',
+            name: '',
+            component: HomeBox.HomeIndex,
         }]
-    }]
+    },{
+        path: '/orderList',
+        name: '充值',
+        redirect: '/orderList',
+        component: Content,
+        children: [{
+            path: '',
+            name: '',
+            component: HomeBox.HomeIndex,
+        }]
+    },{
+        path: '/orderList',
+        name: '申诉管理',
+        redirect: '/orderList',
+        component: Content,
+        children: [{
+            path: '',
+            name: '',
+            component: HomeBox.HomeIndex,
+        }]
+    },{
+        path: '/orderList',
+        name: '邀请好友',
+        redirect: '/orderList',
+        component: Content,
+        children: [{
+            path: '',
+            name: '',
+            component: HomeBox.HomeIndex,
+        }]
+    },{
+        path: '/orderList',
+        name: '意见建议',
+        redirect: '/orderList',
+        component: Content,
+        children: [{
+            path: '',
+            name: '',
+            component: HomeBox.HomeIndex,
+        }]
+    },{
+        path: '/orderList',
+        name: '帮助中心',
+        redirect: '/orderList',
+        component: Content,
+        children: [{
+            path: '',
+            name: '',
+            component: HomeBox.HomeIndex,
+        }]
+    },{
+        path: '/notice',
+        name: '公告列表',
+        redirect: '/notice/list',
+        component: Content,
+        children: [{
+            path: 'list',
+            name: '公告列表',
+            component: Notice.List,
+        },{
+            path: 'info',
+            name: '公告详情',
+            component: Notice.Edit,
+        }]
+    }],
+
+//     任务列表。 计划列表
+//        发布任务
+// 订单列表   销量订单
+// 资金记录。资金明细
+// 账户信息（账户信息及绑定店铺）。
+// 充值   
+// 申诉管理   机器猫 申诉中心
+// 邀请好友。 机器猫。邀请好友
+// 意见建议   机器猫
+// 帮助中心。 机器猫
 };

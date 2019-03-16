@@ -61,6 +61,7 @@
                                 class="btnWrap">
                                 <el-button type="success" @click="onLogin('loginData')">登录</el-button>
                                 <el-button @click="status=2;codeBox(2)">注册</el-button>
+                                <el-button @click="status=3;codeBox(3)">忘记密码</el-button>
                         </el-form-item>
                     </el-form>
                 </div>
@@ -72,6 +73,7 @@
                             v-loading="loading"
                             element-loading-text='正在注册'>
                         <el-form-item
+                                v-if="!registStaus"
                                 class="formRow">
                                 <el-input
                                     type="text"
@@ -82,8 +84,9 @@
                                 <div class="el-form-item__error">{{registerRule.phone}}</div>
                         </el-form-item>
                         <el-form-item
+                                v-if="!registStaus"
                                 class="formRow">
-                                <img class="verifyImg" alt="点击换一张" title="点击换一张" :src="code" @click="codeBox()">
+                                <img class="verifyImg" alt="点击换一张" title="点击换一张" :src="code" @click="codeBox(2)">
                                 <el-input
                                     class="form-control"
                                     placeholder="验证码"
@@ -95,7 +98,6 @@
                                 class="formRow">
                                 <el-button class="smsBtn" size="mini" :disabled="disabled" type="success" @click="onMessage(1)">{{sms}}</el-button>
                                 <el-input
-                                    type="password"
                                     class="form-control"
                                     placeholder="短信验证码"
                                     v-model='registerData.phone_code'>
@@ -103,6 +105,7 @@
                                 <div class="el-form-item__error">{{registerRule.phone_code}}</div>
                         </el-form-item>
                         <el-form-item
+                                v-if="registStaus"
                                 class="formRow">
                                 <el-input
                                     type="password"
@@ -113,6 +116,7 @@
                                 <div class="el-form-item__error">{{registerRule.password}}</div>
                         </el-form-item>
                          <el-form-item
+                                v-if="registStaus"
                                 class="formRow">
                                 <el-input
                                     type="password"
@@ -122,11 +126,96 @@
                                 </el-input>
                                 <div class="el-form-item__error">{{registerRule.password_check}}</div>
                         </el-form-item>
-                        
+                        <el-form-item
+                                v-if="registStaus"
+                                class="formRow">
+                                <el-input
+                                    class="form-control"
+                                    placeholder="邀请码"
+                                    v-model='registerData.invite_no'>
+                                </el-input>
+                        </el-form-item>
+                        <el-form-item
+                                v-if="registStaus"
+                                class="formRow">
+                                <el-input
+                                    class="form-control"
+                                    placeholder="QQ"
+                                    v-model='registerData.qq'>
+                                </el-input>
+                        </el-form-item>
                         <el-form-item
                                 class="btnWrap">
-                                <el-button type="success" @click="onRegister('registerData')">注册</el-button>
-                                <el-button @click="status=1;codeBox(1)">登录</el-button>
+                                <el-button  v-if="registStaus" type="success" @click="onRegister('registerData')">注册</el-button>
+                                <el-button  @click="status=1;codeBox(1)">返回登录</el-button>
+                        </el-form-item>
+                    </el-form>
+                </div>
+                <div v-else-if="status===3" class="userForm">
+                    <div class="loginheader">重置密码</div>
+                    <el-form
+                            label-width="0px"
+                            class="clearfix"
+                            v-loading="loading"
+                            element-loading-text='正在注册'>
+                        <el-form-item
+                                v-if="!resetStaus"
+                                class="formRow">
+                                <el-input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="电话号码"
+                                    v-model='resetData.phone'>
+                                </el-input>
+                                <div class="el-form-item__error">{{resetRule.phone}}</div>
+                        </el-form-item>
+                        <el-form-item
+                                v-if="!resetStaus"
+                                class="formRow">
+                                <img class="verifyImg" alt="点击换一张" title="点击换一张" :src="code" @click="codeBox(3)">
+                                <el-input
+                                    class="form-control"
+                                    placeholder="验证码"
+                                    v-model='resetData.verify_code'>
+                                </el-input>
+                                <div class="el-form-item__error">{{resetRule.verify_code}}</div>
+                        </el-form-item>
+                        <el-form-item
+                                class="formRow">
+                                <el-button class="smsBtn" size="mini" :disabled="disabled" type="success" @click="onMessage(2)">{{sms}}</el-button>
+                                <el-input
+                                    class="form-control"
+                                    placeholder="短信验证码"
+                                    v-model='resetData.phone_code'>
+                                </el-input>
+                                <div class="el-form-item__error">{{resetRule.phone_code}}</div>
+                        </el-form-item>
+                        <el-form-item
+                                v-if="resetStaus"
+                                class="formRow">
+                                <el-input
+                                    type="password"
+                                    class="form-control"
+                                    placeholder="登录密码"
+                                    v-model='resetData.password'>
+                                </el-input>
+                                <div class="el-form-item__error">{{resetRule.password}}</div>
+                        </el-form-item>
+                         <el-form-item
+                                v-if="resetStaus"
+                                class="formRow">
+                                <el-input
+                                    type="password"
+                                    class="form-control"
+                                    placeholder="确认密码"
+                                    v-model='resetData.password_check'>
+                                </el-input>
+                                <div class="el-form-item__error">{{resetRule.password_check}}</div>
+                        </el-form-item>
+                        <el-form-item
+                                class="btnWrap">
+                                <el-button  v-if="resetStaus" type="success" @click="onReset()">重置密码</el-button>
+                                <el-button  @click="status=1;codeBox(1)">返回登录</el-button>
                         </el-form-item>
                     </el-form>
                 </div>

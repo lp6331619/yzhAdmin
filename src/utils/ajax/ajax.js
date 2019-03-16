@@ -73,8 +73,7 @@ export default function ({
 
 		//发送请求
 		axios(options).then((res) => {
-			this.$store.dispatch('hide_loading');
-			console.log(res,111)
+			// this.$store.dispatch('hide_loading');
 			if(res.data[gbs.api_status_key_field]===gbs.api_status_value_field){
 				if(gbs.api_data_field){
 					fn(res.data[gbs.api_data_field]);
@@ -93,8 +92,8 @@ export default function ({
 				}
 			}
 		}).catch((err) => {
-			this.$store.dispatch('hide_loading');
-			// cbs.requestError.call(this,err);
+			// this.$store.dispatch('hide_loading');
+			cbs.requestError.call(this,err);
 		});
 	} else {
 		this.$alert('您没用权限请求该接口！', '请求错误', {

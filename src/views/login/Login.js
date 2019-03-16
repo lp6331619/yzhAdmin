@@ -19,6 +19,8 @@ export default {
             code:'',
             sms:'发送短信',
             disabled:false,
+            registStaus:false,
+            resetStaus:false,
             loginData: {
                 phone: '18888888882',
                 password: '123456',
@@ -54,7 +56,19 @@ export default {
             registerRule: {
                 phone: '',
                 password: '',
-                
+                password_check:'',
+                phone_code:'',
+            },
+            resetData: {
+                phone: '',
+                password: '',
+                verify_code:'',
+                password_check:'',
+                phone_code:'',
+            },
+            resetRule: {
+                phone: '',
+                password: '',
                 password_check:'',
                 phone_code:'',
             },
@@ -64,7 +78,7 @@ export default {
         codeBox(status){
             let math = Math.random()
             this.loginData.code_key = math
-             let type = '';
+            let type = '';
             switch(status){
                 case 1:
                     type='login'
@@ -84,10 +98,11 @@ export default {
                     this.$$api_user_login({
                         data: this[ref],
                         fn: data => {
+                            console.log(data,222)
                             this.$store.dispatch('update_userinfo', {
                                 userinfo: data,
                             }).then(() => {
-                               this.$route.push('/home')
+                               this.$router.push('/home');
                             });
                         },
                         errFn: (err) => {
@@ -98,40 +113,63 @@ export default {
                 }
             });
         },
+        // 短信验证码
         onMessage(status){
             let smsStatus = true;
             let data = {};
             data.type = status;
             data.code_key = this.loginData.code_key;
-            if(this.registerData.phone===''){
-                this.registerRule = Object.assign({}, this.registerRule, {
-                    phone: '不能为空'
-                })
-                smsStatus = false;
-            }else{
-                data.phone = this.registerData.phone;
-                this.registerRule = Object.assign({}, this.registerRule, {
-                    phone: ''
-                })
+            console.log(status)
+            switch(status){
+                case 1:
+                    if(this.registerData.phone===''){
+                        this.registerRule = Object.assign({}, this.registerRule, {
+                            phone: '不能为空'
+                        })
+                        smsStatus = false;
+                    }else{
+                        data.phone = this.registerData.phone;
+                        this.registerRule = Object.assign({}, this.registerRule, {
+                            phone: ''
+                        })
+                    }
+                    if(this.registerData.verify_code===''){
+                        this.registerRule = Object.assign({}, this.registerRule, {
+                            verify_code: '不能为空'
+                        })
+                        smsStatus = false;
+                    }else{
+                        data.verify_code = this.registerData.verify_code;
+                        this.registerRule = Object.assign({}, this.registerRule, {
+                            verify_code: ''
+                        })
+                    }
+                    break;
+                case 2:
+                    if(this.resetData.phone===''){
+                        this.restRule = Object.assign({}, this.restRule, {
+                            phone: '不能为空'
+                        })
+                        smsStatus = false;
+                    }else{
+                        data.phone = this.resetData.phone;
+                        this.restRule = Object.assign({}, this.restRule, {
+                            phone: ''
+                        })
+                    }
+                    if(this.resetData.verify_code===''){
+                        this.restRule = Object.assign({}, this.restRule, {
+                            verify_code: '不能为空'
+                        })
+                        smsStatus = false;
+                    }else{
+                        data.verify_code = this.resetData.verify_code;
+                        this.restRule = Object.assign({}, this.restRule, {
+                            verify_code: ''
+                        })
+                    }
+                    break;
             }
-            if(this.registerData.verify_code===''){
-                this.registerRule = Object.assign({}, this.registerRule, {
-                    verify_code: '不能为空'
-                })
-                smsStatus = false;
-            }else{
-                data.verify_code = this.registerData.verify_code;
-                this.registerRule = Object.assign({}, this.registerRule, {
-                    verify_code: ''
-                })
-            }
-            
-            // if(this.registerData.password_check.length==0 && this.registerData.password_check === this.registerData.password){
-            //     this.registerRule.password_check = '两次输入不一致';
-            //     smsStatus = false;
-            //     data.phone = this.registerData.phone;
-            // }
-
             if(smsStatus){
                 this.$$api_user_sms_code({
                     data:data ,
@@ -141,7 +179,7 @@ export default {
                         this.disabled=true
                         let i = 60;
                         let time = setInterval(()=>{
-                            if(i!==0){
+                            if(i>=0){
                                 i--
                                 this.sms = `${i}秒`
                             }else{
@@ -150,6 +188,14 @@ export default {
                                 this.disabled=false
                             }
                         },1000);
+                        switch(status){
+                            case 1:
+                            this.registStaus = true
+                            break;
+                            case 2:
+                            this.resetStaus = true
+                            break;
+                        }
                     },
                     errFn: (err) => {
                         this.$message.error(err.info);
@@ -158,7 +204,87 @@ export default {
                 });
             }
         },
+        //注册
         onRegister(){
+            let smsStatus = true;
+            let data = {};
+            if(this.registerData.password===''){
+                this.registerRule = Object.assign({}, this.registerRule, {
+                    verify_code: '不能为空'
+                })
+                smsStatus = false;
+            }else{
+                this.registerRule = Object.assign({}, this.registerRule, {
+                    verify_code: ''
+                })
+            }
+            if(this.registerData.password_check==='' || this.registerData.password!==this.registerData.password_check){
+                this.registerRule = Object.assign({}, this.registerRule, {
+                    password_check: '两次输入不一致'
+                })
+                smsStatus = false;
+            }else{
+                this.registerRule = Object.assign({}, this.registerRule, {
+                    password_check: ''
+                })
+            }
+            if(smsStatus){
+                this.$$api_user_register({
+                    data:this.registerData,
+                    fn: data => {
+                        this.codeBox(1)
+                        this.$message.success('恭喜您注册成功！请登录！');
+                        this.stauts = 1;
+                        this.$router.push('/home');
+                    },
+                    errFn: (err) => {
+                        this.$message.error(err.info);
+                    },
+                    tokenFlag: true
+                });
+            }
+
+        },
+
+        //忘记密码
+        onReset(){
+            let smsStatus = true;
+            let data = {};
+            if(this.resetData.password===''){
+                this.resetRule = Object.assign({}, this.resetRule, {
+                    verify_code: '不能为空'
+                })
+                smsStatus = false;
+            }else{
+                this.resetRule = Object.assign({}, this.resetRule, {
+                    verify_code: ''
+                })
+            }
+            if(this.resetData.password_check==='' || this.resetData.password!==this.resetData.password_check){
+                this.resetRule = Object.assign({}, this.resetRule, {
+                    password_check: '两次输入不一致'
+                })
+                smsStatus = false;
+            }else{
+                this.resetRule = Object.assign({}, this.resetRule, {
+                    password_check: ''
+                })
+            }
+            if(smsStatus){
+                this.$$api_user_reset_passwd({
+                    data:this.resetData,
+                    fn: data => {
+                        this.codeBox(1)
+                        this.$message.success('恭喜您注册成功！请登录！');
+                        this.stauts = 1;
+                        this.$router.push('/home');
+                    },
+                    errFn: (err) => {
+                        this.$message.error(err.info);
+                    },
+                    tokenFlag: true
+                });
+            }
 
         }
     },
