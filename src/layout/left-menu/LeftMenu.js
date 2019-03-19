@@ -5,13 +5,14 @@ export default {
         this.$$lib_$(window).resize(() => {
             this.setSize();
         });
-        this.updateCurMenu()
+        this.updateCurMenu();
+        this.getMoney();
     },
     data() {
         return {
             menu_list: [],
             menuNav: [],
-            type: this.$store.state.user.userinfo.type,
+            money: {},
             win_size: {
                 height: '',
             },
@@ -54,6 +55,20 @@ export default {
                 this.$router.push('/404');
             }
         },
+        getMoney() {
+            this.$$api_customer_accountInfo({
+                data: {},
+                fn: data => {
+                    this.loading = false;
+                    this.money = data;
+                },
+                errFn: (err) => {
+                    this.$message.error(err.msg);
+                    this.loading = false;
+                },
+                tokenFlag: true
+            });
+        }
     },
     mounted() {
 

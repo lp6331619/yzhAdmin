@@ -7,6 +7,7 @@
  * @type {Object}
  */
 export default [
+    // 公共接口
     {
         name: '发送短信',
         method: 'sms_code',
@@ -43,6 +44,26 @@ export default [
         path: '/Public/reset_passwd',
         type: 'post',
     },
+    {
+        name: '获取省份',
+        method: 'getProvince',
+        path: '/Customer/getProvince',
+        type: 'post',
+    },
+    {
+        name: '根据父级id获取下级地区列表',
+        method: 'getAreaByParentId',
+        path: '/Customer/getAreaByParentId',
+        type: 'post',
+    },
+    {
+        name: '根据父级id获取下级地区列表',
+        method: 'getAreaByParentId',
+        path: '/Customer/getAreaByParentId',
+        type: 'post',
+    },
+
+
     {
         name: '公告列表',
         method: 'notice_list',
@@ -81,5 +102,7 @@ export default [
         type: 'post',
     },
 
-    
+
+
+
 ];

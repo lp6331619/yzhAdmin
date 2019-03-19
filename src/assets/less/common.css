@@ -1,7 +1,12 @@
 body {
   height: 100%;
-  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
-  background: #f1f2f7;
+  list-style: none;
+  font-style: normal;
+  text-decoration: none;
+  font-family: Microsoft Yahei, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  background: #f6f6f6;
 }
 li {
   list-style-type: none;
@@ -11,6 +16,7 @@ html {
 }
 #app {
   height: 100%;
+  padding-top: 60px;
 }
 a {
   cursor: pointer;
@@ -123,7 +129,7 @@ a:hover {
   font-size: 18px;
   font-weight: normal;
   line-height: 46px;
-  border-bottom: 1px solid #bbb;
+  border-bottom: 1px solid #eee;
 }
 .backTitle a {
   color: #5FB878;
@@ -143,7 +149,7 @@ a:hover {
   line-height: 68px;
 }
 .productImg .el-upload-list__item-status-label {
-  display: none!important;
+  display: none !important;
 }
 .productImg.productImg2 {
   height: 100px;
@@ -163,7 +169,7 @@ a:hover {
   vertical-align: top;
 }
 .sku-group .inline .el-input__inner {
-  display: inline!important;
+  display: inline !important;
   width: auto;
 }
 .avatar-uploader .el-upload {
@@ -232,7 +238,7 @@ a:hover {
   border: none;
 }
 .productImg.active .el-upload-list__item-preview {
-  display: block!important;
+  display: block !important;
 }
 .productImg.active .el-upload,
 .productImg.active .el-upload-list--picture-card .el-upload-list__item-actions .el-upload-list__item-delete {

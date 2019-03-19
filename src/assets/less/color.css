@@ -1,0 +1,56 @@
+/****************颜色****************/
+.bgfff {
+  background: #fff;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+}
+.blue {
+  color: #20A0FF;
+}
+.green {
+  color: #13CE66;
+}
+.red {
+  color: #FF4949;
+}
+.yello {
+  color: #f98632;
+}
+.f12 {
+  font-size: 12px;
+}
+.el-button--danger {
+  border-color: #de8473;
+  background: #f8917d;
+}
+.head-nav .el-menu-item:hover,
+.head-nav .el-menu-item:active,
+.head-nav .el-menu-item:focus {
+  background: #23262E;
+  color: #fff;
+  border-bottom: 4px solid #5FB878;
+}
+.head-nav .el-menu-item.is-active {
+  color: #fff;
+  border-bottom: 4px solid #5FB878;
+}
+.left .el-submenu__title {
+  background: #383d48;
+}
+.left .el-menu-item,
+.left .el-submenu__title {
+  color: #666666;
+}
+.left .el-menu-item:hover,
+.left .el-submenu__title:hover,
+.left .el-menu-item:active,
+.left .el-submenu__title:active,
+.left .el-menu-item:focus,
+.left .el-submenu__title:focus {
+  background-color: #f6f6f7;
+}
+.left .el-menu-item.is-active,
+.left .el-submenu__title.is-active {
+  background: #f6f6f7;
+  color: #f98632;
+}

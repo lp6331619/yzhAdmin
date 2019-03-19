@@ -8,9 +8,11 @@ export default {
             loading: false,
             tableData: [],
             pageShow: false,
+            user_info: this.$store.state.user.userinfo,
             selectData: {//搜索条件
                 p: this.$route.query.p ? parseInt(this.$route.query.p) : 1,
             },
+
         }
     },
     methods: {

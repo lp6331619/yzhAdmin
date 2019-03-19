@@ -6,6 +6,7 @@ import Login from './login/';
 import HomeBox from './home/';
 import Product from './product/';
 import Notice from './notice/';
+import User from './user/';
 // import Supplier from './supplier/';
 // import Admin from './admin/';
 // import Appraisal from './appraisal/';
@@ -14,11 +15,12 @@ import Notice from './notice/';
 
 
 export {
-	Login,
-	HomeBox,
+  Login,
+  HomeBox,
   Product,
-  Notice
-	// Order,
+  Notice,
+  User
+  // Order,
   // HardCurrency,
   // Supplier,
   // Appraisal,

@@ -1,0 +1,67 @@
+.left {
+  position: fixed;
+  float: left;
+  /*width:190px;
+    margin-right:-190px;*/
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  background: #fff;
+  text-align: center;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+}
+.right-content {
+  float: right;
+  width: 100%;
+}
+#left-menu {
+  height: 100%;
+  overflow-x: hidden;
+}
+.iconfont:before {
+  font-size: 28px;
+  color: #fff;
+}
+.tac {
+  height: 100%;
+}
+.logoBox {
+  text-align: center;
+}
+.logoBox .top {
+  background: #3e454d;
+  font-size: 28px;
+  color: #fff;
+  padding-top: 20px;
+  height: 110px;
+}
+.logoBox a {
+  display: block;
+  position: absolute;
+  top: 68px;
+  left: 50%;
+  margin-left: -45px;
+}
+.logoBox img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+}
+.logoBox .bottom {
+  padding-top: 65px;
+  color: #666;
+  font-size: 14px;
+  line-height: 30px;
+  text-align: left;
+  width: 180px;
+  margin: 0 auto;
+}
+.logoBox .bottom .icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  vertical-align: -4px;
+}
