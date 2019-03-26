@@ -27,7 +27,7 @@ export default {
                     this.tableData = data
                 },
                 errFn: (err) => {
-                    this.$message.error(err.msg);
+                    this.$message.error(err.info);
 
                     this.loading = false;
                 },

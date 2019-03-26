@@ -71,7 +71,7 @@ export default {
                         this.productData = data
                     },
                     errFn: (err) => {
-                        this.$message.error(err.msg);
+                        this.$message.error(err.info);
                     },
                 });
             }
@@ -81,7 +81,7 @@ export default {
                     this.ticket_shops = data.shops
                 },
                 errFn: (err) => {
-                    this.$message.error(err.msg);
+                    this.$message.error(err.info);
                 },
             });
             this.$$api_admin_change_lists({
@@ -90,7 +90,7 @@ export default {
                     this.refund_rule = data.change
                 },
                 errFn: (err) => {
-                    this.$message.error(err.msg);
+                    this.$message.error(err.info);
                 },
             });
             this.$$api_admin_change_lists({
@@ -99,7 +99,7 @@ export default {
                     this.change_rule = data.change
                 },
                 errFn: (err) => {
-                    this.$message.error(err.msg);
+                    this.$message.error(err.info);
                 },
             });
             this.$$api_admin_countrys({
@@ -108,7 +108,7 @@ export default {
                     this.countrys = data
                 },
                 errFn: (err) => {
-                    this.$message.error(err.msg);
+                    this.$message.error(err.info);
                 },
             })
 
@@ -118,7 +118,7 @@ export default {
                     this.stationBox = data.stations
                 },
                 errFn: (err) => {
-                    this.$message.error(err.msg);
+                    this.$message.error(err.info);
                 },
             })
         },
@@ -210,7 +210,7 @@ export default {
                         this.tableData.goods.splice(index, 1)
                     },
                     errFn: (err) => {
-                        this.$message.error(err.msg);
+                        this.$message.error(err.info);
                     },
                 });
 

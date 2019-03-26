@@ -11,7 +11,10 @@
 
 import user from './user/';
 import Customer from './customer/';
-
+import Shop from './shop/';
+import Funds from './funds/';
+import Recharge from './recharge/';
+import Appeal from './appeal/';
 
 export default [{
     module: 'user',
@@ -21,4 +24,20 @@ export default [{
     module: 'customer',
     name: '商户信息',
     list: Customer
+}, {
+    module: 'shop',
+    name: '店铺接口',
+    list: Shop
+}, {
+    module: 'funds',
+    name: '资金',
+    list: Funds
+}, {
+    module: 'recharge',
+    name: '充值',
+    list: Recharge
+}, {
+    module: 'appeal',
+    name: '申述',
+    list: Appeal
 }];

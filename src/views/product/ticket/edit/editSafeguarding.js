@@ -42,7 +42,7 @@ export default {
                     this.productData = data
                 },
                 errFn    : (err) => {
-                    this.$message.error(err.msg);
+                    this.$message.error(err.info);
                 },
             });
             this.$$api_admin_countrys({
@@ -51,7 +51,7 @@ export default {
                     this.countrys = data
                 },
                 errFn    : (err) => {
-                    this.$message.error(err.msg);
+                    this.$message.error(err.info);
                 },
             });
         },

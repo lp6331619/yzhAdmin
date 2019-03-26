@@ -45,24 +45,17 @@ export default [
         type: 'post',
     },
     {
-        name: '获取省份',
-        method: 'getProvince',
-        path: '/Customer/getProvince',
+        name: '获取银行列表',
+        method: 'getBanks',
+        path: '/Public/getBanks',
         type: 'post',
     },
     {
-        name: '根据父级id获取下级地区列表',
-        method: 'getAreaByParentId',
-        path: '/Customer/getAreaByParentId',
+        name: '获取客服QQ',
+        method: 'getKeFuQQ',
+        path: '/Public/getKeFuQQ',
         type: 'post',
     },
-    {
-        name: '根据父级id获取下级地区列表',
-        method: 'getAreaByParentId',
-        path: '/Customer/getAreaByParentId',
-        type: 'post',
-    },
-
 
     {
         name: '公告列表',
@@ -87,6 +80,12 @@ export default [
         name: '商户信息接口',
         method: 'info',
         path: '/Customer/info',
+        type: 'post',
+    },
+    {
+        name: '修改密码',
+        method: 'editPsw',
+        path: '/Customer/editPsw',
         type: 'post',
     },
     {

@@ -19,7 +19,7 @@
         </el-col>
         <el-col :span="10" class="userinfo">
           <span class="username">
-            <a href="#" class="item">
+            <a :href="`tencent://message/?uin=${qq}&Site=&Menu-=yes`" target="_blank" class="item">
               <svg class="icon" aria-hidden="true">
                 <use xlink:href="#icon-qq"></use>
               </svg>

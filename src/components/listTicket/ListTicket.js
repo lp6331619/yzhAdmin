@@ -63,7 +63,7 @@ export default {
                     })
                 },
                 errFn: (err) => {
-                    this.$message.error(err.msg);
+                    this.$message.error(err.info);
                     this.loading = false;
                 },
             })
@@ -79,7 +79,7 @@ export default {
                     })
                 },
                 errFn: (err) => {
-                    this.$message.error(err.msg);
+                    this.$message.error(err.info);
                 },
             })
         },
@@ -158,7 +158,7 @@ export default {
                         item.is_online = isonline
                     },
                     errFn: (err) => {
-                        this.$message.error(err.msg);
+                        this.$message.error(err.info);
                     },
                 });
             }).catch(() => {
@@ -178,7 +178,7 @@ export default {
                         this.tableData.goods.splice(index, 1)
                     },
                     errFn: (err) => {
-                        this.$message.error(err.msg);
+                        this.$message.error(err.info);
                     },
                 });
             })

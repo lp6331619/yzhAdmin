@@ -2,7 +2,7 @@
  * Created by sailengsi on 2017/5/11.
  */
 import { Home, Content } from 'layout/';
-import { Product, HomeBox, Notice, User } from 'views/';
+import { Product, HomeBox, Notice, User, FundRecord, Recharge, Appeal } from 'views/';
 
 export default {
     path: '',
@@ -30,14 +30,14 @@ export default {
             component: HomeBox.HomeIndex,
         }]
     }, {
-        path: '/orderList',
+        path: '/fundRecord',
         name: '资金记录',
-        redirect: '/orderList',
+        redirect: '/fundRecord/list',
         component: Content,
         children: [{
-            path: '',
+            path: 'list',
             name: '',
-            component: HomeBox.HomeIndex,
+            component: FundRecord.List,
         }]
     }, {
         path: '/user',
@@ -49,29 +49,29 @@ export default {
             name: '账户信息',
             component: User.List,
         }, {
-            path: 'detail',
+            path: 'edit',
             name: '商铺',
-            component: User.edit,
+            component: User.Edit,
         }]
     }, {
-        path: '/orderList',
+        path: '/recharge',
         name: '充值',
-        redirect: '/orderList',
+        redirect: '/recharge/home',
         component: Content,
         children: [{
-            path: '',
-            name: '',
-            component: HomeBox.HomeIndex,
+            path: 'home',
+            name: '充值',
+            component: Recharge.Home,
         }]
     }, {
-        path: '/orderList',
+        path: '/appeal',
         name: '申诉管理',
-        redirect: '/orderList',
+        redirect: '/appeal/list',
         component: Content,
         children: [{
-            path: '',
+            path: 'list',
             name: '',
-            component: HomeBox.HomeIndex,
+            component: Appeal.List,
         }]
     }, {
         path: '/orderList',

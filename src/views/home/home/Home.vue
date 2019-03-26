@@ -16,7 +16,7 @@
                 ></el-input>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click='onSelectData'>查询</el-button>
+                <el-button type="warning" @click='onSelectData'>查询</el-button>
             </el-form-item>
         </el-form>
         <el-table v-loading="loading" element-loading-text="拼命加载中！" :data="tableData.comments" border style="width: 100%" align='center'>
@@ -62,7 +62,7 @@
                     <el-button-group>
                         <el-button
                           size="mini"
-                          type="primary"
+                          type="warning"
                           plain
                           @click="handleEdit(scope.row)">查看</el-button>
                         <el-button

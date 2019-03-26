@@ -21,22 +21,12 @@ export default {
 	},
 
 	[types.UPDATE_REMUMBER](state, user_db) {
-		state.remumber.remumber_flag = user_db.remumber_flag;
-		state.remumber.remumber_login_info = user_db.remumber_login_info;
-
-		store.set('remumber_flag', state.remumber.remumber_flag);
-		store.set('remumber_login_info', state.remumber.remumber_login_info);
+		state.remumber = user_db.remumber;
+		store.set('remumber', state.remumber);
 	},
 
-
 	[types.REMOVE_REMUMBER](state) {
-		store.remove('remumber_flag');
-		store.remove('remumber_login_info');
-
-		state.remumber.remumber_flag = false;
-		state.remumber.remumber_login_info = {
-			username: '',
-			token: ''
-		};
+		store.remove('remumber');
+		state.remumber = {};
 	},
 };

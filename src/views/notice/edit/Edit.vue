@@ -30,7 +30,7 @@ export default {
           this.loading = false;
         },
         errFn: err => {
-          this.$message.error(err.msg);
+          this.$message.error(err.info);
           this.loading = false;
         }
       });

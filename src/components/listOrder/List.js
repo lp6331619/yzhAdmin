@@ -47,7 +47,7 @@ export default {
 
                 },
                 errFn: (err) => {
-                    this.$message.error(err.msg);
+                    this.$message.error(err.info);
                     this.loading = false;
                 },
             });
@@ -89,7 +89,7 @@ export default {
                         this.tableData.orders.splice(index, 1)
                     },
                     errFn: (err) => {
-                        this.$message.error(err.msg);
+                        this.$message.error(err.info);
                     },
                 });
 
@@ -108,7 +108,7 @@ export default {
                         this.tableData.orders.splice(index, 1)
                     },
                     errFn: (err) => {
-                        this.$message.error(err.msg);
+                        this.$message.error(err.info);
                     },
                 });
 

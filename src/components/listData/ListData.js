@@ -83,7 +83,7 @@ export default {
                     })
                 },
                 errFn    : (err) => {
-                    this.$message.error(err.msg);
+                    this.$message.error(err.info);
                     this.loading=false;
                 },
             });
@@ -128,7 +128,7 @@ export default {
                         this.$message.success('删除成功!');
                     },
                     errFn    : (err) => {
-                        this.$message.error(err.msg);
+                        this.$message.error(err.info);
                     },
                 })
             }).catch(() => {
@@ -159,7 +159,7 @@ export default {
                         item.is_online= isonline
                     },
                     errFn    : (err) => {
-                        this.$message.error(err.msg);
+                        this.$message.error(err.info);
                     },
                 });
 

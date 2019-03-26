@@ -54,16 +54,21 @@ export default {
             } else {
                 this.$router.push('/404');
             }
-        },
+        },//获取钱
         getMoney() {
             this.$$api_customer_accountInfo({
                 data: {},
                 fn: data => {
                     this.loading = false;
                     this.money = data;
+                    console.log(this.money)
+                    this.$store.dispatch('update_remumber', {
+                        remumber: this.money,
+                    }).then(() => {
+                    });
                 },
                 errFn: (err) => {
-                    this.$message.error(err.msg);
+                    this.$message.error(err.info);
                     this.loading = false;
                 },
                 tokenFlag: true
@@ -73,9 +78,17 @@ export default {
     mounted() {
 
     },
+    computed: {
+        balance_money_com() {
+            return this.$store.state.user.remumber.balance_money
+        },
+        balance_commision_money_com() {
+            return this.$store.state.user.remumber.balance_commision_money
+        }
+    },
     watch: {
         $route(to, from) {
             this.updateCurMenu(to);
-        }
+        },
     }
 }

@@ -84,7 +84,7 @@ export default {
                                     })
                                 },
                                 errFn    : (err) => {
-                                    this.$message.error(err.msg);
+                                    this.$message.error(err.info);
                                 },
                             });
                             this.tableData.goods.forEach((item)=>{
@@ -100,12 +100,12 @@ export default {
                             })
                         },
                         errFn    : (err) => {
-                            this.$message.error(err.msg);
+                            this.$message.error(err.info);
                         },
                     });
                 },
                 errFn    : (err) => {
-                    this.$message.error(err.msg);
+                    this.$message.error(err.info);
                     this.loading=false;
                 },
             });
@@ -151,7 +151,7 @@ export default {
                             this.getList();
                         },
                         errFn    : (err) => {
-                            this.$message.error(err.msg);
+                            this.$message.error(err.info);
                             this.loading=false;
                         },
                         tokenFlag: true

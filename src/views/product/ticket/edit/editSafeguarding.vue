@@ -185,7 +185,7 @@
                           </div>
                       </div>
                     </div> -->
-                    <el-button class="addSpec" type="primary" plain size="mini" icon="el-icon-plus" @click="addSpecification()">添加</el-button>
+                    <el-button class="addSpec" type="warning" plain size="mini" icon="el-icon-plus" @click="addSpecification()">添加</el-button>
                     <el-table
                       :data="productData.spec"
                       height="300"
@@ -228,14 +228,14 @@
                               <el-button-group>
                                   <el-button
                                     size="mini"
-                                    type="primary"
+                                    type="warning"
                                     v-if="scope.row.status==0 || !scope.row.status"
                                     plain
                                     @click="handleEdit(scope.row)">编辑
                                   </el-button>
                                   <el-button
                                   size="mini"
-                                  type="primary"
+                                  type="warning"
                                   v-if="scope.row.status && scope.row.status==1"
                                   plain
                                   @click="handleOk(scope.row)">编辑
@@ -331,7 +331,7 @@
                 <el-col class="clear" :span="24" >
                   <el-form-item>
                     <el-button
-                      type="primary"
+                      type="warning"
                       @click="submit('productData')">
                       提交
                     </el-button>

@@ -23,7 +23,7 @@
                     <el-button-group>
                         <el-button
                           size="mini"
-                          type="primary"
+                          type="warning"
                           plain
                           @click="handleEdit(scope.row)">查看</el-button>
                     </el-button-group>

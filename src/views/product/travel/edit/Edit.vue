@@ -293,8 +293,8 @@
                     <h3 class="sku-group-title">
                     <div class="select-class">
                         <el-button size="mini" @click="addSpceFirst()" v-if="!specSuccess && productData.spec.length<3">添加规格项目</el-button>
-                        <el-button type="primary" size="mini" @click="specSuccessData()" v-if="!specSuccess">确定规格信息</el-button>
-                        <el-button type="primary" size="mini" @click="specSuccessEdit()" v-if="specSuccess">编辑规格信息</el-button>
+                        <el-button type="warning" size="mini" @click="specSuccessData()" v-if="!specSuccess">确定规格信息</el-button>
+                        <el-button type="warning" size="mini" @click="specSuccessEdit()" v-if="specSuccess">编辑规格信息</el-button>
                         <small style="color:#ccc">重新编辑规格下表数据将被清空！</small>
                     </div>
                     </h3>
@@ -597,7 +597,7 @@
           ></el-input>
       </el-form-item>
       <el-form-item>
-          <el-button type="primary" @click='onSelectData'>查询</el-button>
+          <el-button type="warning" @click='onSelectData'>查询</el-button>
       </el-form-item>
   </el-form>
   <el-table :data="productList.goods" style="margin-top:-10px" @selection-change="handleSelectionChange">
@@ -625,7 +625,7 @@
   </el-pagination>
   <div slot="footer" class="dialog-footer" style="margin-top:-40px">
       <el-button @click="dialogTableVisible = false">取 消</el-button>
-      <el-button type="primary" @click="selectSub()">确 定</el-button>
+      <el-button type="warning" @click="selectSub()">确 定</el-button>
   </div>
 </el-dialog>
 </div>

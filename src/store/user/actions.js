@@ -31,13 +31,11 @@ export default {
 	update_remumber: ({
 		commit
 	}, {
-		remumber_flag,
-		remumber_login_info
+		remumber
 	}) => {
 		return new Promise((resolve, reject) => {
 			commit(types.UPDATE_REMUMBER, {
-				remumber_flag,
-				remumber_login_info
+				remumber
 			});
 			resolve()
 		});

@@ -264,7 +264,7 @@ export default {
                         this.Computation();
                     },
                     errFn: (err) => {
-                        this.$message.error(err.msg);
+                        this.$message.error(err.info);
                     },
                 });
             }
@@ -277,7 +277,7 @@ export default {
                     this.refund_rule = data.change
                 },
                 errFn: (err) => {
-                    this.$message.error(err.msg);
+                    this.$message.error(err.info);
                 },
             });
             this.$$api_admin_change_lists({
@@ -289,7 +289,7 @@ export default {
                     this.change_rule = data.change
                 },
                 errFn: (err) => {
-                    this.$message.error(err.msg);
+                    this.$message.error(err.info);
                 },
             });
         },
@@ -339,7 +339,7 @@ export default {
 
                 },
                 errFn: (err) => {
-                    this.$message.error(err.msg);
+                    this.$message.error(err.info);
                 },
             });
         },

@@ -7,6 +7,9 @@ import HomeBox from './home/';
 import Product from './product/';
 import Notice from './notice/';
 import User from './user/';
+import FundRecord from './fundRecord/';
+import Recharge from './recharge/';
+import Appeal from './appeal/';
 // import Supplier from './supplier/';
 // import Admin from './admin/';
 // import Appraisal from './appraisal/';
@@ -19,7 +22,10 @@ export {
   HomeBox,
   Product,
   Notice,
-  User
+  User,
+  FundRecord,
+  Recharge,
+  Appeal
   // Order,
   // HardCurrency,
   // Supplier,
