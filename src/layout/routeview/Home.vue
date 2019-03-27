@@ -1,5 +1,5 @@
 <template v-loading.fullscreen.lock="$store.state.global.ajax_loading">
-  <div class="home">
+  <div class="contain">
     <head-nav></head-nav>
     <div class="left-fixed-right-auto">
       <left-menu></left-menu>
@@ -30,6 +30,9 @@ export default {
   /*background: #f1f2f7;*/
   background: #fff;
   padding: 16px;
+}
+.contain {
+  padding-top: 60px;
 }
 .icon {
   width: 1em;

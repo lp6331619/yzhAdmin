@@ -15,6 +15,7 @@ import Shop from './shop/';
 import Funds from './funds/';
 import Recharge from './recharge/';
 import Appeal from './appeal/';
+import Suggest from './suggest/';
 
 export default [{
     module: 'user',
@@ -40,4 +41,8 @@ export default [{
     module: 'appeal',
     name: '申述',
     list: Appeal
+}, {
+    module: 'suggest',
+    name: '建议',
+    list: Suggest
 }];

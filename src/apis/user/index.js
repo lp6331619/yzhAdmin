@@ -100,6 +100,12 @@ export default [
         path: '/Customer/editEmail',
         type: 'post',
     },
+    {
+        name: '邀请好友',
+        method: 'getSpreadUrl',
+        path: '/Spread/getSpreadUrl',
+        type: 'post',
+    },
 
 
 

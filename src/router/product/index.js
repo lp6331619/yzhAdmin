@@ -2,7 +2,7 @@
  * Created by sailengsi on 2017/5/11.
  */
 import { Home, Content } from 'layout/';
-import { Product, HomeBox, Notice, User, FundRecord, Recharge, Appeal } from 'views/';
+import { Product, HomeBox, Notice, User, FundRecord, Recharge, Appeal, Suggest, PriceInfo, Invite } from 'views/';
 
 export default {
     path: '',
@@ -74,24 +74,24 @@ export default {
             component: Appeal.List,
         }]
     }, {
-        path: '/orderList',
+        path: '/invite',
         name: '邀请好友',
-        redirect: '/orderList',
+        redirect: '/invite/list',
         component: Content,
         children: [{
-            path: '',
+            path: 'list',
             name: '',
-            component: HomeBox.HomeIndex,
+            component: Invite.List,
         }]
     }, {
-        path: '/orderList',
+        path: '/suggest',
         name: '意见建议',
-        redirect: '/orderList',
+        redirect: '/suggest/list',
         component: Content,
         children: [{
-            path: '',
+            path: 'list',
             name: '',
-            component: HomeBox.HomeIndex,
+            component: Suggest.List,
         }]
     }, {
         path: '/orderList',
@@ -102,6 +102,16 @@ export default {
             path: '',
             name: '',
             component: HomeBox.HomeIndex,
+        }]
+    }, {
+        path: '/priceInfo',
+        name: '价格明细',
+        redirect: '/priceInfo/list',
+        component: Content,
+        children: [{
+            path: 'list',
+            name: '',
+            component: PriceInfo.List,
         }]
     }, {
         path: '/notice',

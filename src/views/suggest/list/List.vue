@@ -1,21 +1,11 @@
 <template>
   <div class="list">
     <div class="titleBox">
-      申诉管理
-      <el-button class="ml20" type="warning" @click="addAppeal = true" size="mini">+添加申诉</el-button>
+      意见建议
+      <el-button class="ml20" type="warning" @click="addAppeal = true" size="mini">+添加建议</el-button>
     </div>
     <div class="p20">
       <el-form :inline="true" :model="selectData" class="demo-form-inline">
-        <el-form-item>
-          <el-select v-model="selectData.source" placeholder="申诉种类">
-            <el-option
-              v-for="item in source"
-              :key="item.type"
-              :label="item.name"
-              :value="item.type"
-            ></el-option>
-          </el-select>
-        </el-form-item>
         <el-form-item>
           <el-select v-model="selectData.type" placeholder="申诉类型">
             <el-option v-for="item in type" :key="item.type" :label="item.name" :value="item.type"></el-option>
@@ -46,22 +36,8 @@
         </el-form-item>
         <el-form-item>
           <el-input
-            placeholder="请输入订单ID"
-            v-model="selectData.order_no"
-            @keyup.native.enter="onSelectData()"
-          ></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-input
-            placeholder="请输入店铺ID"
-            v-model="selectData.shop_id"
-            @keyup.native.enter="onSelectData()"
-          ></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-input
-            placeholder="请输入接单淘宝账号"
-            v-model="selectData.wangwang"
+            placeholder="请输入联系方式"
+            v-model="selectData.phone"
             @keyup.native.enter="onSelectData()"
           ></el-input>
         </el-form-item>
@@ -77,25 +53,16 @@
         style="width: 100%"
         align="center"
       >
-        <el-table-column prop="shop_name" label="店铺名称" align="center" width="auto"></el-table-column>
-        <el-table-column prop="type_name" label="申诉类型" align="center" width="auto"></el-table-column>
-        <el-table-column prop="source_name" label="申诉种类" align="center" width="110"></el-table-column>
-        <el-table-column prop="order_no" label="订单id" align="center" width="auto"></el-table-column>
-        <el-table-column prop="taobao_name" label="接单淘宝账号" align="center" width="auto"></el-table-column>
-        <el-table-column prop="content" label="申诉内容" align="center" width="auto"></el-table-column>
-        <el-table-column prop="pic_url" label="申诉截图" align="center" width="auto">
+        <el-table-column prop="type_name" label="意见类型" align="center" width="auto"></el-table-column>
+        <el-table-column prop="phone" label="联系方式" align="center" width="110"></el-table-column>
+        <el-table-column prop="content" label="意见内容" align="center" width="auto"></el-table-column>
+        <el-table-column prop="reply" label="回复内容" align="center" width="auto"></el-table-column>
+        <el-table-column prop="pic" label="图片" align="center" width="auto">
           <template slot-scope="scope">
-            <img
-              style="max-height:40px;max-width:40px;"
-              :src="item"
-              alt
-              v-for="(item,index) in scope.row.pic_url"
-              :key="index"
-            >
+            <img style="max-height:40px;max-width:40px;" :src="scope.row.pic">
           </template>
         </el-table-column>
         <el-table-column prop="status_name" label="状态" align="center" width="auto"></el-table-column>
-        <el-table-column prop="remark" label="客服回复" align="center" width="150"></el-table-column>
         <el-table-column prop="created_at" label="提交时间" align="center" width="auto"></el-table-column>
       </el-table>
       <!--翻页-->
@@ -120,9 +87,6 @@
         ref="addAppealForm"
         label-width="80px"
       >
-        <el-form-item label="订单id" prop="order_no">
-          <el-input v-model="addAppealForm.order_no"></el-input>
-        </el-form-item>
         <el-form-item label="申诉类型" prop="type">
           <el-select v-model="addAppealForm.type" placeholder="申诉种类">
             <el-option v-for="item in type" :key="item.type" :label="item.name" :value="item.type"></el-option>
@@ -131,18 +95,19 @@
         <el-form-item label="申诉内容" prop="content">
           <el-input v-model="addAppealForm.content"></el-input>
         </el-form-item>
-        <el-form-item label="申诉截图" prop="pics">
+        <el-form-item label="联系方式" prop="phone">
+          <el-input v-model="addAppealForm.phone"></el-input>
+        </el-form-item>
+        <el-form-item label="申诉截图" prop="pic">
           <el-upload
+            class="avatar-uploader"
             action="/AdminApi/Public/upload_img"
-            list-type="picture-card"
-            :on-remove="handleRemove"
-            :file-list="this.addAppealForm.pics"
+            :show-file-list="false"
             :on-success="handleAvatarSuccess"
             :before-upload="beforeAvatarUpload"
-            :limit="2"
-            :on-exceed="error"
           >
-            <i class="el-icon-plus"></i>
+            <img v-if="addAppealForm.url" :src="addAppealForm.url" class="avatar">
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
         </el-form-item>
       </el-form>

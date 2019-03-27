@@ -17,6 +17,10 @@ Vue.use(vueEventCalendar, { locale: 'cn' })
 //插件封装
 import common from './assets/js/common'
 Vue.use(common);
+
+//插件
+import VueClipboard from 'vue-clipboard2'
+Vue.use(VueClipboard)
 //公用scss
 import './assets/less/common.less'
 //颜色配置

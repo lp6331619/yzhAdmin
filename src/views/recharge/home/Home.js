@@ -44,7 +44,7 @@ export default {
                     message: '不能为空！',
                     trigger: 'blur'
                 }],
-                transfer_pic: [{
+                url: [{
                     required: true,
                     message: '不能为空！',
                     trigger: 'change'
@@ -186,7 +186,11 @@ export default {
             return text
         },
         handleAvatarSuccess(res, file) {//图片上传成功
-            this.form.transfer_pic = res.data.all_url
+            this.form = Object.assign({}, this.form, {
+                transfer_pic: res.data.url,
+                url: res.data.all_url
+            })
+
         },
         beforeAvatarUpload(file) {//图片上传前
             const isJPG = file.type === 'image/jpeg';
@@ -231,6 +235,7 @@ export default {
                             this.$message.success('恭喜您提交成功！');
                             this.form = Object.assign({}, this.form, {
                                 transfer_pic: '',
+                                url: '',
                                 cost_money: ''
                             });
                             this.getMoney()

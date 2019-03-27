@@ -68,7 +68,7 @@
                   v-model="form.cost_money"
                 ></el-input>
               </el-form-item>
-              <el-form-item class="formRow" prop="cost_money" label="转账截图">
+              <el-form-item class="formRow" prop="url" label="转账截图">
                 <el-upload
                   class="avatar-uploader"
                   action="/AdminApi/Public/upload_img"
@@ -76,7 +76,7 @@
                   :on-success="handleAvatarSuccess"
                   :before-upload="beforeAvatarUpload"
                 >
-                  <img v-if="form.transfer_pic" :src="form.transfer_pic" class="avatar">
+                  <img v-if="form.url" :src="form.url" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
               </el-form-item>
@@ -90,7 +90,8 @@
       </el-col>
     </el-row>
     <div class="tip">
-      <p>充值记录
+      <p>
+        充值记录
         <el-button class="ml20" type="warning" @click="onExport()" size="mini">导出</el-button>
       </p>
     </div>

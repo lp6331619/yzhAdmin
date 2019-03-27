@@ -13,17 +13,13 @@ export default {
                 limit: 10,
                 p: this.$route.query.p ? parseInt(this.$route.query.p) : 1,
                 type: this.$route.query.type ? this.$route.query.type : '',
-                source: this.$route.query.source ? this.$route.query.source : '',
-                order_no: this.$route.query.order_no ? this.$route.query.order_no : '',
-                shop_id: this.$route.query.shop_id ? this.$route.query.shop_id : '',
-                wangwang: this.$route.query.wangwang ? this.$route.query.wangwang : '',
+                phone: this.$route.query.phone ? this.$route.query.phone : '',
                 start_time: this.$route.query.start_time ? this.$route.query.start_time : '',
                 end_time: this.$route.query.end_time ? this.$route.query.end_time : '',
                 status: this.$route.query.status ? this.$route.query.status : '',
             },
             date: '',
             type: [],
-            source: [],
             status: [],
             pickerOptions2: {
                 disabledDate(time) {
@@ -57,14 +53,8 @@ export default {
             },
             addAppeal: false,
             addAppealForm: {
-                pics: []
             },
             rule_addAppeal: {
-                order_no: [{
-                    required: true,
-                    message: '不能为空！',
-                    trigger: 'blur'
-                }],
                 type: [{
                     required: true,
                     message: '不能为空！',
@@ -75,7 +65,12 @@ export default {
                     message: '不能为空！',
                     trigger: 'blur'
                 }],
-                pics: [{
+                phone: [{
+                    required: true,
+                    message: '不能为空！',
+                    trigger: 'blur'
+                }],
+                url: [{
                     required: true,
                     message: '不能为空！',
                     trigger: 'blur'
@@ -85,34 +80,10 @@ export default {
     },
     methods: {
         getType() {
-            this.$$api_appeal_getAppealSources({
+            this.$$api_suggest_getSuggestTypes({
                 data: {},
                 fn: data => {
                     this.loading = false;
-                    // this.source.push({
-                    //     type: '',
-                    //     name: '全部种类'
-                    // })
-                    for (let i in data) {
-                        this.source.push({
-                            type: i,
-                            name: data[i]
-                        })
-                    }
-                },
-                errFn: (err) => {
-                    this.$message.error(err.info);
-                    this.loading = false;
-                },
-            });
-            this.$$api_appeal_getAppealTypes({
-                data: {},
-                fn: data => {
-                    this.loading = false;
-                    // this.type.push({
-                    //     type: '',
-                    //     name: '全部类型'
-                    // })
                     for (let i in data) {
                         this.type.push({
                             type: i,
@@ -125,14 +96,10 @@ export default {
                     this.loading = false;
                 },
             });
-            this.$$api_appeal_getAppealStatus({
+            this.$$api_suggest_getSuggestStatus({
                 data: {},
                 fn: data => {
                     this.loading = false;
-                    // this.status.push({
-                    //     type: '',
-                    //     name: '全部状态'
-                    // })
                     for (let i in data) {
                         this.status.push({
                             type: i,
@@ -151,7 +118,7 @@ export default {
             if (this.selectData.start_time && this.selectData.end_time) {
                 this.date = [this.selectData.start_time, this.selectData.end_time]
             }
-            this.$$api_appeal_getAppealList({
+            this.$$api_suggest_getSuggestList({
                 data: this.selectData,
                 fn: data => {
                     this.loading = false;
@@ -173,7 +140,7 @@ export default {
         onSelectData() {//搜索
             this.selectData.p = 1;
             this.$router.push({
-                path: '/appeal/list',
+                path: '/suggest/list',
                 query: this.selectData
             })
             this.getList()
@@ -181,7 +148,7 @@ export default {
         handleCurrentChange(item) {//分页
             this.selectData.p = item
             this.$router.push({
-                path: '/appeal/list',
+                path: '/suggest/list',
                 query: this.selectData
             })
             this.getList()
@@ -192,13 +159,11 @@ export default {
                 end_time: item[1]
             })
         },
-        handleRemove(file, fileList) {
-            this.addAppealForm.pics = fileList
-        },
+
         handleAvatarSuccess(res, file) {//图片上传成功
-            this.addAppealForm.pics.push({
+            this.addAppealForm = Object.assign({}, this.addAppealForm, {
                 url: res.data.all_url,
-                url_rel: res.data.url
+                pic: res.data.url
             })
 
         },
@@ -219,11 +184,11 @@ export default {
         addAppealSub(ref) {
             this.$refs[ref].validate(valid => {
                 if (valid) {
-                    this.$$api_appeal_addAppeal({
+                    this.$$api_suggest_addSuggest({
                         data: this.addAppealForm,
                         fn: data => {
                             this.loading = false;
-                            this.$message.success('恭喜您！申诉成功！')
+                            this.$message.success('恭喜您！意见提交成功！')
                             this.addAppeal = false
                         },
                         errFn: (err) => {
