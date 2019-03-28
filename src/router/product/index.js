@@ -1,8 +1,22 @@
 /**
  * Created by sailengsi on 2017/5/11.
  */
-import { Home, Content } from 'layout/';
-import { Product, HomeBox, Notice, User, FundRecord, Recharge, Appeal, Suggest, PriceInfo, Invite } from 'views/';
+import {
+    Home,
+    Content
+} from 'layout/';
+import {
+    HomeBox,
+    Notice,
+    User,
+    FundRecord,
+    Recharge,
+    Appeal,
+    Suggest,
+    PriceInfo,
+    Invite,
+    Task
+} from 'views/';
 
 export default {
     path: '',
@@ -15,9 +29,17 @@ export default {
         redirect: '/home',
         component: Content,
         children: [{
-            path: '/home',
-            name: '首页',
-            component: HomeBox.HomeIndex,
+            path: '',
+            name: '',
+            component: Task.List,
+        }, {
+            path: 'detail',
+            name: '任务详情',
+            component: Task.Detail,
+        }, {
+            path: 'edit',
+            name: '编辑',
+            component: Task.Edit,
         }]
     }, {
         path: '/orderList',

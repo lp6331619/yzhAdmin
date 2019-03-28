@@ -13,6 +13,7 @@ import Appeal from './appeal/';
 import Suggest from './suggest/';
 import PriceInfo from './priceInfo/';
 import Invite from './invite/';
+import Task from './task/';
 // import Supplier from './supplier/';
 // import Admin from './admin/';
 // import Appraisal from './appraisal/';
@@ -31,7 +32,8 @@ export {
   Appeal,
   Suggest,
   PriceInfo,
-  Invite
+  Invite,
+  Task
   // Order,
   // HardCurrency,
   // Supplier,

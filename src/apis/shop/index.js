@@ -6,8 +6,7 @@
  * 用户模块
  * @type {Object}
  */
-export default [
-    {
+export default [{
         name: '店铺列表',
         method: 'index',
         path: '/Shop/index',
@@ -31,6 +30,11 @@ export default [
         name: '设置接单间隔',
         method: 'editIntervalDay',
         path: '/Shop/editIntervalDay',
+        type: 'post',
+    }, {
+        name: '我的店铺',
+        method: 'getMyShops',
+        path: '/Shop/getMyShops',
         type: 'post',
     },
     {

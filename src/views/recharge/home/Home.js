@@ -156,7 +156,7 @@ export default {
         },
         onExport() {//导出表格
             let token = this.$store.state.user.userinfo.token
-            window.open(`http://yzh.jiqimao.uiping.com/Recharge/getRechargeList?token=${token}&export=1`);
+            window.open(`/AdminApi/Recharge/getRechargeList?token=${token}&export=1`);
         },
         formatterAccount(item) {
             let text = ''

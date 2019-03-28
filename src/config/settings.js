@@ -2,7 +2,7 @@ var env = process.env;
 
 var gbs={
 	// host: 'http://admin-api.quitang.com',
-	host: '/AdminApi', //接口根地址。本地代理到slsadmin.api.sls.com,线上使用的是Nginx代理
+	host: `${window.location.host.indexOf('localhost')!=-1? '/AdminApi' : 'http://yzh.jiqimao.uiping.com'}`, //接口根地址。本地代理到slsadmin.api.sls.com,线上使用的是Nginx代理
 	// db_prefix: 'sls_admin_', //本地存储的key
 	//状态码字段
 	api_status_key_field:'status',
@@ -36,7 +36,6 @@ var cbs={
 				type: 'error'
 			});
 		} else {
-			
 			this.$store.dispatch('remove_userinfo').then(() => {
 				this.$alert(err.status + ',' + err.info + '！', '登录错误', {
 					confirmButtonText: '确定',
@@ -51,7 +50,6 @@ var cbs={
 	 * ajax请求网络出错时调用
 	 */
 	requestError(err,err2) {
-		console.log(1111,err,222,err2)
 		this.$message({
 			showClose: true,
 			message: '请求错误',

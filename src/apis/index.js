@@ -16,6 +16,7 @@ import Funds from './funds/';
 import Recharge from './recharge/';
 import Appeal from './appeal/';
 import Suggest from './suggest/';
+import Task from './task/';
 
 export default [{
     module: 'user',
@@ -45,4 +46,8 @@ export default [{
     module: 'suggest',
     name: '建议',
     list: Suggest
+}, {
+    module: 'task',
+    name: '任务',
+    list: Task
 }];
