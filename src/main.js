@@ -14,9 +14,9 @@ import store from 'store/';
 import 'vue-event-calendar/dist/style.css'
 import vueEventCalendar from 'vue-event-calendar'
 Vue.use(vueEventCalendar, { locale: 'cn' })
-//插件封装
-import common from './assets/js/common'
-Vue.use(common);
+// //插件封装
+// import common from './assets/js/common'
+// Vue.use(common);
 
 //插件
 import VueClipboard from 'vue-clipboard2'
@@ -41,7 +41,8 @@ new Vue({
 router.beforeEach((to, from, next) => {
     document.title = to.name;
     next()
-    // if(store.state.user.userinfo.state){
-    //     next('/login')
-    // }
+    if(typeof(store.state.user.userinfo.token) == 'string'){
+    }else{
+        next('/login')
+    }
 })

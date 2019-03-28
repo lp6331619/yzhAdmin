@@ -102,6 +102,7 @@ export default {
                                 userinfo: data,
                             }).then(() => {
                                 this.$router.push('/home');
+                                this.$message.success('恭喜您登录成功！');
                             });
                         },
                         errFn: (err) => {
