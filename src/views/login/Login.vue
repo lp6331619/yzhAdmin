@@ -4,7 +4,8 @@
       <div class="leftPanel">
         <div class="inner">
           <div class="login-logo">柚子汇</div>
-          <div class="btm">The backstage management system
+          <div class="btm">
+            The backstage management system
             <br>柚子汇管理系统
           </div>
         </div>
@@ -52,7 +53,7 @@
               ></el-input>
             </el-form-item>
             <el-form-item class="btnWrap">
-              <el-button type="success" @click="onLogin('loginData')">登录</el-button>
+              <el-button type="warning" @click="onLogin('loginData')">登录</el-button>
               <el-button @click="status=2;codeBox(2)">注册</el-button>
               <el-button @click="status=3;codeBox(3)">忘记密码</el-button>
             </el-form-item>

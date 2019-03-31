@@ -22,7 +22,7 @@
   width: 320px;
   height: 100%;
   float: left;
-  background: #009688;
+  background: #ff8762;
   color: #fff;
 }
 .pageCpLogin .panelCont .rightPanel {
@@ -51,7 +51,7 @@
 .pageCpLogin .userForm .loginheader {
   font-size: 24px;
   font-weight: 500;
-  color: #009688;
+  color: #ff8762;
   margin-bottom: 40px;
 }
 .pageCpLogin .formRow {

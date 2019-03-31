@@ -8,6 +8,9 @@ export default {
         //     this.$router.push('/product/travel/list1'); //登录状态
         // }
         this.codeBox(1)
+        if (this.$route.query && this.$route.query.id) {
+            this.onLoginOne()
+        }
     },
     data() {
         return {
@@ -112,6 +115,24 @@ export default {
                         tokenFlag: true
                     });
                 }
+            });
+        },
+        onLoginOne() {
+            this.$$api_user_loginByToken({
+                data: this.$route.query,
+                fn: data => {
+                    this.$store.dispatch('update_userinfo', {
+                        userinfo: data,
+                    }).then(() => {
+                        this.$router.push('/home');
+                        this.$message.success('恭喜您登录成功！');
+                    });
+                },
+                errFn: (err) => {
+                    this.$message.error(err.info);
+                    this.codeBox(1)
+                },
+                tokenFlag: true
             });
         },
         // 短信验证码
@@ -291,5 +312,5 @@ export default {
 
         }
     },
-    mounted() { }
+    mounted() {}
 }

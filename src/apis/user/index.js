@@ -106,6 +106,12 @@ export default [
         path: '/Spread/getSpreadUrl',
         type: 'post',
     },
+    {
+        name: '一键登录',
+        method: 'loginByToken',
+        path: '/Public/loginByToken',
+        type: 'post',
+    },
 
 
 
