@@ -12,12 +12,33 @@ export default {
             selectData: { //搜索条件
                 limit: 10,
                 p: this.$route.query.p ? parseInt(this.$route.query.p) : 1,
-                type: this.$route.query.type ? this.$route.query.type : '',
+                status: this.$route.query.status ? this.$route.query.status : '',
                 start_time: this.$route.query.start_time ? this.$route.query.start_time : '',
                 end_time: this.$route.query.end_time ? this.$route.query.end_time : '',
+                tid: this.$route.query.tid ? this.$route.query.tid : '',
+                sid: this.$route.query.sid ? this.$route.query.sid : '',
+                oid: this.$route.query.oid ? this.$route.query.oid : '',
+                member_name: this.$route.query.member_name ? this.$route.query.member_name : '',
+                order_no: this.$route.query.order_no ? this.$route.query.order_no : '',
+                money: this.$route.query.money ? this.$route.query.money : '',
+            },
+            dialogFormVisible: false,
+            form: {},
+            rulesBox: {
+                status: [{
+                    required: true,
+                    message: '不能为空！',
+                    trigger: 'blur'
+                }],
+                cancel_content: [{
+                    required: true,
+                    message: '不能为空！',
+                    trigger: 'blur'
+                }],
             },
             date: '',
-            type: [],
+            status: [],
+            popStatus: 2,
             pickerOptions2: {
                 disabledDate(time) {
                     return time.getTime() > Date.now();
@@ -48,20 +69,17 @@ export default {
                     }
                 }]
             },
+            multipleSelection: [] //选择的数组
         }
     },
     methods: {
         getType() {
-            this.$$api_funds_getTypes({
+            this.$$api_order_getOrderStatus({ //获取状态
                 data: {},
                 fn: data => {
                     this.loading = false;
-                    this.type.push({
-                        type: '',
-                        name: '全部'
-                    })
                     for (let i in data) {
-                        this.type.push({
+                        this.status.push({
                             type: i,
                             name: data[i]
                         })
@@ -79,7 +97,7 @@ export default {
             if (this.selectData.start_time && this.selectData.end_time) {
                 this.date = [this.selectData.start_time, this.selectData.end_time]
             }
-            this.$$api_funds_getLogList({
+            this.$$api_order_getOrderList({
                 data: this.selectData,
                 fn: data => {
                     this.loading = false;
@@ -101,7 +119,7 @@ export default {
         onSelectData() { //搜索
             this.selectData.p = 1;
             this.$router.push({
-                path: '/fundRecord/list',
+                path: '/order/list',
                 query: this.selectData
             })
             this.getList()
@@ -109,22 +127,10 @@ export default {
         handleCurrentChange(item) { //分页
             this.selectData.p = item
             this.$router.push({
-                path: '/fundRecord/list',
+                path: '/order/list',
                 query: this.selectData
             })
             this.getList()
-        },
-        formatterAccount(item) { //格式化类型
-            let text = '';
-            switch (parseInt(item.account_type)) {
-                case 1:
-                    text = '本金账户'
-                    break;
-                case 2:
-                    text = '佣金账户'
-                    break;
-            }
-            return text
         },
         setDate(item) {
             this.selectData = Object.assign({}, this.selectData, {
@@ -134,11 +140,69 @@ export default {
         },
         onExport() { //导出表格
             let token = this.$store.state.user.userinfo.token
-            window.open(`/AdminApi/AccountLog/getLogList?token=${token}&type=${this.selectData.type}&export=1&start_time=${this.selectData.start_time}&end_time=${this.selectData.end_time}&export=1`);
+            window.open(`/AdminApi/Order/getOrderList?token=${token}&status=${this.selectData.status}&export=1&start_time=${this.selectData.start_time}&end_time=${this.selectData.end_time}&tid=${this.selectData.tid}&oid=${this.selectData.oid}&member_name=${this.selectData.member_name}&order_no=${this.selectData.order_no}&money=${this.selectData.money}&export=1`);
         },
         created_atTime(item) {
             if (item.created_at != '0')
                 return new Date(parseInt(item.created_at) * 1000).toLocaleString().replace(/:\d{1,2}$/, ' ');
-        }
+        },
+        complete_timeTime(item) {
+            if (item.complete_time != '0')
+                return new Date(parseInt(item.complete_time) * 1000).toLocaleString().replace(/:\d{1,2}$/, ' ');
+        },
+        openPop(item, status) {
+            this.dialogFormVisible = true
+            this.popStatus = status
+            this.form = Object.assign({}, this.form, {
+                id: item,
+            })
+        },
+        sub(ref) {
+            this.$refs[ref].validate((valid) => {
+                if (valid) {
+                    switch (this.popStatus) {
+                        case 1:
+                            this.$$api_order_batchAuditOrder({
+                                data: this.form,
+                                fn: data => {
+                                    this.loading = false;
+                                    this.$message.success('恭喜您!审核成功!')
+                                    this.dialogFormVisible = false
+                                },
+                                errFn: (err) => {
+                                    this.$message.error(err.info);
+                                    this.loading = false;
+                                },
+                                tokenFlag: true
+                            });
+                            break;
+                        case 2:
+                            this.$$api_order_auditOrder({
+                                data: this.form,
+                                fn: data => {
+                                    this.loading = false;
+                                    this.$message.success('恭喜您!审核成功!')
+                                    this.dialogFormVisible = false
+                                },
+                                errFn: (err) => {
+                                    this.$message.error(err.info);
+                                    this.loading = false;
+                                },
+                                tokenFlag: true
+                            });
+                            break;
+                    }
+                    this.getList()
+                }
+            })
+        },
+        handleSelectionChange(val) {
+            if (val.length > 0) {
+                this.multipleSelection = []
+                val.forEach((item) => {
+                    this.multipleSelection.push(item.id)
+                })
+            }
+        },
     },
 }

@@ -1,8 +1,9 @@
 <template>
   <div class="left" style="width:275px" id="admin-left">
     <div class="logoBox">
-      <div class="top">商户管理系统
-        <router-link to="/product/home">
+      <div class="top">
+        商户管理系统
+        <router-link to="/home">
           <img src="../../assets/logo-sm.png" class="logo" alt>
         </router-link>
       </div>

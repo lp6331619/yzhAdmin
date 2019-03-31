@@ -49,7 +49,13 @@
         <el-table-column prop="total_commision_money" label="佣金总金额" align="center" width="auto"></el-table-column>
         <el-table-column prop="total_capital_money" label="本金总金额" align="center" width="auto"></el-table-column>
         <el-table-column prop="content" label="备注" align="center" width="150"></el-table-column>
-        <el-table-column prop="created_at" label="提交时间" align="center" width="auto"></el-table-column>
+        <el-table-column
+          prop="created_at"
+          :formatter="created_atTime"
+          label="提交时间"
+          align="center"
+          width="auto"
+        ></el-table-column>
       </el-table>
       <!--翻页-->
       <div class="pageBox" v-show="pageShow">

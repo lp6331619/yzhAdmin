@@ -10,9 +10,9 @@ export default {
             loading: false,
             tableData: Array,
             pageShow: false,
-            bankList: [],//银行列表
-            bankInfo: {},//平台信息
-            selectData: {//搜索条件
+            bankList: [], //银行列表
+            bankInfo: {}, //平台信息
+            selectData: { //搜索条件
                 limit: 10,
                 p: this.$route.query.p ? parseInt(this.$route.query.p) : 1,
             },
@@ -67,7 +67,7 @@ export default {
                 },
                 tokenFlag: true
             });
-            this.$$api_user_getBanks({//获得银行列表
+            this.$$api_user_getBanks({ //获得银行列表
                 data: {},
                 fn: data => {
                     this.loading = false;
@@ -84,7 +84,7 @@ export default {
                 },
                 tokenFlag: true
             });
-            this.$$api_recharge_getChangeTips({//获取账户是否改变
+            this.$$api_recharge_getChangeTips({ //获取账户是否改变
                 data: {},
                 fn: data => {
                     this.loading = false;
@@ -98,8 +98,7 @@ export default {
                                 type: 'success',
                                 message: '我已知道!'
                             });
-                        }).catch(() => {
-                        })
+                        }).catch(() => {})
                 },
                 errFn: (err) => {
                     this.$message.error(err.info);
@@ -107,7 +106,7 @@ export default {
                 },
                 tokenFlag: true
             });
-            this.$$api_recharge_getLastLog({//上一条充值记录
+            this.$$api_recharge_getLastLog({ //上一条充值记录
                 data: {},
                 fn: data => {
                     this.loading = false;
@@ -125,7 +124,7 @@ export default {
                 tokenFlag: true
             });
         },
-        getList() {//获取列表数据
+        getList() { //获取列表数据
             this.loading = true;
             this.$$api_recharge_getRechargeList({
                 data: this.selectData,
@@ -146,7 +145,7 @@ export default {
                 tokenFlag: true
             });
         },
-        handleCurrentChange(item) {//分页
+        handleCurrentChange(item) { //分页
             this.selectData.p = item
             this.$router.push({
                 path: '/recharge/home',
@@ -154,7 +153,7 @@ export default {
             })
             this.getList()
         },
-        onExport() {//导出表格
+        onExport() { //导出表格
             let token = this.$store.state.user.userinfo.token
             window.open(`/AdminApi/Recharge/getRechargeList?token=${token}&export=1`);
         },
@@ -185,14 +184,14 @@ export default {
             }
             return text
         },
-        handleAvatarSuccess(res, file) {//图片上传成功
+        handleAvatarSuccess(res, file) { //图片上传成功
             this.form = Object.assign({}, this.form, {
                 transfer_pic: res.data.url,
                 url: res.data.all_url
             })
 
         },
-        beforeAvatarUpload(file) {//图片上传前
+        beforeAvatarUpload(file) { //图片上传前
             const isJPG = file.type === 'image/jpeg';
             const isPNG = file.type === 'image/png';
             const isLt2M = file.size / 1024 / 1024 < 2;
@@ -206,7 +205,7 @@ export default {
             }
             return status && isLt2M
         },
-        getMoney() {//获取钱
+        getMoney() { //获取钱
             this.$$api_customer_accountInfo({
                 data: {},
                 fn: data => {
@@ -249,7 +248,7 @@ export default {
                 }
             })
         },
-        yjSub() {//佣金充值
+        yjSub() { //佣金充值
             let text = `<p class="text-indent:22px">佣金充值方式：<br/>
             1.输入充入金额，自动从本金扣除相应金额得到对应佣金（提前保持本金有足够本金余额），佣金不予退还。</p>`
             this.$prompt(text, '佣金充值', {
@@ -258,9 +257,13 @@ export default {
                 dangerouslyUseHTMLString: true,
                 inputPattern: /^(-|\+)?\d+(\.\d+)?$/,
                 inputErrorMessage: '不能为空并且只能是数字！'
-            }).then(({ value }) => {
+            }).then(({
+                value
+            }) => {
                 this.$$api_recharge_commisionRecharge({
-                    data: { money: value },
+                    data: {
+                        money: value
+                    },
                     fn: data => {
                         this.$message({
                             type: 'success',
@@ -272,8 +275,15 @@ export default {
                         this.$message.error(err.info);
                     },
                 });
-            }).catch(() => {
-            });
+            }).catch(() => {});
+        },
+        created_atTime(item) {
+            if (item.created_at != '0')
+                return new Date(parseInt(item.created_at) * 1000).toLocaleString().replace(/:\d{1,2}$/, ' ');
+        },
+        audit_atTime(item) {
+            if (item.audit_at != '0')
+                return new Date(parseInt(item.audit_at) * 1000).toLocaleString().replace(/:\d{1,2}$/, ' ');
         }
     },
     computed: {

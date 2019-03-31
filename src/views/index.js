@@ -14,6 +14,7 @@ import Suggest from './suggest/';
 import PriceInfo from './priceInfo/';
 import Invite from './invite/';
 import Task from './task/';
+import Order from './order/';
 // import Supplier from './supplier/';
 // import Admin from './admin/';
 // import Appraisal from './appraisal/';
@@ -33,7 +34,8 @@ export {
   Suggest,
   PriceInfo,
   Invite,
-  Task
+  Task,
+  Order
   // Order,
   // HardCurrency,
   // Supplier,

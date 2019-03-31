@@ -17,6 +17,7 @@ import Recharge from './recharge/';
 import Appeal from './appeal/';
 import Suggest from './suggest/';
 import Task from './task/';
+import Order from './order/';
 
 export default [{
     module: 'user',
@@ -50,4 +51,8 @@ export default [{
     module: 'task',
     name: '任务',
     list: Task
+}, {
+    module: 'order',
+    name: '订单',
+    list: Order
 }];

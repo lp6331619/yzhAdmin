@@ -128,8 +128,20 @@
       ></el-table-column>
       <el-table-column prop="site_bank_no" label="平台银行账号" align="center" width="auto"></el-table-column>
       <el-table-column prop="verify_content" label="驳回理由" align="center" width="150"></el-table-column>
-      <el-table-column prop="created_at" label="提交时间" align="center" width="auto"></el-table-column>
-      <el-table-column prop="audit_at" label="审核时间" align="center" width="auto"></el-table-column>
+      <el-table-column
+        prop="created_at"
+        :formatter="created_atTime"
+        label="提交时间"
+        align="center"
+        width="auto"
+      ></el-table-column>
+      <el-table-column
+        prop="audit_at"
+        :formatter="audit_atTime"
+        label="审核时间"
+        align="center"
+        width="auto"
+      ></el-table-column>
     </el-table>
     <!--翻页-->
     <div class="pageBox" v-show="pageShow">

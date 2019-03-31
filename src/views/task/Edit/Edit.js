@@ -1,27 +1,32 @@
 export default {
     name: 'list',
     created: function () {
-        this.getType()
-        this.getList()
+        // this.getType()
+        // this.getList()
+        this.asyncData()
     },
     data() {
         return {
             loading: false,
-            tableData: Array,
-            pageShow: false,
-            selectData: { //搜索条件
-                limit: 5,
-                p: this.$route.query.p ? parseInt(this.$route.query.p) : 1,
-                status: this.$route.query.status ? this.$route.query.status : '',
-                sid: this.$route.query.sid ? this.$route.query.sid : '',
-                title: this.$route.query.title ? this.$route.query.title : '',
-                start_time: this.$route.query.start_time ? this.$route.query.start_time : '',
-                end_time: this.$route.query.end_time ? this.$route.query.end_time : '',
-                order_id: this.$route.query.order_id ? this.$route.query.order_id : '',
+            form: {
+                type: 1,
+                step_num: 1,
+                search: [{
+                    keyword: '',
+                    num: '',
+                }],
+                age: [],
+                delay_accept: '0',
+                is_time_out_cancel: '2'
             },
-            date: '',
-            status: {},
-            getMyShops: {},
+            status: true,
+            shopBox: [], //商家
+            getExpressTypes: [], //快递
+            getAgeStages: [], //年龄阶段
+            getCreditLevels: [], //任务信用等级
+            getCostPrice: {}, //增值服务价格
+            calculate: [], //计算任务费用明细
+            Province: [], //省份
             pickerOptions2: {
                 disabledDate(time) {
                     return time.getTime() > Date.now();
@@ -52,26 +57,225 @@ export default {
                     }
                 }]
             },
+            lateDay: {
+                '0': '0天',
+                '1': '1天',
+                '2': '2天',
+                '3': '3天',
+                '4': '4天',
+                '5': '5天',
+            },
+            rulesBox: {
+                title: [{
+                    required: true,
+                    message: '不能为空！',
+                    trigger: 'blur'
+                }],
+                sid: [{
+                    required: true,
+                    message: '不能为空！',
+                    trigger: 'change'
+                }],
+                product_name: [{
+                    required: true,
+                    message: '不能为空！',
+                    trigger: 'blur'
+                }],
+                product_url: [{
+                    required: true,
+                    message: '不能为空！',
+                    trigger: 'blur'
+                }, {
+                    pattern: /(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?/,
+                    message: "请输入正确的网址！",
+                    trigger: "blur"
+                }],
+                date: [{
+                    required: true,
+                    message: '不能为空！',
+                    trigger: 'change'
+                }],
+                product_pic1: [{
+                    required: true,
+                    message: '不能为空！',
+                    trigger: 'change'
+                }],
+                product_search_price: [{
+                    required: true,
+                    message: '不能为空！',
+                    trigger: 'blur'
+                }],
+                product_buy_price: [{
+                    required: true,
+                    message: '不能为空！',
+                    trigger: 'blur'
+                }],
+                product_buy_num: [{
+                    required: true,
+                    message: '不能为空！',
+                    trigger: 'blur'
+                }],
+                pay_person_num: [{
+                    required: true,
+                    message: '不能为空！',
+                    trigger: 'blur'
+                }],
+                product_address: [{
+                    required: true,
+                    message: '不能为空！',
+                    trigger: 'blur'
+                }],
+                product_format: [{
+                    required: true,
+                    message: '不能为空！',
+                    trigger: 'blur'
+                }],
+                order_message: [{
+                    required: true,
+                    message: '不能为空！',
+                    trigger: 'blur'
+                }],
+                reward_money: [{
+                    required: true,
+                    message: '不能为空！',
+                    trigger: 'blur'
+                }],
+                release_type: [{
+                    required: true,
+                    message: '不能为空！',
+                    trigger: 'change'
+                }],
+                release_start_time: [{
+                    required: true,
+                    message: '不能为空！',
+                    trigger: 'blur'
+                }],
+                release_end_time: [{
+                    required: true,
+                    message: '不能为空！',
+                    trigger: 'blur'
+                }],
+                other_ask: [{
+                    required: true,
+                    message: '不能为空！',
+                    trigger: 'blur'
+                }],
+                express_type: [{
+                    required: true,
+                    message: '不能为空！',
+                    trigger: 'change'
+                }],
+                sex: [{
+                    required: true,
+                    message: '不能为空！',
+                    trigger: 'change'
+                }],
+                credit_level: [{
+                    required: true,
+                    message: '不能为空！',
+                    trigger: 'change'
+                }],
+                huabei: [{
+                    required: true,
+                    message: '不能为空！',
+                    trigger: 'change'
+                }],
+                grade_buyer: [{
+                    required: true,
+                    message: '不能为空！',
+                    trigger: 'change'
+                }],
+            }
         }
     },
     methods: {
+        async asyncData() {
+            await this.getType();
+            await this.getList();
+        },
         getType() {
-            this.$$api_task_getTaskStatus({
-                data: {},
+            this.$$api_shop_getMyShops({
+                data: {
+                    status: 1
+                },
                 fn: data => {
                     this.loading = false;
-                    this.status = data
+                    for (let i in data) {
+                        this.shopBox.push({
+                            type: i,
+                            name: data[i]
+                        })
+                    }
                 },
                 errFn: (err) => {
                     this.$message.error(err.info);
                     this.loading = false;
                 },
             });
-            this.$$api_shop_getMyShops({
+            this.$$api_shop_getProvince({
+                data: {},
+                fn: data => {
+                    this.Province = data;
+                    this.loading = false;
+                },
+                errFn: err => {
+                    this.$message.error(err.info);
+                    this.loading = false;
+                }
+            });
+            this.$$api_task_getExpressTypes({
                 data: {},
                 fn: data => {
                     this.loading = false;
-                    this.getMyShops = data
+                    for (let i in data) {
+                        this.getExpressTypes.push({
+                            type: i,
+                            name: data[i]
+                        })
+                    }
+                },
+                errFn: (err) => {
+                    this.$message.error(err.info);
+                    this.loading = false;
+                },
+            });
+            this.$$api_task_getAgeStages({
+                data: {},
+                fn: data => {
+                    this.loading = false;
+                    for (let i in data) {
+                        this.getAgeStages.push({
+                            type: i,
+                            name: data[i]
+                        })
+                    }
+                },
+                errFn: (err) => {
+                    this.$message.error(err.info);
+                    this.loading = false;
+                },
+            });
+            this.$$api_task_getCreditLevels({
+                data: {},
+                fn: data => {
+                    this.loading = false;
+                    for (let i in data) {
+                        this.getCreditLevels.push({
+                            type: i,
+                            name: data[i]
+                        })
+                    }
+                },
+                errFn: (err) => {
+                    this.$message.error(err.info);
+                    this.loading = false;
+                },
+            });
+            this.$$api_task_getCostPrice({
+                data: {},
+                fn: data => {
+                    this.loading = false;
+                    this.getCostPrice = data
                 },
                 errFn: (err) => {
                     this.$message.error(err.info);
@@ -80,50 +284,120 @@ export default {
             });
         },
         getList() { //获取列表数据
-            this.loading = true;
-            if (this.selectData.start_time && this.selectData.end_time) {
-                this.date = [this.selectData.start_time, this.selectData.end_time]
+            if (this.$route.query.id) {
+                this.loading = true;
+                this.$$api_task_detail({
+                    data: this.$route.query,
+                    fn: data => {
+                        this.loading = false;
+                        this.form = data
+                        let arr = this.form.task_service.remove_area.split(',');
+                        let remove_area = []
+                        arr.forEach((item) => {
+                            remove_area.push(parseInt(item))
+                        })
+                        this.form = Object.assign({}, this.form, {
+                            date: [this.form.release_start_time, this.form.release_end_time],
+                            url2: this.form.product_pic1,
+                            age: this.form.task_service.age.split(','),
+                            remove_area: remove_area,
+                            sex: this.form.task_service.sex,
+                            age_stage: this.form.task_service.age_stage,
+                            credit_level: this.form.task_service.credit_level,
+                            huabei: this.form.task_service.huabei,
+                            grade_buyer: this.form.task_service.grade_buyer,
+                            release_start_time: parseInt(this.form.release_start_time),
+                            is_time_out_cancel: this.form.is_time_out_cancel == '0' ? '2' : this.form.is_time_out_cancel
+
+                        })
+                        console.log(this.form.release_start_time)
+                    },
+                    errFn: (err) => {
+                        this.$message.error(err.info);
+                        this.loading = false;
+                    },
+                    tokenFlag: true
+                });
             }
-            this.$$api_task_getTaskList({
-                data: this.selectData,
+        },
+        setDate(item) {
+            this.form = Object.assign({}, this.form, {
+                release_start_time: item[0],
+                release_end_time: item[1]
+            })
+            console.log(this.form.release_start_time, this.form.release_end_time)
+        },
+        handleAvatarSuccess(res, file) { //图片上传成功
+            this.form = Object.assign({}, this.form, {
+                product_pic1: res.data.url,
+                url2: res.data.all_url
+            })
+
+        },
+        beforeAvatarUpload(file) { //图片上传前
+            const isJPG = file.type === 'image/jpeg';
+            const isPNG = file.type === 'image/png';
+            const isLt2M = file.size / 1024 / 1024 < 2;
+            let status;
+            if (!isJPG && !isPNG) {
+                this.$message.error('上传头像图片只能是 JPG、PNG 格式!');
+                status = false
+            }
+            if (!isLt2M) {
+                this.$message.error('上传头像图片大小不能超过 2MB!');
+            }
+            return status && isLt2M
+        },
+        addSearch() {
+            if (this.form.search && this.form.search.length >= 10) {
+                this.$message.error('最多增加10条!')
+            } else {
+                this.form.search.push({
+                    keyword: '',
+                    num: ''
+                })
+            }
+        },
+        submit(ref) {
+            this.$refs[ref].validate((valid) => {
+                if (valid) {
+                    this.getPrice();
+                }
+            })
+        },
+        submit2() {
+            this.$$api_task_addTask({
+                data: this.form,
                 fn: data => {
                     this.loading = false;
-                    this.tableData = data
-                    this.tableData.count = parseInt(this.tableData.count)
-                    if (this.tableData.count > 10) {
-                        this.pageShow = true
-                    } else {
-                        this.pageShow = false
-                    }
+                    this.$message.success('恭喜您!提交成功!')
+                    this.$router.push('/home');
                 },
                 errFn: (err) => {
                     this.$message.error(err.info);
                     this.loading = false;
                 },
-                tokenFlag: true
             });
         },
-        onSelectData() { //搜索
-            this.selectData.p = 1;
-            this.$router.push({
-                path: '/home',
-                query: this.selectData
-            })
-            this.getList()
+        del(index) {
+            if (this.form.search && this.form.search.length > 1) {
+                this.form.search.splice(index, 1)
+            }
         },
-        handleCurrentChange(item) { //分页
-            this.selectData.p = item
-            this.$router.push({
-                path: '/home',
-                query: this.selectData
-            })
-            this.getList()
-        },
-        setDate(item) {
-            this.selectData = Object.assign({}, this.selectData, {
-                start_time: item[0],
-                end_time: item[1]
-            })
+        getPrice() {
+            this.$$api_task_calculate({
+                data: this.form,
+                fn: data => {
+                    this.loading = false;
+                    this.calculate = data
+                    this.$message.success('恭喜您!提交成功!')
+                    this.status = false;
+                },
+                errFn: (err) => {
+                    this.$message.error(err.info);
+                    this.loading = false;
+                },
+            });
         },
     },
 }

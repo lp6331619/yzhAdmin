@@ -2,16 +2,87 @@ export default {
     name: 'list',
     created: function () {
         this.getType()
-        this.getList()
+        if (this.selectData.status == '100') {
+            this.getDetail()
+        } else {
+            this.getList()
+        }
     },
     data() {
         return {
             loading: false,
-            tableData: Array,
+            data: {
+                task_service: {},
+                search: [],
+                task_price: {}
+            },
             pageShow: false,
             getExpressTypes: {},
             getAgeStages: {},
-            getCreditLevels: {}
+            getCreditLevels: {},
+            //列表
+            tableData: Array,
+            selectData: { //搜索条件
+                limit: 10,
+                p: this.$route.query.p ? parseInt(this.$route.query.p) : 1,
+                status: this.$route.query.status ? this.$route.query.status : '100',
+                start_time: this.$route.query.start_time ? this.$route.query.start_time : '',
+                id: this.$route.query.id ? this.$route.query.id : '',
+                tid: this.$route.query.tid ? this.$route.query.tid : '',
+                sid: this.$route.query.sid ? this.$route.query.sid : '',
+                oid: this.$route.query.oid ? this.$route.query.oid : '',
+                member_name: this.$route.query.member_name ? this.$route.query.member_name : '',
+                order_no: this.$route.query.order_no ? this.$route.query.order_no : '',
+                money: this.$route.query.money ? this.$route.query.money : '',
+            },
+            dialogFormVisible: false,
+            form: {},
+            rulesBox: {
+                status: [{
+                    required: true,
+                    message: '不能为空！',
+                    trigger: 'blur'
+                }],
+                cancel_content: [{
+                    required: true,
+                    message: '不能为空！',
+                    trigger: 'blur'
+                }],
+            },
+            date: '',
+            status: [],
+            popStatus: 2,
+            pickerOptions2: {
+                disabledDate(time) {
+                    return time.getTime() > Date.now();
+                },
+                shortcuts: [{
+                    text: '最近一周',
+                    onClick(picker) {
+                        const end = new Date();
+                        const start = new Date();
+                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+                        picker.$emit('pick', [start, end]);
+                    }
+                }, {
+                    text: '最近一个月',
+                    onClick(picker) {
+                        const end = new Date();
+                        const start = new Date();
+                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+                        picker.$emit('pick', [start, end]);
+                    }
+                }, {
+                    text: '最近三个月',
+                    onClick(picker) {
+                        const end = new Date();
+                        const start = new Date();
+                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+                        picker.$emit('pick', [start, end]);
+                    }
+                }]
+            },
+            multipleSelection: [] //选择的数组
 
         }
     },
@@ -50,14 +121,58 @@ export default {
                     this.loading = false;
                 },
             });
+            this.$$api_task_getTaskStatus({
+                data: {},
+                fn: data => {
+                    this.loading = false;
+                    for (let i in data) {
+                        this.status.push({
+                            type: i,
+                            name: data[i]
+                        })
+                    }
+                },
+                errFn: (err) => {
+                    this.$message.error(err.info);
+                    this.loading = false;
+                },
+            });
         },
         getList() { //获取列表数据
+            this.loading = true;
+            if (this.selectData.start_time && this.selectData.end_time) {
+                this.date = [this.selectData.start_time, this.selectData.end_time]
+            }
+            this.$$api_order_getOrderList({
+                data: this.selectData,
+                fn: data => {
+                    this.loading = false;
+                    this.tableData = data
+                    this.tableData.count = parseInt(this.tableData.count)
+                    if (this.tableData.count > 5) {
+                        this.pageShow = true
+                    } else {
+                        this.pageShow = false
+                    }
+                },
+                errFn: (err) => {
+                    this.$message.error(err.info);
+                    this.loading = false;
+                },
+                tokenFlag: true
+            });
+        },
+        getDetail() {
             this.loading = true;
             this.$$api_task_detail({
                 data: this.$route.query,
                 fn: data => {
                     this.loading = false;
-                    this.tableData = data
+                    this.data = data
+                    this.$set(this.data, 'task_service2', [])
+                    this.data.task_service2.push(this.data.task_service);
+                    this.$set(this.data, 'task_price2', [])
+                    this.data.task_price2.push(this.data.task_price)
                 },
                 errFn: (err) => {
                     this.$message.error(err.info);
@@ -66,22 +181,157 @@ export default {
                 tokenFlag: true
             });
         },
+        time(nS) {
+            if (nS != '0')
+                return new Date(parseInt(nS) * 1000).toLocaleString().replace(/:\d{1,2}$/, ' ');
+        },
         Revoke() { //撤销
-            this.loading = true;
-            this.$$api_task_cancelTask({
-                data: this.$route.query,
-                fn: data => {
-                    this.loading = false;
-                    this.$message.success('撤销成功!')
-                    this.$router.push('/home')
-                },
-                errFn: (err) => {
-                    this.$message.error(err.info);
-                    this.loading = false;
-                },
-                tokenFlag: true
-            });
-        }
+            this.$confirm('是否撤销任务?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                this.loading = true;
+                this.$$api_task_cancelTask({
+                    data: this.$route.query,
+                    fn: data => {
+                        this.loading = false;
+                        this.$message.success('撤销成功!')
+                        this.$router.push('/home')
+                    },
+                    errFn: (err) => {
+                        this.$message.error(err.info);
+                        this.loading = false;
+                    },
+                    tokenFlag: true
+                });
+            }).catch(() => {});
+        },
+        formatHuabei(item, item2) {
+            let text = ''
+            switch (parseInt(item.huabei)) {
+                case 1:
+                    text = '不需要'
+                    break;
+                case 2:
+                    text = '需要'
+                    break;
+            }
+            return text
 
+        },
+        formatGrade(item, item2) {
+            let text = ''
+            switch (parseInt(item.grade_buyer)) {
+                case 1:
+                    text = '不需要'
+                    break;
+                case 2:
+                    text = '需要'
+                    break;
+            }
+            return text
+        },
+        handleClick() {
+            this.$router.push({
+                path: '/home/detail',
+                query: {
+                    tid: this.$route.query.tid,
+                    status: this.selectData.status
+                }
+            })
+            this.getList()
+        },
+        onSelectData() { //搜索
+            this.selectData.p = 1;
+            this.$router.push({
+                path: '/home/detail',
+                query: this.selectData
+            })
+            this.getList()
+        },
+        handleCurrentChange(item) { //分页
+            this.selectData.p = item
+            this.$router.push({
+                path: '/home/detail',
+                query: this.selectData
+            })
+            this.getList()
+        },
+        setDate(item) {
+            this.selectData = Object.assign({}, this.selectData, {
+                start_time: item[0],
+                end_time: item[1]
+            })
+        },
+        onExport() { //导出表格
+            let token = this.$store.state.user.userinfo.token
+            window.open(`/AdminApi/Order/getOrderList?token=${token}&status=${this.selectData.status}&export=1&start_time=${this.selectData.start_time}&end_time=${this.selectData.end_time}&tid=${this.selectData.tid}&oid=${this.selectData.oid}&member_name=${this.selectData.member_name}&order_no=${this.selectData.order_no}&money=${this.selectData.money}&export=1`);
+        },
+        created_atTime(item) {
+            if (item.created_at != '0') {
+                return new Date(parseInt(item.created_at) * 1000).toLocaleString().replace(/:\d{1,2}$/, ' ');
+            }
+        },
+        complete_timeTime(item) {
+            if (item.complete_time != '0')
+                return new Date(parseInt(item.complete_time) * 1000).toLocaleString().replace(/:\d{1,2}$/, ' ');
+        },
+        openPop(item, status) {
+            this.dialogFormVisible = true
+            this.popStatus = status
+            this.form = Object.assign({}, this.form, {
+                id: item,
+            })
+        },
+        sub(ref) {
+            console.log(this.popStatus)
+            this.$refs[ref].validate((valid) => {
+                if (valid) {
+                    switch (this.popStatus) {
+                        case 1:
+                            this.$$api_order_batchAuditOrder({
+                                data: this.form,
+                                fn: data => {
+                                    this.loading = false;
+                                    this.$message.success('恭喜您!审核成功!')
+                                    this.dialogFormVisible = false
+                                    this.getList()
+                                },
+                                errFn: (err) => {
+                                    this.$message.error(err.info);
+                                    this.loading = false;
+                                },
+                                tokenFlag: true
+                            });
+                            break;
+                        case 2:
+                            this.$$api_order_auditOrder({
+                                data: this.form,
+                                fn: data => {
+                                    this.loading = false;
+                                    this.$message.success('恭喜您!审核成功!')
+                                    this.dialogFormVisible = false
+                                    this.getList()
+                                },
+                                errFn: (err) => {
+                                    this.$message.error(err.info);
+                                    this.loading = false;
+                                },
+                                tokenFlag: true
+                            });
+                            break;
+                    }
+                }
+            })
+        },
+        handleSelectionChange(val) {
+            if (val.length > 0) {
+                this.multipleSelection = []
+                val.forEach((item) => {
+                    this.multipleSelection.push(item.id)
+                })
+            }
+        },
     },
 }

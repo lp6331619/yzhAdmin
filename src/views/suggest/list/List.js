@@ -9,7 +9,7 @@ export default {
             loading: false,
             tableData: Array,
             pageShow: false,
-            selectData: {//搜索条件
+            selectData: { //搜索条件
                 limit: 10,
                 p: this.$route.query.p ? parseInt(this.$route.query.p) : 1,
                 type: this.$route.query.type ? this.$route.query.type : '',
@@ -52,8 +52,7 @@ export default {
                 }]
             },
             addAppeal: false,
-            addAppealForm: {
-            },
+            addAppealForm: {},
             rule_addAppeal: {
                 type: [{
                     required: true,
@@ -113,7 +112,7 @@ export default {
                 },
             });
         },
-        getList() {//获取列表数据
+        getList() { //获取列表数据
             this.loading = true;
             if (this.selectData.start_time && this.selectData.end_time) {
                 this.date = [this.selectData.start_time, this.selectData.end_time]
@@ -137,7 +136,7 @@ export default {
                 tokenFlag: true
             });
         },
-        onSelectData() {//搜索
+        onSelectData() { //搜索
             this.selectData.p = 1;
             this.$router.push({
                 path: '/suggest/list',
@@ -145,7 +144,7 @@ export default {
             })
             this.getList()
         },
-        handleCurrentChange(item) {//分页
+        handleCurrentChange(item) { //分页
             this.selectData.p = item
             this.$router.push({
                 path: '/suggest/list',
@@ -160,14 +159,14 @@ export default {
             })
         },
 
-        handleAvatarSuccess(res, file) {//图片上传成功
+        handleAvatarSuccess(res, file) { //图片上传成功
             this.addAppealForm = Object.assign({}, this.addAppealForm, {
                 url: res.data.all_url,
                 pic: res.data.url
             })
 
         },
-        beforeAvatarUpload(file) {//图片上传前
+        beforeAvatarUpload(file) { //图片上传前
             const isJPG = file.type === 'image/jpeg';
             const isPNG = file.type === 'image/png';
             const isLt2M = file.size / 1024 / 1024 < 2;
@@ -201,6 +200,10 @@ export default {
         },
         error() {
             this.$message.error('最多上传2张！')
+        },
+        created_atTime(item) {
+            if (item.created_at != '0')
+                return new Date(parseInt(item.created_at) * 1000).toLocaleString().replace(/:\d{1,2}$/, ' ');
         }
     },
 }

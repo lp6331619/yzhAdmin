@@ -1,10 +1,365 @@
 <template>
   <div class="list">
-    <div class="titleBox">
-      任务详情
-      <el-button class="ml20" type="warning" @click="addAppeal = true" size="mini">+发布任务</el-button>
+    <div class="titleBox">新增修改任务</div>
+    <div class="p20">
+      <el-form
+        v-if="status"
+        ref="form"
+        class="form"
+        :rules="rulesBox"
+        :model="form"
+        label-width="140px"
+      >
+        <el-row :gutter="20">
+          <div class="title">基础信息</div>
+          <el-col :span="8">
+            <el-form-item label="任务名称" prop="title">
+              <el-input v-model="form.title" placeholder="任务名称"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="商品标题" prop="product_name">
+              <el-input v-model="form.product_name" placeholder="商品标题"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="我的店铺" prop="sid">
+              <el-select v-model="form.sid" placeholder="请选择">
+                <el-option
+                  v-for="(item,index) in shopBox"
+                  :key="item.type"
+                  :label="item.name"
+                  :value="item.type"
+                ></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="商品链接" prop="product_url">
+              <el-input v-model="form.product_url" placeholder="商品链接"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="商品搜索价" prop="product_search_price">
+              <el-input type="number" v-model="form.product_search_price" placeholder="商品搜索价"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="商品成交价" prop="product_buy_price">
+              <el-input type="number" v-model="form.product_buy_price" placeholder="商品成交价"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="商品主图" prop="product_pic1">
+              <el-upload
+                class="avatar-uploader"
+                action="/AdminApi/Public/upload_img"
+                :show-file-list="false"
+                :on-success="handleAvatarSuccess"
+                :before-upload="beforeAvatarUpload"
+              >
+                <img v-if="form.url2" :src="form.url2" class="avatar">
+                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+              </el-upload>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="每单拍" prop="product_buy_num">
+              <el-input type="number" v-model="form.product_buy_num" placeholder="下单商品数量"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="付款人数约" prop="pay_person_num">
+              <el-input type="number" v-model="form.pay_person_num" placeholder="付款人数约"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="购买规格" prop="product_format">
+              <el-input v-model="form.product_format" placeholder="购买规格"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="商品所在地" prop="product_address">
+              <el-input v-model="form.product_address" placeholder="商品所在地"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="16">
+            <el-form-item label="商品留言" prop="order_message">
+              <el-input
+                type="textarea"
+                :autosize="{ minRows: 5, maxRows: 5}"
+                v-model="form.order_message"
+                placeholder="商品留言"
+              ></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="任务加赏(元)" prop="reward_money">
+              <el-input type="number" v-model="form.reward_money" placeholder="任务加赏"></el-input>
+              <small>(填0表示不加赏，加赏金额越高，越优先展示给用户)</small>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="16">
+            <el-form-item label="特殊需求" prop="other_ask">
+              <el-input v-model="form.other_ask" placeholder="特殊需求"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col class="clear" :span="8">
+            <el-form-item label="发布规则" prop="release_type">
+              <el-radio-group v-model="form.release_type">
+                <el-radio label="1">急速发布</el-radio>
+                <el-radio label="2">平均发布</el-radio>
+              </el-radio-group>
+            </el-form-item>
+          </el-col>
+          <el-col class="clear" :span="8" v-if="form.release_type == '2'">
+            <el-form-item label="发布时间" prop="release_start_time">
+              <el-select v-model="form.release_start_time" placeholder="请选择">
+                <el-option
+                  v-for="(item,index) in 24"
+                  :key="index"
+                  :label="`${item-1}点`"
+                  :value="index"
+                ></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8" v-if="form.release_type == '2'">
+            <el-form-item label="结束时间" prop="release_end_time">
+              <el-select v-model="form.release_end_time" placeholder="请选择">
+                <el-option
+                  v-for="(item,index) in 24"
+                  :key="index"
+                  :label="`${item-1}点`"
+                  :value="index"
+                ></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col class="clear" :span="8" v-if="form.release_type == '2'">
+            <el-form-item label="是否到点取消" prop="is_time_out_cancel">
+              <el-radio-group v-model="form.is_time_out_cancel">
+                <el-radio label="1">是</el-radio>
+                <el-radio label="2">否</el-radio>
+              </el-radio-group>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8" v-if="form.release_type == '2'">
+            <el-form-item label="延迟收货天数 " prop="delay_accept">
+              <el-select v-model="form.delay_accept" placeholder="请选择">
+                <el-option
+                  v-for="(item,index) in lateDay"
+                  :key="index"
+                  :label="item"
+                  :value="index"
+                ></el-option>
+              </el-select>
+              <small class="red">(我们会提示买手在物流到后延迟指定天数再确认收货)</small>
+            </el-form-item>
+          </el-col>
+          <el-col :span="16" class="clear">
+            <el-form-item label="快递" prop="express_type">
+              <el-select v-model="form.express_type" placeholder="请选择">
+                <el-option
+                  v-for="(item,index) in getExpressTypes"
+                  :key="item.type"
+                  :label="item.name"
+                  :value="item.type"
+                ></el-option>
+              </el-select>
+              <small class="red">非商家快递费用 ({{getCostPrice.limit_sex}} 金 /单)</small>
+            </el-form-item>
+          </el-col>
+          <div class="title">搜索路径</div>
+          <el-col :span="16">
+            <el-row :gutter="20" style="padding-left:140px">
+              <el-col :span="8">关键词</el-col>
+              <el-col :span="6">单数</el-col>
+              <el-col :span="10">
+                <el-button type="primary" class="ml20" size="mini" plain @click="addSearch()">+增加</el-button>
+                <small>最多10条</small>
+              </el-col>
+              <div class="mt20">&nbsp;</div>
+              <div class="clearfix" v-for="(item, index) in form.search" :key="index">
+                <el-col :span="8">
+                  <el-form-item
+                    label-width="0"
+                    :prop="'search.' + index + '.keyword'"
+                    :rules="{
+                    required: true, message: '不能为空!', trigger: 'blur'
+                  }"
+                  >
+                    <el-input v-model="item.keyword"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="6">
+                  <el-form-item
+                    label-width="0"
+                    :prop="'search.' + index + '.num'"
+                    :rules="{
+                    required: true, message: '不能为空!', trigger: 'blur'
+                  }"
+                  >
+                    <el-input v-model="item.num"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="6">
+                  <el-button
+                    type="danger"
+                    :disabled="form.search.length<=1"
+                    class="ml20"
+                    @click="del(index)"
+                  >删除</el-button>
+                </el-col>
+              </div>
+            </el-row>
+          </el-col>
+          <div class="title">千人千面增值服务</div>
+          <el-col :span="24">
+            <el-form-item label="区域限制">
+              <el-select
+                class="xz"
+                v-model="form.remove_area"
+                multiple
+                filterable
+                allow-create
+                default-first-option
+                placeholder="请选择文章标签"
+              >
+                <el-option
+                  v-for="item in Province"
+                  :key="item.id"
+                  :label="item.name"
+                  :value="item.id"
+                ></el-option>
+              </el-select>
+              <small class="red">(注意:限制不可接地区) ({{getCostPrice.limit_area}} 金 /单)</small>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="性别" prop="sex">
+              <el-radio-group v-model="form.sex">
+                <el-radio label="0">不限</el-radio>
+                <el-radio label="1">男</el-radio>
+                <el-radio label="2">女</el-radio>
+              </el-radio-group>
+              <small class="red ml20">({{getCostPrice.limit_sex}} 金 /单)</small>
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="年龄阶段">
+              <el-checkbox-group v-model="form.age">
+                <el-checkbox
+                  :label="item.type"
+                  :value="item.type"
+                  v-for="(item,index) in getAgeStages"
+                  :key="index"
+                >{{item.name}}</el-checkbox>
+              </el-checkbox-group>
+              <small class="red">({{getCostPrice.limit_age}} 金 /单)</small>
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="信用等级" prop="credit_level">
+              <el-select v-model="form.credit_level" placeholder="请选择">
+                <el-option
+                  v-for="(item,index) in getCreditLevels"
+                  :key="item.type"
+                  :label="item.name"
+                  :value="item.type"
+                ></el-option>
+              </el-select>
+              <small class="red ml20">({{getCostPrice.credit_zuanshi}} 金 /单)</small>
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="花呗号下单" prop="huabei">
+              <el-radio-group v-model="form.huabei">
+                <el-radio label="0">不需要</el-radio>
+                <el-radio label="1">需要</el-radio>
+              </el-radio-group>
+              <small class="red ml20">({{getCostPrice.huabei}} 金 /单)</small>
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="高优质买号" prop="grade_buyer">
+              <el-radio-group v-model="form.grade_buyer">
+                <el-radio label="0">不需要</el-radio>
+                <el-radio label="1">需要</el-radio>
+              </el-radio-group>
+              <small class="red ml20">({{getCostPrice.grade_buyer}} 金 /单)</small>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+
+      <table class="tableBox" v-if="!status" align="center">
+        <tr>
+          <th></th>
+          <th>项目</th>
+          <th>收费</th>
+          <th>小计</th>
+        </tr>
+        <tr>
+          <td rowspan="3">本金</td>
+          <td>项目本金</td>
+          <td>{{calculate.price*calculate.product_num}}</td>
+          <td rowspan="3">{{calculate.unit_capital_cost}}</td>
+        </tr>
+        <tr>
+          <td>返款手续费</td>
+          <td>{{calculate.serve}}</td>
+        </tr>
+        <tr>
+          <td>快递费用</td>
+          <td>{{calculate.express}}</td>
+        </tr>
+        <tr>
+          <td rowspan="8">佣金</td>
+          <td>佣金费用</td>
+          <td>{{calculate.cur_commision}}</td>
+          <td rowspan="8">{{calculate.unit_commision_cost}}</td>
+        </tr>
+        <tr>
+          <td>加赏费用</td>
+          <td>{{calculate.reward}}</td>
+        </tr>
+        <tr>
+          <td>地区限制</td>
+          <td>{{calculate.limit_area}}</td>
+        </tr>
+        <tr>
+          <td>年龄限制</td>
+          <td>{{calculate.limit_age}}</td>
+        </tr>
+        <tr>
+          <td>性别限制</td>
+          <td>{{calculate.limit_sex}}</td>
+        </tr>
+        <tr>
+          <td>信用等级限制</td>
+          <td>{{calculate.limit_credit}}</td>
+        </tr>
+        <tr>
+          <td>花呗号</td>
+          <td>{{calculate.huabei}}</td>
+        </tr>
+        <tr>
+          <td>高优质买号</td>
+          <td>{{calculate.grade_buyer}}</td>
+        </tr>
+        <tr>
+          <td colspan="3">每单总价</td>
+          <td class="red">{{calculate.unit_cost}}</td>
+        </tr>
+      </table>
+      <div class="button">
+        <el-button type="warning" v-if="status" @click="submit('form')">提交核对价钱</el-button>
+        <el-button type="warning" v-if="!status" @click="submit2('form')">确认提交任务</el-button>
+        <el-button v-if="!status" @click="status=true">上一步</el-button>
+      </div>
     </div>
-    <div class="p20"></div>
   </div>
 </template>
 <script>
@@ -12,78 +367,49 @@ import EditJs from "./Edit.js";
 export default EditJs;
 </script>
 <style scoped lang="less">
-.el-upload-list--picture-card .el-upload-list__item,
-.el-upload--picture-card {
-  width: 130px;
-  height: 130px;
+.avatar {
+  width: 200px;
+  height: 200px;
 }
-.listBox {
-  .item {
-    padding-bottom: 20px;
+.avatar-uploader-icon {
+  width: 200px;
+  height: 200px;
+  line-height: 200px;
+}
+.form {
+  small {
+    color: #999;
+    display: inline-block;
+    line-height: 18px;
   }
-  .title {
-    background: #f1f1f1;
-    line-height: 62px;
-    display: flex;
-    padding: 0 20px;
-    li {
-      flex: 1;
-      font-size: 14px;
-      svg {
-        width: 30px;
-        height: 30px;
-        margin-right: 5px;
-        vertical-align: middle;
-      }
-    }
-  }
-  .bottom {
-    padding: 20px 250px 20px 140px;
-    min-height: 140px;
-    position: relative;
-    .imgBox,
-    .buttonBox {
-      position: absolute;
-      left: 0;
-      top: 20px;
-    }
-    .imgBox {
-      display: block;
-      width: 120px;
-      height: 120px;
-      overflow: hidden;
-      background: #f6f6f6;
-      border: 1px solid #eee;
-      img {
-        width: 100%;
-      }
-    }
-    .name {
-      line-height: 30px;
-      font-size: 16px;
-      font-weight: bold;
-    }
-    .num {
-      margin-top: 10px;
-      font-size: 14px;
-      span {
-        display: inline-block;
-        text-align: center;
-        margin-top: 15px;
-        line-height: 30px;
-        padding: 0 20px;
-        border-right: 1px solid #eee;
-        border-right-style: dashed;
-        &:last-child {
-          border: none;
-        }
-      }
-    }
-    .buttonBox {
-      left: auto;
-      right: 0;
-      top: 50px;
-    }
+}
+.button {
+  text-align: center;
+  margin-top: 40px;
+  border-top: 1px solid #eee;
+  padding: 40px 0 20px;
+}
+.title {
+  clear: both;
+  line-height: 40px;
+}
+.clear {
+  clear: both;
+}
+.xz {
+  width: 100%;
+}
+.tableBox {
+  text-align: center;
+  border: 1px solid #eee;
+  border-width: 1px 1px 0 0;
+  width: 100%;
+  color: #666;
+  td,
+  th {
+    border: 1px solid #eee;
+    border-width: 0 0 1px 1px;
+    padding: 10px 20px;
   }
 }
 </style>

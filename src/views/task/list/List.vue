@@ -105,11 +105,8 @@
                   <br>未接单
                 </span>
               </div>
-              <!-- <div class="time">
-              <span>开始时间: {{item.}}</span>
-              </div>-->
               <div class="buttonBox">
-                <el-button type="warning" @click="$router.push(`/home/detail?id=${item.id}`)">查看详情</el-button>
+                <el-button type="warning" @click="$router.push(`/home/detail?tid=${item.id}`)">查看详情</el-button>
                 <el-button @click="$router.push(`/home/edit?id=${item.id}`)">重新发布</el-button>
               </div>
             </div>

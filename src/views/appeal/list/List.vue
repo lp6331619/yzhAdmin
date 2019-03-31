@@ -96,7 +96,13 @@
         </el-table-column>
         <el-table-column prop="status_name" label="状态" align="center" width="auto"></el-table-column>
         <el-table-column prop="remark" label="客服回复" align="center" width="150"></el-table-column>
-        <el-table-column prop="created_at" label="提交时间" align="center" width="auto"></el-table-column>
+        <el-table-column
+          prop="created_at"
+          :formatter="created_atTime"
+          label="提交时间"
+          align="center"
+          width="auto"
+        ></el-table-column>
       </el-table>
       <!--翻页-->
       <div class="pageBox" v-show="pageShow">
