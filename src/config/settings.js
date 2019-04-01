@@ -2,7 +2,7 @@ var env = process.env;
 
 var gbs = {
 	// host: 'http://admin-api.quitang.com',
-	host: `${window.location.host.indexOf('localhost')!=-1? '/AdminApi' : 'http://yzh.jiqimao.uiping.com'}`, //接口根地址。本地代理到slsadmin.api.sls.com,线上使用的是Nginx代理
+	host: `${window.location.host.indexOf('localhost')!=-1? '/AdminApi' : 'http://yzhbeta.youzihui.com.cn'}`, //接口根地址。本地代理到slsadmin.api.sls.com,线上使用的是Nginx代理
 	// db_prefix: 'sls_admin_', //本地存储的key
 	//状态码字段
 	api_status_key_field: 'status',

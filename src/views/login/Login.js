@@ -25,8 +25,8 @@ export default {
             registStaus: false,
             resetStaus: false,
             loginData: {
-                phone: '18888888882',
-                password: '123456',
+                phone: '',
+                password: '',
                 verify_code: '',
                 code_key: ''
             },
@@ -93,7 +93,7 @@ export default {
                     type = 'resetPasswd'
                     break;
             }
-            this.code = `http://yzh.jiqimao.uiping.com/Public/verify?type=${type}&code_key=${math}`
+            this.code = `/AdminApi/Public/verify?type=${type}&code_key=${math}`
         },
         onLogin(ref, type) {
             this.$refs[ref].validate((valid) => {
