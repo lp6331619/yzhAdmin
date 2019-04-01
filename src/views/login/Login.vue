@@ -23,7 +23,9 @@
             ref="loginData"
           >
             <el-form-item class="formRow" prop="phone">
-              <i class="iconfont icon-zhanghao"></i>
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-zhanghao-copy"></use>
+              </svg>
               <el-input
                 type="text"
                 class="form-control"
@@ -32,7 +34,9 @@
               ></el-input>
             </el-form-item>
             <el-form-item class="formRow" prop="password">
-              <i class="iconfont icon-mima"></i>
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-mima"></use>
+              </svg>
               <el-input
                 type="password"
                 class="form-control"
@@ -41,9 +45,9 @@
               ></el-input>
             </el-form-item>
             <el-form-item class="formRow" prop="verify_code">
-              <!-- <svg class="icon" aria-hidden="true">
-                                    <use xlink:href="#icon-xxx"></use>
-              </svg>-->
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-yanzhengma1"></use>
+              </svg>
               <img class="verifyImg" alt="点击换一张" title="点击换一张" :src="code" @click="codeBox(1)">
               <el-input
                 class="form-control"
@@ -68,6 +72,9 @@
             element-loading-text="正在注册"
           >
             <el-form-item v-if="!registStaus" class="formRow">
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-zhanghao-copy"></use>
+              </svg>
               <el-input
                 type="text"
                 class="form-control"
@@ -77,16 +84,22 @@
               <div class="el-form-item__error">{{registerRule.phone}}</div>
             </el-form-item>
             <el-form-item v-if="!registStaus" class="formRow">
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-yanzhengma1"></use>
+              </svg>
               <img class="verifyImg" alt="点击换一张" title="点击换一张" :src="code" @click="codeBox(2)">
               <el-input class="form-control" placeholder="验证码" v-model="registerData.verify_code"></el-input>
               <div class="el-form-item__error">{{registerRule.verify_code}}</div>
             </el-form-item>
             <el-form-item class="formRow">
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-yanzhengma1"></use>
+              </svg>
               <el-button
                 class="smsBtn"
                 size="mini"
                 :disabled="disabled"
-                type="success"
+                type="warning"
                 @click="onMessage(1)"
               >{{sms}}</el-button>
               <el-input class="form-control" placeholder="短信验证码" v-model="registerData.phone_code"></el-input>
@@ -131,6 +144,9 @@
             element-loading-text="正在注册"
           >
             <el-form-item v-if="!resetStaus" class="formRow">
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-zhanghao-copy"></use>
+              </svg>
               <el-input
                 type="text"
                 class="form-control"
@@ -140,22 +156,32 @@
               <div class="el-form-item__error">{{resetRule.phone}}</div>
             </el-form-item>
             <el-form-item v-if="!resetStaus" class="formRow">
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-yanzhengma1"></use>
+              </svg>
               <img class="verifyImg" alt="点击换一张" title="点击换一张" :src="code" @click="codeBox(3)">
               <el-input class="form-control" placeholder="验证码" v-model="resetData.verify_code"></el-input>
               <div class="el-form-item__error">{{resetRule.verify_code}}</div>
             </el-form-item>
             <el-form-item class="formRow">
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-yanzhengma1"></use>
+              </svg>
               <el-button
                 class="smsBtn"
                 size="mini"
                 :disabled="disabled"
-                type="success"
+                type="warning"
                 @click="onMessage(2)"
               >{{sms}}</el-button>
               <el-input class="form-control" placeholder="短信验证码" v-model="resetData.phone_code"></el-input>
+
               <div class="el-form-item__error">{{resetRule.phone_code}}</div>
             </el-form-item>
             <el-form-item v-if="resetStaus" class="formRow">
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-mima"></use>
+              </svg>
               <el-input
                 type="password"
                 class="form-control"
@@ -165,6 +191,9 @@
               <div class="el-form-item__error">{{resetRule.password}}</div>
             </el-form-item>
             <el-form-item v-if="resetStaus" class="formRow">
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-mima"></use>
+              </svg>
               <el-input
                 type="password"
                 class="form-control"

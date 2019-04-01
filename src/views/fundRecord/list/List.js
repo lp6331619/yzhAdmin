@@ -134,7 +134,7 @@ export default {
         },
         onExport() { //导出表格
             let token = this.$store.state.user.userinfo.token
-            window.open(`/AdminApi/AccountLog/getLogList?token=${token}&type=${this.selectData.type}&export=1&start_time=${this.selectData.start_time}&end_time=${this.selectData.end_time}&export=1`);
+            window.open(`${this.url}/AccountLog/getLogList?token=${token}&type=${this.selectData.type}&export=1&start_time=${this.selectData.start_time}&end_time=${this.selectData.end_time}&export=1`);
         },
         created_atTime(item) {
             if (item.created_at != '0')

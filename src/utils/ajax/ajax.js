@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import axios from 'axios';
 import Qs from 'qs';
-
 // Vue.use(axios);
 
 // 导入封装的回调函数
@@ -12,6 +11,7 @@ import {
 
 // 动态设置本地和线上接口域名
 axios.defaults.baseURL = gbs.host;
+
 
 /**
  * 封装axios的通用请求
@@ -51,16 +51,14 @@ export default function ({
 		// this.$store.dispatch('show_loading');
 		// if (tokenFlag !== true) {
 		//如果你们的后台不会接受headers里面的参数，打开这个注释，即实现token通过普通参数方式传
-		// data.token = this.$store.state.user.userinfo.token;
-		// console.log(options.data)
-		// if(options.data.rules){
-		// 	alert(11)
-		// }
-		// options.data.rules = JSON.stringfy(options.data.rules)
-		// }else{
+		options.data = Object.assign({}, options.data, {
+			token: this.$store.state.user.userinfo.token
+		})
 		options.data = Qs.stringify(options.data)
-		// }
-		options.headers = { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': this.$store.state.user.userinfo.token };
+		// options.headers = {
+		// 	'Content-Type': 'application/x-www-form-urlencoded',
+		// 	'Authorization': this.$store.state.user.userinfo.token
+		// };
 		// }
 
 		//axios内置属性均可写在这里

@@ -1,8 +1,18 @@
+import Vue from 'vue';
 var env = process.env;
+let url = ''
+if (window.location.host.indexOf('userbeta.') != -1) {
+	url = 'http://yzhbeta.youzihui.com.cn'
+} else if (window.location.host.indexOf('user.') != -1) {
+	url = 'http://yzh.youzihui.com.cn'
+} else if (window.location.host.indexOf('localhost') != -1) {
+	url = '/AdminApi'
+}
 
+console.log(Vue.prototype, 123123)
 var gbs = {
 	// host: 'http://admin-api.quitang.com',
-	host: `${window.location.host.indexOf('localhost')!=-1? '/AdminApi' : 'http://yzhbeta.youzihui.com.cn'}`, //接口根地址。本地代理到slsadmin.api.sls.com,线上使用的是Nginx代理
+	host: url, //接口根地址。本地代理到slsadmin.api.sls.com,线上使用的是Nginx代理
 	// db_prefix: 'sls_admin_', //本地存储的key
 	//状态码字段
 	api_status_key_field: 'status',

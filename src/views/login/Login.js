@@ -93,7 +93,8 @@ export default {
                     type = 'resetPasswd'
                     break;
             }
-            this.code = `/AdminApi/Public/verify?type=${type}&code_key=${math}`
+            console.log(this.url, 123)
+            this.code = `${this.url}/Public/verify?type=${type}&code_key=${math}`
         },
         onLogin(ref, type) {
             this.$refs[ref].validate((valid) => {

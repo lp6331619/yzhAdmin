@@ -53,7 +53,7 @@
             <el-form-item label="商品主图" prop="product_pic1">
               <el-upload
                 class="avatar-uploader"
-                action="/AdminApi/Public/upload_img"
+                :action="`${url}/Public/upload_img`"
                 :show-file-list="false"
                 :on-success="handleAvatarSuccess"
                 :before-upload="beforeAvatarUpload"

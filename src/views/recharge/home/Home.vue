@@ -71,7 +71,7 @@
               <el-form-item class="formRow" prop="url" label="转账截图">
                 <el-upload
                   class="avatar-uploader"
-                  action="/AdminApi/Public/upload_img"
+                  :action="`${url}/Public/upload_img`"
                   :show-file-list="false"
                   :on-success="handleAvatarSuccess"
                   :before-upload="beforeAvatarUpload"

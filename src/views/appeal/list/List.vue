@@ -139,7 +139,7 @@
         </el-form-item>
         <el-form-item label="申诉截图" prop="pics">
           <el-upload
-            action="/AdminApi/Public/upload_img"
+            :action="`${url}/Public/upload_img`"
             list-type="picture-card"
             :on-remove="handleRemove"
             :file-list="this.addAppealForm.pics"

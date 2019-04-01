@@ -155,7 +155,7 @@ export default {
         },
         onExport() { //导出表格
             let token = this.$store.state.user.userinfo.token
-            window.open(`/AdminApi/Recharge/getRechargeList?token=${token}&export=1`);
+            window.open(`${this.url}/Recharge/getRechargeList?token=${token}&export=1`);
         },
         formatterAccount(item) {
             let text = ''

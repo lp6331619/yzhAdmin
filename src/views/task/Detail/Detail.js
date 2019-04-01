@@ -266,7 +266,7 @@ export default {
         },
         onExport() { //导出表格
             let token = this.$store.state.user.userinfo.token
-            window.open(`/AdminApi/Order/getOrderList?token=${token}&status=${this.selectData.status}&export=1&start_time=${this.selectData.start_time}&end_time=${this.selectData.end_time}&tid=${this.selectData.tid}&oid=${this.selectData.oid}&member_name=${this.selectData.member_name}&order_no=${this.selectData.order_no}&money=${this.selectData.money}&export=1`);
+            window.open(`${this.url}/Order/getOrderList?token=${token}&status=${this.selectData.status}&export=1&start_time=${this.selectData.start_time}&end_time=${this.selectData.end_time}&tid=${this.selectData.tid}&oid=${this.selectData.oid}&member_name=${this.selectData.member_name}&order_no=${this.selectData.order_no}&money=${this.selectData.money}&export=1`);
         },
         created_atTime(item) {
             if (item.created_at != '0') {

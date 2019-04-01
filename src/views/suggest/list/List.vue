@@ -107,7 +107,7 @@
         <el-form-item label="申诉截图" prop="pic">
           <el-upload
             class="avatar-uploader"
-            action="/AdminApi/Public/upload_img"
+            :action="`${url}/Public/upload_img`"
             :show-file-list="false"
             :on-success="handleAvatarSuccess"
             :before-upload="beforeAvatarUpload"

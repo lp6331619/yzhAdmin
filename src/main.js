@@ -7,6 +7,17 @@ Vue.use(ElementUI);
 Vue.config.productionTip = true;
 Vue.config.devtools = true;
 
+let url = ''
+if (window.location.host.indexOf('userbeta.') != -1) {
+    url = 'http://yzhbeta.youzihui.com.cn'
+} else if (window.location.host.indexOf('user.') != -1) {
+    url = 'http://yzh.youzihui.com.cn'
+} else if (window.location.host.indexOf('localhost') != -1) {
+    url = '/AdminApi'
+}
+
+Vue.prototype.url = url
+
 import router from 'router/';
 import 'register/';
 import store from 'store/';
