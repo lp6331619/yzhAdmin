@@ -1,5 +1,6 @@
 <template>
   <div class="list">
+    <imgPop v-if="imgPopData.status" :data="imgPopData" @closeImg="closeImg"></imgPop>
     <div class="titleBox">订单详情</div>
     <div class="p20 detail">
       <el-row :gutter="20">
@@ -17,13 +18,17 @@
         <el-col :span="8">商品单价:{{dataBox.product_buy_price}}</el-col>
         <el-col :span="8">
           商品图片:
-          <img :src="dataBox.product_pic1" height="100px" width="100px" alt>
+          <a @click="openImg(dataBox.product_pic1)" class="imgBox">
+            <img :src="dataBox.product_pic1" height="100px" width="100px" alt>
+          </a>
         </el-col>
         <el-col :span="8">每单拍下数量:{{dataBox.product_buy_num}}</el-col>
         <el-col :span="8">搜索关键词:{{dataBox.keyword}}</el-col>
         <el-col :span="8">
           淘宝目标图片:
-          <img :src="dataBox.target_pic" height="100px" width="100px" alt>
+          <a @click="openImg(dataBox.target_pic)" class="imgBox">
+            <img :src="dataBox.target_pic" height="100px" width="100px" alt>
+          </a>
         </el-col>
         <el-col :span="8">支付金额:{{dataBox.pay_money}}</el-col>
 

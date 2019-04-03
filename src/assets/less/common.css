@@ -277,3 +277,37 @@ a:hover {
 .el-tabs__active-bar {
   background: #ff8762;
 }
+.mt0 {
+  margin-top: 0 !important;
+}
+.imgBoxPop {
+  background: rgba(0, 0, 0, 0.8);
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  cursor: pointer;
+}
+.imgBoxPop:before {
+  content: 'x';
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  background: #fff;
+  text-align: center;
+  line-height: 50px;
+  font-size: 30px;
+  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.2);
+}
+.imgBoxPop img {
+  max-width: 90%;
+  max-height: 90%;
+}

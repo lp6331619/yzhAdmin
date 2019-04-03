@@ -1,5 +1,6 @@
 <template>
   <div class="list">
+    <imgPop v-if="imgPopData.status" :data="imgPopData" @closeImg="closeImg"></imgPop>
     <div class="titleBox">
       意见建议
       <el-button class="ml20" type="warning" @click="addAppeal = true" size="mini">+添加建议</el-button>
@@ -59,7 +60,9 @@
         <el-table-column prop="reply" label="回复内容" align="center" width="auto"></el-table-column>
         <el-table-column prop="pic" label="图片" align="center" width="auto">
           <template slot-scope="scope">
-            <img style="max-height:40px;max-width:40px;" :src="scope.row.pic">
+            <a @click="openImg(scope.row.pic)">
+              <img style="max-height:40px;max-width:40px;" :src="scope.row.pic">
+            </a>
           </template>
         </el-table-column>
         <el-table-column prop="status_name" label="状态" align="center" width="auto"></el-table-column>
@@ -118,7 +121,7 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="passwordStatus = false">取 消</el-button>
+        <el-button @click="addAppeal = false">取 消</el-button>
         <el-button type="warning" @click="addAppealSub('addAppealForm')">确 定</el-button>
       </div>
     </el-dialog>

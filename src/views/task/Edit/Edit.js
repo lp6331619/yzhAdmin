@@ -19,7 +19,7 @@ export default {
                 delay_accept: '0',
                 is_time_out_cancel: '2'
             },
-            status: true,
+            status: false,
             shopBox: [], //商家
             getExpressTypes: [], //快递
             getAgeStages: [], //年龄阶段
@@ -120,21 +120,9 @@ export default {
                     message: '不能为空！',
                     trigger: 'blur'
                 }],
-                product_address: [{
-                    required: true,
-                    message: '不能为空！',
-                    trigger: 'blur'
-                }],
-                product_format: [{
-                    required: true,
-                    message: '不能为空！',
-                    trigger: 'blur'
-                }],
-                order_message: [{
-                    required: true,
-                    message: '不能为空！',
-                    trigger: 'blur'
-                }],
+
+
+
                 reward_money: [{
                     required: true,
                     message: '不能为空！',
@@ -145,42 +133,7 @@ export default {
                     message: '不能为空！',
                     trigger: 'change'
                 }],
-                release_start_time: [{
-                    required: true,
-                    message: '不能为空！',
-                    trigger: 'blur'
-                }],
-                release_end_time: [{
-                    required: true,
-                    message: '不能为空！',
-                    trigger: 'blur'
-                }],
-                other_ask: [{
-                    required: true,
-                    message: '不能为空！',
-                    trigger: 'blur'
-                }],
                 express_type: [{
-                    required: true,
-                    message: '不能为空！',
-                    trigger: 'change'
-                }],
-                sex: [{
-                    required: true,
-                    message: '不能为空！',
-                    trigger: 'change'
-                }],
-                credit_level: [{
-                    required: true,
-                    message: '不能为空！',
-                    trigger: 'change'
-                }],
-                huabei: [{
-                    required: true,
-                    message: '不能为空！',
-                    trigger: 'change'
-                }],
-                grade_buyer: [{
                     required: true,
                     message: '不能为空！',
                     trigger: 'change'
@@ -284,7 +237,7 @@ export default {
             });
         },
         getList() { //获取列表数据
-            if (this.$route.query.id) {
+            if (this.$route.query.tid) {
                 this.loading = true;
                 this.$$api_task_detail({
                     data: this.$route.query,
@@ -334,6 +287,7 @@ export default {
             })
 
         },
+
         beforeAvatarUpload(file) { //图片上传前
             const isJPG = file.type === 'image/jpeg';
             const isPNG = file.type === 'image/png';
@@ -391,7 +345,7 @@ export default {
                     this.loading = false;
                     this.calculate = data
                     this.$message.success('恭喜您!提交成功!')
-                    this.status = false;
+                    this.status = true;
                 },
                 errFn: (err) => {
                     this.$message.error(err.info);

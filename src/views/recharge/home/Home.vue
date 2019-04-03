@@ -1,5 +1,6 @@
 <template>
   <div class="list">
+    <imgPop v-if="imgPopData.status" :data="imgPopData" @closeImg="closeImg"></imgPop>
     <div class="titleBox">账户充值</div>
     <div class="tip text-center">
       <p>
@@ -116,7 +117,9 @@
       <el-table-column prop="name" label="转出银行卡姓名" align="center" width="110"></el-table-column>
       <el-table-column prop="transfer_pic" label="转账截图url" align="center" width="auto">
         <template slot-scope="scrow">
-          <img :src="scrow.row.transfer_pic" alt height="40px">
+          <a @click="openImg(scrow.row.transfer_pic)">
+            <img :src="scrow.row.transfer_pic" alt height="40px">
+          </a>
         </template>
       </el-table-column>
       <el-table-column

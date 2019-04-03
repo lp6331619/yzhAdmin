@@ -1,11 +1,19 @@
+import imgPop from "cps/imgPop/imgPop.vue";
 export default {
     name: 'list',
     created: function () {
         this.getType()
         this.getList()
     },
+    components: {
+        'imgPop': imgPop
+    },
     data() {
         return {
+            imgPopData: {
+                url: '',
+                status: false
+            },
             loading: false,
             tableData: Array,
             pageShow: false,
@@ -78,6 +86,15 @@ export default {
         }
     },
     methods: {
+        openImg(url) {
+            this.imgPopData = {
+                url: url,
+                status: true
+            }
+        },
+        closeImg(status) {
+            this.imgPopData.status = status
+        },
         getType() {
             this.$$api_suggest_getSuggestTypes({
                 data: {},

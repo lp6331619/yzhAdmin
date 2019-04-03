@@ -31,7 +31,7 @@ export default {
             component: Content,
             children: [{
                 path: '',
-                name: '',
+                name: '任务列表',
                 component: Task.List,
             }, {
                 path: 'detail',
@@ -49,7 +49,7 @@ export default {
             component: Content,
             children: [{
                 path: 'list',
-                name: '',
+                name: '订单列表',
                 component: Order.List,
             }, {
                 path: 'detail',
@@ -63,7 +63,7 @@ export default {
             component: Content,
             children: [{
                 path: 'list',
-                name: '',
+                name: '资金记录',
                 component: FundRecord.List,
             }]
         }, {
@@ -97,7 +97,7 @@ export default {
             component: Content,
             children: [{
                 path: 'list',
-                name: '',
+                name: '申诉管理',
                 component: Appeal.List,
             }]
         }, {
@@ -107,7 +107,7 @@ export default {
             component: Content,
             children: [{
                 path: 'list',
-                name: '',
+                name: '邀请好友',
                 component: Invite.List,
             }]
         }, {
@@ -117,7 +117,7 @@ export default {
             component: Content,
             children: [{
                 path: 'list',
-                name: '',
+                name: '意见建议',
                 component: Suggest.List,
             }]
         },
@@ -139,7 +139,7 @@ export default {
             component: Content,
             children: [{
                 path: 'list',
-                name: '',
+                name: '价格明细',
                 component: PriceInfo.List,
             }]
         }, {

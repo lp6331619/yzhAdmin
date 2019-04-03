@@ -1,11 +1,19 @@
+import imgPop from "cps/imgPop/imgPop.vue";
 export default {
     name: 'list',
+    components: {
+        'imgPop': imgPop
+    },
     created: function () {
         this.getType()
         this.getList()
     },
     data() {
         return {
+            imgPopData: {
+                url: '',
+                status: false
+            },
             loading: false,
             tableData: Array,
             pageShow: false,
@@ -73,6 +81,15 @@ export default {
         }
     },
     methods: {
+        openImg(url) {
+            this.imgPopData = {
+                url: url,
+                status: true
+            }
+        },
+        closeImg(status) {
+            this.imgPopData.status = status
+        },
         getType() {
             this.$$api_order_getOrderStatus({ //获取状态
                 data: {},
@@ -144,11 +161,11 @@ export default {
         },
         created_atTime(item) {
             if (item.created_at != '0')
-                return new Date(parseInt(item.created_at) * 1000).toLocaleString().replace(/:\d{1,2}$/, ' ');
+                return this.timeDate(item.created_at)
         },
         complete_timeTime(item) {
             if (item.complete_time != '0')
-                return new Date(parseInt(item.complete_time) * 1000).toLocaleString().replace(/:\d{1,2}$/, ' ');
+                return this.timeDate(item.complete_time)
         },
         openPop(item, status) {
             this.dialogFormVisible = true

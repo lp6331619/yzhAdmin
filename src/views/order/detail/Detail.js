@@ -1,16 +1,33 @@
+import imgPop from "cps/imgPop/imgPop.vue";
 export default {
     name: 'list',
     created: function () {
         // this.getType()
         this.getList()
     },
+    components: {
+        'imgPop': imgPop
+    },
     data() {
         return {
+            imgPopData: {
+                url: '',
+                status: false
+            },
             loading: false,
             dataBox: {},
         }
     },
     methods: {
+        openImg(url) {
+            this.imgPopData = {
+                url: url,
+                status: true
+            }
+        },
+        closeImg(status) {
+            this.imgPopData.status = status
+        },
         getList() { //获取列表数据
             this.loading = true;
             this.$$api_order_detail({

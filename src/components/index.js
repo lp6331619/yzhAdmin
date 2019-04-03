@@ -1,8 +1,6 @@
-import ListData from './listData/';
-import ListTicket from './listTicket/';
-import Echarts from './echarts/';
+import ImgPop from './imgPop/';
+
 export {
-	ListData,
-  ListTicket,
-	Echarts
+	ImgPop,
+
 };

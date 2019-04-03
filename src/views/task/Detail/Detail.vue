@@ -1,5 +1,6 @@
 <template>
   <div class="list">
+    <imgPop v-if="imgPopData.status" :data="imgPopData" @closeImg="closeImg"></imgPop>
     <el-tabs v-model="selectData.status" @tab-click="handleClick">
       <el-tab-pane label="任务详情" name="100">
         <div class="p20">
@@ -19,7 +20,7 @@
           </div>
           <div class="detail">
             <div class="info">
-              <a :href="data.product_url" class="imgBox">
+              <a @click="openImg(data.product_pic1)" class="imgBox">
                 <img :src="data.product_pic1" alt>
               </a>
               <div class="title">
@@ -109,7 +110,13 @@
             >
               <el-table-column prop="remove_area_name" label="限制购买区域" align="center" width="auto"></el-table-column>
               <el-table-column prop="sex_name" label="性别" align="center" width="auto"></el-table-column>
-              <el-table-column prop="age_stage" label="年龄段限制说明" align="center" width="auto"></el-table-column>
+              <el-table-column
+                prop="age"
+                label="年龄段限制"
+                align="center"
+                width="auto"
+                :formatter="formatterAge"
+              ></el-table-column>
               <el-table-column prop="credit_level_name" label="信用等级" align="center" width="auto"></el-table-column>
               <el-table-column
                 prop="huabei"
@@ -149,43 +156,10 @@
         </div>
       </el-tab-pane>
       <el-tab-pane :label="item.name" :name="item.type" v-for="(item,index) in status" :key="index"></el-tab-pane>
-      <el-tab-pane label="全部订单这" name="0"></el-tab-pane>
     </el-tabs>
     <div class="p20" v-if="selectData.status!='100'">
       <el-form :inline="true" :model="selectData" class="demo-form-inline">
         <el-form-item>
-          <el-date-picker
-            v-model="date"
-            type="daterange"
-            align="right"
-            range-separator="至"
-            start-placeholder="开始日期"
-            end-placeholder="结束日期"
-            @change="setDate"
-            value-format="yyyy-MM-dd"
-            :picker-options="pickerOptions2"
-          ></el-date-picker>
-        </el-form-item>
-        <el-form-item>
-          <el-input v-model="selectData.sid" placeholder="店铺ID"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-input v-model="selectData.tid" placeholder="任务ID"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-input v-model="selectData.oid" placeholder="订单ID"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-input v-model="selectData.member_name" placeholder="接单账号"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-input v-model="selectData.order_no" placeholder="淘宝平台订单号"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-input v-model="selectData.money" placeholder="付款金额"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="warning" @click="onSelectData">查询</el-button>
           <el-button
             @click="openPop(multipleSelection,1)"
             type="primary"
@@ -209,7 +183,9 @@
         <el-table-column prop="tid" label="订单ID" align="center" width="auto"></el-table-column>
         <el-table-column prop="product_pic1" label="产品图片" align="center" width="110">
           <template slot-scope="scrow">
-            <img :src="scrow.row.product_pic1" style="height:100px;">
+            <a @click="openImg(scrow.row.product_pic1)" traget="_blank">
+              <img :src="scrow.row.product_pic1" style="height:100px;">
+            </a>
           </template>
         </el-table-column>
         <el-table-column prop="product_name" label="产品名称" align="center" width="300px">
@@ -217,7 +193,7 @@
             <a :href="scrow.row.product_url" target="_blank">{{scrow.row.product_name}}</a>
           </template>
         </el-table-column>
-        <el-table-column prop="member_name" label="接单账号" align="center" width="auto"></el-table-column>
+        <el-table-column prop="taobao_name" label="接单账号" align="center" width="auto"></el-table-column>
         <el-table-column prop="product_buy_price" label="付款金额" align="center" width="auto"></el-table-column>
         <el-table-column prop="order_no" label="淘宝订单号" align="center" width="80"></el-table-column>
         <el-table-column

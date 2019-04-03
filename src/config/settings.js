@@ -9,7 +9,6 @@ if (window.location.host.indexOf('userbeta.') != -1) {
 	url = '/AdminApi'
 }
 
-console.log(Vue.prototype, 123123)
 var gbs = {
 	// host: 'http://admin-api.quitang.com',
 	host: url, //接口根地址。本地代理到slsadmin.api.sls.com,线上使用的是Nginx代理

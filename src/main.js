@@ -28,8 +28,8 @@ Vue.use(vueEventCalendar, {
     locale: 'cn'
 })
 // //插件封装
-// import common from './assets/js/common'
-// Vue.use(common);
+import common from './assets/js/common'
+Vue.use(common);
 
 //插件
 import VueClipboard from 'vue-clipboard2'
@@ -54,7 +54,7 @@ new Vue({
 })
 //路由钩子之前
 router.beforeEach((to, from, next) => {
-    document.title = to.name;
+    document.title = `柚子汇-${to.name}`;
     next()
     // if (typeof (store.state.user.userinfo.token) == 'string') {} else {
     //     // next('/login')

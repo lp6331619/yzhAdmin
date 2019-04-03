@@ -4,12 +4,18 @@
 export default {
     name: 'login',
     created() {
-        // if (this.$store.state.user.userinfo.status) {
-        //     this.$router.push('/product/travel/list1'); //登录状态
+        // console.log(this.$store.state.user.userinfo, 123)
+        // if (this.$store.state.user.userinfo && this.$store.state.user.userinfo.token == 'undefined') {
+        //     this.$router.push('/home'); //登录状态
         // }
         this.codeBox(1)
         if (this.$route.query && this.$route.query.id) {
             this.onLoginOne()
+        } else if (this.$route.query && this.$route.query.invite_code) {
+            this.codeBox(2)
+            this.status = 2
+            this.registerData.invite_no = this.$route.query.invite_code
+            this.invite_noStatus = false
         }
     },
     data() {
@@ -17,6 +23,7 @@ export default {
             backgroundImage: { //背景图片
                 backgroundImage: "url(" + require("../../assets/images/loginBg.jpg") + ")",
             },
+            invite_noStatus: true,
             loading: false,
             status: 1,
             code: '',
@@ -93,7 +100,6 @@ export default {
                     type = 'resetPasswd'
                     break;
             }
-            console.log(this.url, 123)
             this.code = `${this.url}/Public/verify?type=${type}&code_key=${math}`
         },
         onLogin(ref, type) {
@@ -133,7 +139,6 @@ export default {
                     this.$message.error(err.info);
                     this.codeBox(1)
                 },
-                tokenFlag: true
             });
         },
         // 短信验证码

@@ -22,6 +22,15 @@ export default {
     HeadNav,
     LeftMenu,
     Bread
+  },
+  created: function() {},
+  data() {
+    return {};
+  },
+  methods: {
+    closeImg(status) {
+      // this.imgPopData.status = status;
+    }
   }
 };
 </script>

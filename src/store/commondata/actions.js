@@ -5,26 +5,14 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 export default {
-	get_categorys: ({
+	get_imgPopData: ({
 		commit
 	}, {
-		categorys
+		imgPopData
 	}) => {
 		return new Promise((resolve, reject) => {
-			commit(types.SET_LANG, {
-				categorys
-			});
-			resolve()
-		});
-	},
-	get_countrys: ({
-		commit
-	}, {
-		countrys
-	}) => {
-		return new Promise((resolve, reject) => {
-			commit(types.SET_CATEGORY, {
-				countrys
+			commit(types.SET_IMGPOP, {
+				imgPopData
 			});
 			resolve()
 		});

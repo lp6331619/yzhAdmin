@@ -1,5 +1,6 @@
 <template>
   <div class="list">
+    <imgPop v-if="imgPopData.status" :data="imgPopData" @closeImg="closeImg"></imgPop>
     <div class="titleBox">订单列表</div>
     <div class="p20">
       <el-form :inline="true" :model="selectData" class="demo-form-inline">
@@ -75,13 +76,17 @@
         </el-table-column>
         <el-table-column prop="product_pic1" label="产品图片" align="center" width="110">
           <template slot-scope="scrow">
-            <img :src="scrow.row.product_pic1" style="height:100px;">
+            <a @click="openImg(scrow.row.product_pic1)">
+              <img :src="scrow.row.product_pic1" style="height:100px;">
+            </a>
           </template>
         </el-table-column>
         <el-table-column prop="product_buy_num" label="购买数量" align="center" width="80"></el-table-column>
         <el-table-column prop="target_pic" label="淘宝目标图片" align="center" width="110">
           <template slot-scope="scrow">
-            <img :src="scrow.row.target_pic" style="height:100px;">
+            <a @click="openImg(scrow.row.target_pic)">
+              <img :src="scrow.row.target_pic" style="height:100px;">
+            </a>
           </template>
         </el-table-column>
         <el-table-column

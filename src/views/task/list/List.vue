@@ -2,6 +2,7 @@
   <div class="list">
     <div class="titleBox">
       任务列表
+      <imgPop v-if="imgPopData.status" :data="imgPopData" @closeImg="closeImg"></imgPop>
       <el-button class="ml20" type="warning" @click="$router.push(`/home/edit`)" size="mini">+发布任务</el-button>
     </div>
     <div class="p20">
@@ -64,50 +65,52 @@
                 任务名称:{{item.title}}
               </li>
               <li>任务ID:{{item.id}}</li>
-              <li>创建时间:{{item.created_at}}</li>
+              <li>创建时间:{{timeDate(item.created_at)}}</li>
               <li>
                 任务状态:
                 <span class="red">{{item.status_name}}</span>
               </li>
             </div>
             <div class="bottom">
-              <a :href="item.product_url" class="imgBox">
+              <a @click="openImg(item.product_pic1)" class="imgBox">
                 <img :src="item.product_pic1" alt>
               </a>
-              <div class="name">{{item.product_name}}</div>
+              <div class="name">
+                <a :href="item.product_url" target="_blank" rel="noreferrer">{{item.product_name}}</a>
+              </div>
               <div class="num">
-                <span>
+                <a @click="$router.push(`/home/detail?tid=${item.id}&status=0`)">
                   {{item.total_num}}
                   <br>总单数
-                </span>
-                <span>
+                </a>
+                <a @click="$router.push(`/home/detail?tid=${item.id}&status=1`)">
                   {{item.wait_opera_num}}
                   <br>待操作
-                </span>
-                <span>
+                </a>
+                <a @click="$router.push(`/home/detail?tid=${item.id}&status=2`)">
                   {{item.wait_verify_num}}
                   <br>待审核
-                </span>
-                <span>
+                </a>
+                <a @click="$router.push(`/home/detail?tid=${item.id}&status=6`)">
                   {{item.complete_num}}
                   <br>已完成
-                </span>
-                <span>
+                </a>
+                <a @click="$router.push(`/home/detail?tid=${item.id}&status=7`)">
                   {{item.appeal_num}}
                   <br>申诉中
-                </span>
-                <span>
+                </a>
+                <a @click="$router.push(`/home/detail?tid=${item.id}&status=9`)">
                   {{item.cancel_num}}
                   <br>已取消
-                </span>
-                <span>
+                </a>
+                <a>
                   {{item.wait_num}}
                   <br>未接单
-                </span>
+                </a>
               </div>
               <div class="buttonBox">
                 <el-button type="warning" @click="$router.push(`/home/detail?tid=${item.id}`)">查看详情</el-button>
-                <el-button @click="$router.push(`/home/edit?id=${item.id}`)">重新发布</el-button>
+                <el-button @click="$router.push(`/home/edit?tid=${item.id}`)">重新发布</el-button>
               </div>
             </div>
           </div>
@@ -150,6 +153,9 @@ export default ListJs;
     li {
       flex: 1;
       font-size: 14px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
       svg {
         width: 30px;
         height: 30px;
@@ -187,7 +193,7 @@ export default ListJs;
     .num {
       margin-top: 10px;
       font-size: 14px;
-      span {
+      a {
         display: inline-block;
         text-align: center;
         margin-top: 15px;

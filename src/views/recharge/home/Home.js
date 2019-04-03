@@ -1,3 +1,4 @@
+import imgPop from "cps/imgPop/imgPop.vue";
 export default {
     name: 'list',
     created: function () {
@@ -5,8 +6,15 @@ export default {
         this.getBank()
         // console.log(this.$store.state.user)
     },
+    components: {
+        'imgPop': imgPop
+    },
     data() {
         return {
+            imgPopData: {
+                url: '',
+                status: false
+            },
             loading: false,
             tableData: Array,
             pageShow: false,
@@ -53,6 +61,15 @@ export default {
         }
     },
     methods: {
+        openImg(url) {
+            this.imgPopData = {
+                url: url,
+                status: true
+            }
+        },
+        closeImg(status) {
+            this.imgPopData.status = status
+        },
         getBank() { //获得平台账号信息
             this.loading = true;
             this.$$api_recharge_getSiteBankInfo({
@@ -267,7 +284,7 @@ export default {
                     fn: data => {
                         this.$message({
                             type: 'success',
-                            message: '修改成功！你的接单间隔是: ' + value
+                            message: '店铺接单间隔设置成功!'
                         });
                         this.getMoney()
                     },

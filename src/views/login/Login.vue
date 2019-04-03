@@ -106,6 +106,9 @@
               <div class="el-form-item__error">{{registerRule.phone_code}}</div>
             </el-form-item>
             <el-form-item v-if="registStaus" class="formRow">
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-yanzhengma"></use>
+              </svg>
               <el-input
                 type="password"
                 class="form-control"
@@ -115,6 +118,9 @@
               <div class="el-form-item__error">{{registerRule.password}}</div>
             </el-form-item>
             <el-form-item v-if="registStaus" class="formRow">
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-yanzhengma"></use>
+              </svg>
               <el-input
                 type="password"
                 class="form-control"
@@ -123,10 +129,16 @@
               ></el-input>
               <div class="el-form-item__error">{{registerRule.password_check}}</div>
             </el-form-item>
-            <el-form-item v-if="registStaus" class="formRow">
+            <el-form-item v-if="registStaus && invite_noStatus" class="formRow">
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-yaoqingma"></use>
+              </svg>
               <el-input class="form-control" placeholder="邀请码" v-model="registerData.invite_no"></el-input>
             </el-form-item>
             <el-form-item v-if="registStaus" class="formRow">
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-qq1"></use>
+              </svg>
               <el-input class="form-control" placeholder="QQ" v-model="registerData.qq"></el-input>
             </el-form-item>
             <el-form-item class="btnWrap">

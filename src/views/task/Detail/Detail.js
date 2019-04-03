@@ -1,3 +1,4 @@
+import imgPop from "cps/imgPop/imgPop.vue";
 export default {
     name: 'list',
     created: function () {
@@ -8,9 +9,16 @@ export default {
             this.getList()
         }
     },
+    components: {
+        'imgPop': imgPop
+    },
     data() {
         return {
             loading: false,
+            imgPopData: {
+                url: '',
+                status: false
+            },
             data: {
                 task_service: {},
                 search: [],
@@ -87,6 +95,15 @@ export default {
         }
     },
     methods: {
+        openImg(url) {
+            this.imgPopData = {
+                url: url,
+                status: true
+            }
+        },
+        closeImg(status) {
+            this.imgPopData.status = status
+        },
         getType() {
             this.$$api_task_getExpressTypes({
                 data: {},
@@ -121,7 +138,7 @@ export default {
                     this.loading = false;
                 },
             });
-            this.$$api_task_getTaskStatus({
+            this.$$api_order_getOrderStatus({
                 data: {},
                 fn: data => {
                     this.loading = false;
@@ -242,6 +259,17 @@ export default {
             })
             this.getList()
         },
+        formatterAge(item) {
+            if (item.age.length > 0) {
+                let arr = item.age.split(',')
+                let t = ''
+                console.log(arr)
+                arr.forEach((light) => {
+                    t += item.age_stage[light] + ','
+                })
+                return t
+            }
+        },
         onSelectData() { //搜索
             this.selectData.p = 1;
             this.$router.push({
@@ -266,7 +294,7 @@ export default {
         },
         onExport() { //导出表格
             let token = this.$store.state.user.userinfo.token
-            window.open(`${this.url}/Order/getOrderList?token=${token}&status=${this.selectData.status}&export=1&start_time=${this.selectData.start_time}&end_time=${this.selectData.end_time}&tid=${this.selectData.tid}&oid=${this.selectData.oid}&member_name=${this.selectData.member_name}&order_no=${this.selectData.order_no}&money=${this.selectData.money}&export=1`);
+            window.open(`${this.url}/Order/getOrderList?token=${token}&status=${this.selectData.status}&export=1&tid=${this.selectData.tid}`);
         },
         created_atTime(item) {
             if (item.created_at != '0') {
