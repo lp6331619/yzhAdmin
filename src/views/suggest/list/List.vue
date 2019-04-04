@@ -8,7 +8,7 @@
     <div class="p20">
       <el-form :inline="true" :model="selectData" class="demo-form-inline">
         <el-form-item>
-          <el-select v-model="selectData.type" placeholder="申诉类型">
+          <el-select v-model="selectData.type" placeholder="意见类型">
             <el-option v-for="item in type" :key="item.type" :label="item.name" :value="item.type"></el-option>
           </el-select>
         </el-form-item>
@@ -86,8 +86,8 @@
         ></el-pagination>
       </div>
     </div>
-    <!-- 添加申诉 -->
-    <el-dialog title="添加申诉" :visible.sync="addAppeal" width="500px">
+    <!-- 添加意见 -->
+    <el-dialog title="添加意见" :visible.sync="addAppeal" width="500px">
       <el-form
         :model="addAppealForm"
         v-loading="loading"
@@ -96,18 +96,18 @@
         ref="addAppealForm"
         label-width="80px"
       >
-        <el-form-item label="申诉类型" prop="type">
-          <el-select v-model="addAppealForm.type" placeholder="申诉种类">
+        <el-form-item label="意见类型" prop="type">
+          <el-select v-model="addAppealForm.type" placeholder="意见种类">
             <el-option v-for="item in type" :key="item.type" :label="item.name" :value="item.type"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="申诉内容" prop="content">
+        <el-form-item label="意见内容" prop="content">
           <el-input v-model="addAppealForm.content"></el-input>
         </el-form-item>
         <el-form-item label="联系方式" prop="phone">
           <el-input v-model="addAppealForm.phone"></el-input>
         </el-form-item>
-        <el-form-item label="申诉截图" prop="pic">
+        <el-form-item label="意见截图" prop="pic">
           <el-upload
             class="avatar-uploader"
             :action="`${url}/Public/upload_img`"

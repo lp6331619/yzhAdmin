@@ -1,9 +1,8 @@
 export default {
     name: 'list',
     created: function () {
-        // this.getType()
-        // this.getList()
         this.asyncData()
+        this.DateToday()
     },
     data() {
         return {
@@ -15,6 +14,7 @@ export default {
                     keyword: '',
                     num: '',
                 }],
+                release_date: '',
                 age: [],
                 delay_accept: '0',
                 is_time_out_cancel: '2'
@@ -120,9 +120,11 @@ export default {
                     message: '不能为空！',
                     trigger: 'blur'
                 }],
-
-
-
+                release_date: [{
+                    required: true,
+                    message: '不能为空！',
+                    trigger: 'blur'
+                }],
                 reward_money: [{
                     required: true,
                     message: '不能为空！',
@@ -263,7 +265,7 @@ export default {
                             is_time_out_cancel: this.form.is_time_out_cancel == '0' ? '2' : this.form.is_time_out_cancel
 
                         })
-                        console.log(this.form.release_start_time)
+                        this.DateToday()
                     },
                     errFn: (err) => {
                         this.$message.error(err.info);
@@ -352,6 +354,27 @@ export default {
                     this.loading = false;
                 },
             });
+        },
+        getNowFormatDate() {
+            var date = new Date();
+            var seperator1 = "-";
+            var year = date.getFullYear();
+            var month = date.getMonth() + 1;
+            var strDate = date.getDate();
+            if (month >= 1 && month <= 9) {
+                month = "0" + month;
+            }
+            if (strDate >= 0 && strDate <= 9) {
+                strDate = "0" + strDate;
+            }
+            var currentdate = year + seperator1 + month + seperator1 + strDate;
+            return currentdate;
+        },
+        DateToday() {
+            let time = this.getNowFormatDate()
+            this.form = Object.assign({}, this.form, {
+                release_date: time
+            })
         },
     },
 }

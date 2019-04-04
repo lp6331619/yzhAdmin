@@ -280,6 +280,9 @@ a:hover {
 .mt0 {
   margin-top: 0 !important;
 }
+.el-dialog__header {
+  background: #fdf5f2;
+}
 .imgBoxPop {
   background: rgba(0, 0, 0, 0.8);
   position: fixed;

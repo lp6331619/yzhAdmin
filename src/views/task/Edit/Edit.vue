@@ -151,8 +151,17 @@
               <small>(填0表示不加赏，加赏金额越高，越优先展示给用户)</small>
             </el-form-item>
           </el-col>
-
-          <el-col class="clear" :span="8" v-if="form.release_type == '2'">
+          <el-col class="clear" :span="8">
+            <el-form-item label="发布日期" prop="release_date">
+              <el-date-picker
+                v-model="form.release_date"
+                type="date"
+                placeholder="选择日期"
+                value-format="yyyy-MM-dd"
+              ></el-date-picker>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8" v-if="form.release_type == '2'">
             <el-form-item label="发布时间" prop="release_start_time">
               <el-select v-model="form.release_start_time" placeholder="请选择">
                 <el-option
@@ -307,7 +316,7 @@
     </div>
     <el-dialog title="确认任务" :visible.sync="status" center :lock-scroll="false">
       <div class="tableBox">
-        <table class align="center">
+        <table class align="center" cellpadding="0" cellspacing="0">
           <tr>
             <th></th>
             <th>项目</th>
@@ -315,59 +324,59 @@
             <th>小计</th>
           </tr>
           <tr>
-            <td rowspan="3">本金</td>
+            <td class="b3" rowspan="3">本金</td>
             <td>项目本金</td>
-            <td>{{calculate.price*calculate.product_num}}</td>
+            <td class="b3">{{calculate.price*calculate.product_num}}</td>
             <td rowspan="3">{{calculate.unit_capital_cost}}</td>
           </tr>
           <tr>
             <td>返款手续费</td>
-            <td>{{calculate.serve}}</td>
+            <td class="b3">{{calculate.serve}}</td>
           </tr>
           <tr>
             <td>快递费用</td>
-            <td>{{calculate.express}}</td>
+            <td class="b3">{{calculate.express}}</td>
           </tr>
           <tr>
-            <td rowspan="8">佣金</td>
+            <td rowspan="8" class="b3">佣金</td>
             <td>佣金费用</td>
-            <td>{{calculate.cur_commision}}</td>
+            <td class="b3">{{calculate.cur_commision}}</td>
             <td rowspan="8">{{calculate.unit_commision_cost}}</td>
           </tr>
           <tr>
             <td>加赏费用</td>
-            <td>{{calculate.reward}}</td>
+            <td class="b3">{{calculate.reward}}</td>
           </tr>
           <tr>
             <td>地区限制</td>
-            <td>{{calculate.limit_area}}</td>
+            <td class="b3">{{calculate.limit_area}}</td>
           </tr>
           <tr>
             <td>年龄限制</td>
-            <td>{{calculate.limit_age}}</td>
+            <td class="b3">{{calculate.limit_age}}</td>
           </tr>
           <tr>
             <td>性别限制</td>
-            <td>{{calculate.limit_sex}}</td>
+            <td class="b3">{{calculate.limit_sex}}</td>
           </tr>
           <tr>
             <td>信用等级限制</td>
-            <td>{{calculate.limit_credit}}</td>
+            <td class="b3">{{calculate.limit_credit}}</td>
           </tr>
           <tr>
             <td>花呗号</td>
-            <td>{{calculate.huabei}}</td>
+            <td class="b3">{{calculate.huabei}}</td>
           </tr>
           <tr>
             <td>高优质买号</td>
-            <td>{{calculate.grade_buyer}}</td>
+            <td class="b3">{{calculate.grade_buyer}}</td>
           </tr>
           <tr>
-            <td colspan="3">每单总价</td>
+            <td class="b3" colspan="3">每单总价</td>
             <td class="red">{{calculate.unit_cost}}</td>
           </tr>
           <tr>
-            <td solspan="4">
+            <td colspan="4">
               单数：
               <span class="red">{{calculate.num}}</span>
               总本金：
@@ -408,6 +417,7 @@ export default EditJs;
     line-height: 18px;
   }
 }
+
 .button {
   text-align: center;
   margin-top: 40px;
@@ -439,6 +449,11 @@ export default EditJs;
     width: 100%;
 
     color: #666;
+    th,
+    .b3 {
+      background: #f4f7fe;
+    }
+
     td,
     th {
       border: 1px solid #eee;
