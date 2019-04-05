@@ -51,18 +51,33 @@
           </el-col>
           <el-col class="clear" :span="5">
             <el-form-item label="商品搜索价" prop="product_search_price">
-              <el-input type="number" v-model="form.product_search_price" placeholder="商品搜索价"></el-input>
+              <el-input
+                type="number"
+                style="min-width:100px"
+                v-model="form.product_search_price"
+                placeholder="搜索价"
+              ></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="5">
             <el-form-item label="商品成交价" prop="product_buy_price">
-              <el-input type="number" v-model="form.product_buy_price" placeholder="商品成交价"></el-input>
+              <el-input
+                style="min-width:100px"
+                type="number"
+                v-model="form.product_buy_price"
+                placeholder="成交价"
+              ></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="5">
             <el-form-item label="每单拍" prop="product_buy_num">
-              <el-input type="number" v-model="form.product_buy_num" placeholder="下单商品数量"></el-input>
+              <el-input
+                type="number"
+                style="min-width:100px"
+                v-model="form.product_buy_num"
+                placeholder="每单拍"
+              ></el-input>
             </el-form-item>
           </el-col>
           <el-col class="clear" :span="8">
@@ -126,7 +141,7 @@
           </div>
           <el-col class="clear" :span="8">
             <el-form-item label="发布规则" prop="release_type">
-              <el-radio-group v-model="form.release_type">
+              <el-radio-group v-model="form.release_type" style="min-width:190px">
                 <el-radio label="1">急速发布</el-radio>
                 <el-radio label="2">平均发布</el-radio>
               </el-radio-group>
