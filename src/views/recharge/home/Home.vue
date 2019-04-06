@@ -5,9 +5,9 @@
     <div class="tip text-center">
       <p>
         本金余额（元）:
-        <strong class="f20 mr20">{{balance_money_com}}</strong>
+        <strong class="f20 mr20">{{balance_capital_money}}</strong>
         佣金余额（元）:
-        <strong class="f20">{{balance_commision_money_com}}</strong>
+        <strong class="f20">{{balance_commision_money}}</strong>
       </p>
     </div>
     <div class="box clearfix">

@@ -119,6 +119,13 @@
               ></el-table-column>
               <el-table-column prop="credit_level_name" label="信用等级" align="center" width="auto"></el-table-column>
               <el-table-column
+                prop="phone_type"
+                label="手机机型限制"
+                align="center"
+                :formatter="formatPhone_type"
+                width="auto"
+              ></el-table-column>
+              <el-table-column
                 prop="huabei"
                 label="花呗下单"
                 align="center"
@@ -180,7 +187,7 @@
         @selection-change="handleSelectionChange"
       >
         <el-table-column fixed type="selection" width="55" align="center"></el-table-column>
-        <el-table-column prop="tid" label="订单ID" align="center" width="auto"></el-table-column>
+        <el-table-column prop="id" label="订单ID" align="center" width="auto"></el-table-column>
         <el-table-column prop="product_pic1" label="产品图片" align="center" width="110">
           <template slot-scope="scrow">
             <a @click="openImg(scrow.row.product_pic1)" traget="_blank">

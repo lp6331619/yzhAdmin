@@ -305,6 +305,16 @@
               <small class="red ml20">({{getCostPrice.credit_zuanshi}} 金 /单)</small>
             </el-form-item>
           </el-col>
+          <el-col :span="12" class="clear">
+            <el-form-item label="手机机型限制" prop="phone_type">
+              <el-radio-group v-model="form.phone_type">
+                <el-radio label="0">不限</el-radio>
+                <el-radio label="1">Android</el-radio>
+                <el-radio label="2">ios</el-radio>
+              </el-radio-group>
+              <small class="red ml20">({{getCostPrice.phone_type}} 金 /单)</small>
+            </el-form-item>
+          </el-col>
           <el-col :span="12">
             <el-form-item label="花呗号下单" prop="huabei">
               <el-radio-group v-model="form.huabei">
@@ -314,6 +324,7 @@
               <small class="red ml20">({{getCostPrice.huabei}} 金 /单)</small>
             </el-form-item>
           </el-col>
+
           <el-col :span="12">
             <el-form-item label="高优质买号" prop="grade_buyer">
               <el-radio-group v-model="form.grade_buyer">
@@ -353,10 +364,10 @@
             <td class="b3">{{calculate.express}}</td>
           </tr>
           <tr>
-            <td rowspan="8" class="b3">佣金</td>
+            <td rowspan="10" class="b3">佣金</td>
             <td>佣金费用</td>
             <td class="b3">{{calculate.cur_commision}}</td>
-            <td rowspan="8">{{calculate.unit_commision_cost}}</td>
+            <td rowspan="10">{{calculate.unit_commision_cost}}</td>
           </tr>
           <tr>
             <td>加赏费用</td>
@@ -387,8 +398,12 @@
             <td class="b3">{{calculate.grade_buyer}}</td>
           </tr>
           <tr>
-            <td class="b3" colspan="3">每单总价</td>
-            <td class="red">{{calculate.unit_cost}}</td>
+            <td>高优质买号</td>
+            <td class="b3">{{calculate.grade_buyer}}</td>
+          </tr>
+          <tr>
+            <td>手机机型限制</td>
+            <td class="b3">{{calculate.phone_type}}</td>
           </tr>
           <tr>
             <td colspan="4">

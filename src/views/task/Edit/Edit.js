@@ -17,7 +17,14 @@ export default {
                 release_date: '',
                 age: [],
                 delay_accept: '0',
-                is_time_out_cancel: '2'
+                is_time_out_cancel: '2',
+                release_type: '1',
+                sex: '0',
+                age: ['0'],
+                credit_level: '0',
+                huabei: '0',
+                grade_buyer: '0',
+                phone_type: '0'
             },
             status: false,
             shopBox: [], //商家
@@ -125,11 +132,7 @@ export default {
                     message: '不能为空！',
                     trigger: 'blur'
                 }],
-                reward_money: [{
-                    required: true,
-                    message: '不能为空！',
-                    trigger: 'blur'
-                }],
+
                 release_type: [{
                     required: true,
                     message: '不能为空！',

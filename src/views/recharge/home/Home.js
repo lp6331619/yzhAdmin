@@ -304,10 +304,10 @@ export default {
         }
     },
     computed: {
-        balance_money_com() {
-            return this.$store.state.user.remumber.balance_money
+        balance_capital_money() {
+            return this.$store.state.user.remumber.balance_capital_money
         },
-        balance_commision_money_com() {
+        balance_commision_money() {
             return this.$store.state.user.remumber.balance_commision_money
         }
     }

@@ -67,6 +67,7 @@
         @selection-change="handleSelectionChange"
       >
         <el-table-column fixed type="selection" width="55" align="center"></el-table-column>
+        <el-table-column prop="id" label="订单ID" align="center" width="auto"></el-table-column>
         <el-table-column prop="shop_name" label="店铺名称" align="center" width="auto"></el-table-column>
         <el-table-column prop="product_buy_price" label="付款金额" align="center" width="auto"></el-table-column>
         <el-table-column prop="product_name" label="产品名称" align="center" width="300px">
@@ -82,13 +83,7 @@
           </template>
         </el-table-column>
         <el-table-column prop="product_buy_num" label="购买数量" align="center" width="80"></el-table-column>
-        <el-table-column prop="target_pic" label="淘宝目标图片" align="center" width="110">
-          <template slot-scope="scrow">
-            <a @click="openImg(scrow.row.target_pic)">
-              <img :src="scrow.row.target_pic" style="height:100px;">
-            </a>
-          </template>
-        </el-table-column>
+        <el-table-column prop="order_no" label="平台订单号" align="center" width="auto"></el-table-column>
         <el-table-column
           prop="created_at"
           label="接单时间"

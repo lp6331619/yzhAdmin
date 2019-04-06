@@ -12,13 +12,13 @@
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-yongjin1"></use>
           </svg>本金余额:
-          <strong class="green">{{balance_money_com}}</strong>
+          <strong class="green">{{balance_capital_money}}</strong>
         </div>
         <div class="item">
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-yongjin"></use>
           </svg>佣金余额:
-          <strong class="yello">{{balance_commision_money_com}}</strong>
+          <strong class="yello">{{balance_commision_money}}</strong>
         </div>
       </div>
     </div>

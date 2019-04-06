@@ -54,7 +54,7 @@ export default {
             } else {
                 this.$router.push('/404');
             }
-        },//获取钱
+        }, //获取钱
         getMoney() {
             this.$$api_customer_accountInfo({
                 data: {},
@@ -64,8 +64,7 @@ export default {
                     console.log(this.money)
                     this.$store.dispatch('update_remumber', {
                         remumber: this.money,
-                    }).then(() => {
-                    });
+                    }).then(() => {});
                 },
                 errFn: (err) => {
                     this.$message.error(err.info);
@@ -79,10 +78,10 @@ export default {
 
     },
     computed: {
-        balance_money_com() {
-            return this.$store.state.user.remumber.balance_money
+        balance_capital_money() {
+            return this.$store.state.user.remumber.balance_capital_money
         },
-        balance_commision_money_com() {
+        balance_commision_money() {
             return this.$store.state.user.remumber.balance_commision_money
         }
     },

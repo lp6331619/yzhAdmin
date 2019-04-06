@@ -224,7 +224,7 @@ export default {
                 });
             }).catch(() => {});
         },
-        formatHuabei(item, item2) {
+        formatHuabei(item) {
             let text = ''
             switch (parseInt(item.huabei)) {
                 case 1:
@@ -236,6 +236,21 @@ export default {
             }
             return text
 
+        },
+        formatPhone_type(item) {
+            let text = ''
+            switch (parseInt(item.phone_type)) {
+                case 0:
+                    text = '不限'
+                    break;
+                case 1:
+                    text = 'Android'
+                    break;
+                case 2:
+                    text = 'Ios'
+                    break;
+            }
+            return text
         },
         formatGrade(item, item2) {
             let text = ''
