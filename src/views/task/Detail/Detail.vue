@@ -31,7 +31,7 @@
               </div>
               <div class="name">
                 {{data.product_name}}
-                <small>12312</small>
+                <small>快递方式:{{data.express_type_name}}</small>
               </div>
               <p class="bottom">
                 <span class="mr20">
@@ -200,7 +200,8 @@
             <a :href="scrow.row.product_url" target="_blank">{{scrow.row.product_name}}</a>
           </template>
         </el-table-column>
-        <el-table-column prop="taobao_name" label="接单账号" align="center" width="auto"></el-table-column>
+        <el-table-column prop="taobao_name" label="接单账号名称" align="center" width="auto"></el-table-column>
+        <el-table-column prop="member_name" label="接单账号" align="center" width="auto"></el-table-column>
         <el-table-column prop="product_buy_price" label="付款金额" align="center" width="auto"></el-table-column>
         <el-table-column prop="order_no" label="淘宝订单号" align="center" width="80"></el-table-column>
         <el-table-column
@@ -208,7 +209,7 @@
           label="接单时间"
           :formatter="created_atTime"
           align="center"
-          width="auto"
+          width="100"
         ></el-table-column>
         <el-table-column prop="cancel_content" label="不通过原因" align="center" width="auto"></el-table-column>
         <el-table-column prop="status_name" label="状态" align="center" width="80"></el-table-column>

@@ -313,12 +313,12 @@ export default {
         },
         created_atTime(item) {
             if (item.created_at != '0') {
-                return new Date(parseInt(item.created_at) * 1000).toLocaleString().replace(/:\d{1,2}$/, ' ');
+                return this.timeDate(item.created_at)
             }
         },
         complete_timeTime(item) {
             if (item.complete_time != '0')
-                return new Date(parseInt(item.complete_time) * 1000).toLocaleString().replace(/:\d{1,2}$/, ' ');
+                return this.timeDate(item.complete_time)
         },
         openPop(item, status) {
             this.dialogFormVisible = true
