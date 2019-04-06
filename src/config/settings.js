@@ -30,6 +30,13 @@ var gbs = {
 				});
 			});
 		},
+		'-101': function (res) {
+			this.$message({
+				message: res.info,
+				type: 'error'
+			});
+			this.$router.push('/recharge/home')
+		},
 	}
 };
 
