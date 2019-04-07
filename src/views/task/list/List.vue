@@ -108,6 +108,10 @@
                   <br>未接单
                 </a>
               </div>
+              <div class="timeBox">
+                开始时间:{{item.push_start_time}}
+                <span class="ml20">结束时间:{{item.push_end_time}}</span>
+              </div>
               <div class="buttonBox">
                 <el-button type="warning" @click="$router.push(`/home/detail?tid=${item.id}`)">查看详情</el-button>
                 <el-button @click="$router.push(`/home/edit?tid=${item.id}`)">重新发布</el-button>
@@ -190,13 +194,19 @@ export default ListJs;
       font-size: 16px;
       font-weight: bold;
     }
+    .timeBox {
+      font-size: 12px;
+      color: #999;
+      .ml20 {
+        margin-left: 50px;
+      }
+    }
     .num {
       margin-top: 10px;
       font-size: 14px;
       a {
         display: inline-block;
         text-align: center;
-        margin-top: 15px;
         line-height: 30px;
         padding: 0 20px;
         border-right: 1px solid #eee;

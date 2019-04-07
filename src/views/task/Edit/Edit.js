@@ -249,11 +249,13 @@ export default {
                     fn: data => {
                         this.loading = false;
                         this.form = data
-                        let arr = this.form.task_service.remove_area.split(',');
                         let remove_area = []
-                        arr.forEach((item) => {
-                            remove_area.push(parseInt(item))
-                        })
+                        if (this.form.task_service.remove_area.typeof == 'string') {
+                            let arr = this.form.task_service.remove_area.split(',');
+                            arr.forEach((item) => {
+                                remove_area.push(parseInt(item))
+                            })
+                        }
                         this.form = Object.assign({}, this.form, {
                             date: [this.form.release_start_time, this.form.release_end_time],
                             url2: this.form.product_pic1,

@@ -2,9 +2,9 @@
   <div class="edit">
     <h1 class="backTitle">
       {{data.title}}
-      <p>发布时间：{{data.created_at}}</p>
+      <p>发布时间：{{timeDate(data.created_at)}}</p>
     </h1>
-    <div class="text">{{data.content}}</div>
+    <div class="text" v-html="data.content"></div>
   </div>
 </template>
 
@@ -17,7 +17,10 @@ export default {
   data() {
     return {
       loading: false,
-      data: {}
+      data: {
+        created_at: "0",
+        content: ""
+      }
     };
   },
   methods: {
@@ -53,6 +56,9 @@ export default {
   }
   .text {
     padding: 30px;
+    img {
+      max-width: 100%;
+    }
   }
 }
 </style>

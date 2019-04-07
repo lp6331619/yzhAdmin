@@ -210,7 +210,9 @@ export default {
             }).then(() => {
                 this.loading = true;
                 this.$$api_task_cancelTask({
-                    data: this.$route.query,
+                    data: {
+                        id: this.data.id
+                    },
                     fn: data => {
                         this.loading = false;
                         this.$message.success('撤销成功!')
