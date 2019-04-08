@@ -31,7 +31,7 @@
               <el-select v-model="form.sid" placeholder="请选择">
                 <el-option
                   v-for="(item,index) in shopBox"
-                  :key="item.type"
+                  :key="index"
                   :label="item.name"
                   :value="item.type"
                 ></el-option>
@@ -93,17 +93,17 @@
           <div class="tip mt0 clear">
             <p>搜索路径</p>
           </div>
-          <el-col :span="16">
+          <el-col :span="24">
             <el-row :gutter="20" style="padding-left:140px">
-              <el-col :span="8">关键词</el-col>
+              <el-col :span="12">关键词</el-col>
               <el-col :span="6">单数</el-col>
-              <el-col :span="10">
+              <el-col :span="6">
                 <el-button type="primary" class="ml20" size="mini" plain @click="addSearch()">+增加</el-button>
                 <small>最多10条</small>
               </el-col>
               <div class="mt20">&nbsp;</div>
               <div class="clearfix" v-for="(item, index) in form.search" :key="index">
-                <el-col :span="8">
+                <el-col :span="12">
                   <el-form-item
                     label-width="0"
                     :prop="'search.' + index + '.keyword'"
@@ -152,7 +152,7 @@
               <el-select v-model="form.express_type" placeholder="请选择">
                 <el-option
                   v-for="(item,index) in getExpressTypes"
-                  :key="item.type"
+                  :key="index"
                   :label="item.name"
                   :value="item.type"
                 ></el-option>
@@ -283,7 +283,7 @@
             <el-form-item label="年龄阶段">
               <el-checkbox-group v-model="form.age">
                 <el-checkbox
-                  :label="item.type"
+                  :label="index"
                   :value="item.type"
                   v-for="(item,index) in getAgeStages"
                   :key="index"
@@ -297,7 +297,7 @@
               <el-select v-model="form.credit_level" placeholder="请选择">
                 <el-option
                   v-for="(item,index) in getCreditLevels"
-                  :key="item.type"
+                  :key="index"
                   :label="item.name"
                   :value="item.type"
                 ></el-option>
@@ -392,10 +392,6 @@
           <tr>
             <td>花呗号</td>
             <td class="b3">{{calculate.huabei}}</td>
-          </tr>
-          <tr>
-            <td>高优质买号</td>
-            <td class="b3">{{calculate.grade_buyer}}</td>
           </tr>
           <tr>
             <td>高优质买号</td>

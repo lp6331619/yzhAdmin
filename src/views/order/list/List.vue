@@ -28,7 +28,9 @@
           ></el-date-picker>
         </el-form-item>
         <el-form-item>
-          <el-input v-model="selectData.sid" placeholder="店铺ID"></el-input>
+          <el-select v-model="selectData.sid" placeholder="请选择店铺">
+            <el-option v-for="(item,index) in getMyShops" :key="index" :label="item" :value="index"></el-option>
+          </el-select>
         </el-form-item>
         <el-form-item>
           <el-input v-model="selectData.tid" placeholder="任务ID"></el-input>

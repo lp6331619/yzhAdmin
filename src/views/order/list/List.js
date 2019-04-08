@@ -17,6 +17,7 @@ export default {
             loading: false,
             tableData: Array,
             pageShow: false,
+            getMyShops:{},
             selectData: { //搜索条件
                 limit: 10,
                 p: this.$route.query.p ? parseInt(this.$route.query.p) : 1,
@@ -107,6 +108,19 @@ export default {
                     this.loading = false;
                 },
                 tokenFlag: true
+            });
+            this.$$api_shop_getMyShops({
+                data: {
+                    status: 1
+                },
+                fn: data => {
+                    this.loading = false;
+                    this.getMyShops = data
+                },
+                errFn: (err) => {
+                    this.$message.error(err.info);
+                    this.loading = false;
+                },
             });
         },
         getList() { //获取列表数据

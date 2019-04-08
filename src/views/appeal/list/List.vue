@@ -98,7 +98,7 @@
           :formatter="created_atTime"
           label="提交时间"
           align="center"
-          width="auto"
+          width="100"
         ></el-table-column>
       </el-table>
       <!--翻页-->

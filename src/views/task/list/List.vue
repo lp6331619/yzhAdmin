@@ -50,7 +50,7 @@
       </el-form>
       <div class="listBox">
         <div v-if="tableData.list && tableData.list.length>0">
-          <div class="item" v-for="(item,index) in tableData.list">
+          <div class="item" v-for="(item,index) in tableData.list" :key="index">
             <div class="title">
               <li>
                 <svg class="icon" aria-hidden="true">

@@ -32,7 +32,7 @@
         </el-col>
         <el-col :span="8">支付金额:{{dataBox.pay_money}}</el-col>
 
-        <el-col :span="8">淘宝订单遍号:{{dataBox.order_no}}</el-col>
+        <el-col :span="8">平台订单编号:{{dataBox.order_no}}</el-col>
         <el-col :span="8">状态:{{dataBox.status_name}}</el-col>
 
         <el-col :span="8">审核不通过原因:{{dataBox.cancel_content}}</el-col>
