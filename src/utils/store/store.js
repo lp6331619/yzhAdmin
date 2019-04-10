@@ -1,9 +1,7 @@
-import { gbs } from 'config/'
 
 class Store {
   constructor() {
     this.store = window.localStorage
-    this.prefix = gbs.db_prefix
   }
   set(key, value, fn) {
     try {
@@ -11,7 +9,7 @@ class Store {
     } catch (e) {
       value = value
     }
-    this.store.setItem(this.prefix + key, value)
+    this.store.setItem( key, value)
     fn && fn()
   }
   get(key, fn) {
@@ -23,7 +21,7 @@ class Store {
       throw new Error('key不能是一个对象。')
       return
     }
-    var value = this.store.getItem(this.prefix + key)
+    var value = this.store.getItem( key)
     if (value !== null) {
       try {
         value = JSON.parse(value)
@@ -34,7 +32,7 @@ class Store {
     return value
   }
   remove(key) {
-    this.store.removeItem(this.prefix + key)
+    this.store.removeItem( key)
   }
 }
 export default new Store()

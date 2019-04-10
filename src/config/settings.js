@@ -21,7 +21,7 @@ var gbs = {
 	api_custom: {
 		'-100': function (res) {
 			this.$store.dispatch('remove_userinfo').then(() => {
-				this.$alert(res.status + ',' + res.info + '！', '登录错误', {
+				this.$alert(res.status + ',' + res.info + '！', '登录错误api_custom！', {
 					confirmButtonText: '确定',
 					callback: action => {
 						this.$router.push('/login');
@@ -42,7 +42,7 @@ var gbs = {
 
 var cbs = {
 	/**
-	 * ajax请求成功，返回的状态码不是200时调用
+	 * ajax请求成功，返回的状态码不是1时调用
 	 * @param  {object} err 返回的对象，包含错误码和错误信息
 	 */
 	statusError(err) {
@@ -54,7 +54,7 @@ var cbs = {
 			});
 		} else {
 			this.$store.dispatch('remove_userinfo').then(() => {
-				this.$alert(err.status + ',' + err.info + '！', '登录错误', {
+				this.$alert(err.status + ',' + err.info + '！', '登录错误statusError！', {
 					confirmButtonText: '确定',
 					callback: action => {
 						this.$router.push('/login');
