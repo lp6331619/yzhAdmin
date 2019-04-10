@@ -42,7 +42,15 @@ import './assets/less/color.less'
 import 'swiper/dist/css/swiper.css';
 
 import App from './App';
-
+//路由钩子之前
+router.beforeEach((to, from, next) => {
+    document.title = `柚子汇-${to.name}`;
+    next()
+    if (store.state.user.userinfo.token==undefined) {
+        if(to.path !='/login')
+        next('/login')
+    } 
+})
 new Vue({
     el: '#app',
     router,
@@ -51,12 +59,4 @@ new Vue({
     components: {
         App
     }
-})
-//路由钩子之前
-router.beforeEach((to, from, next) => {
-    document.title = `柚子汇-${to.name}`;
-    next()
-    // if (typeof (store.state.user.userinfo.token) == 'string') {} else {
-    //     // next('/login')
-    // }
 })

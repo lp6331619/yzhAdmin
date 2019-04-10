@@ -2,7 +2,7 @@ export default {
     name: 'list',
     created: function () {
         this.getList()
-        console.log(this.$store.state.user.userinfo)
+        // console.log(this.$store.state.user.userinfo)
     },
     data() {
         return {
@@ -78,7 +78,7 @@ export default {
         },
         statusFormat(item) {//格式化
             let text = ' '
-            console.log(item)
+            // console.log(item)
             switch (parseInt(item.status)) {
                 case 1:
                     text = '审核通过'
@@ -125,7 +125,7 @@ export default {
                     fn: data => {
                         let box = this.$store.state.user.userinfo;
                         box.qq = value
-                        console.log(box)
+                        // console.log(box)
                         this.$store.dispatch('update_userinfo', {
                             userinfo: box,
                         }).then(() => {
@@ -156,7 +156,7 @@ export default {
                     fn: data => {
                         let box = this.$store.state.user.userinfo;
                         box.email = value
-                        console.log(box)
+                        // console.log(box)
                         this.$store.dispatch('update_userinfo', {
                             userinfo: box,
                         }).then(() => {

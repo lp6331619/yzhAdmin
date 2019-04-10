@@ -224,7 +224,9 @@ export default {
                     },
                     tokenFlag: true
                 });
-            }).catch(() => {});
+            }).catch(() => {
+                
+            });
         },
         formatHuabei(item) {
             let text = ''

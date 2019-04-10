@@ -21,7 +21,7 @@ var gbs = {
 	api_custom: {
 		'-100': function (res) {
 			this.$store.dispatch('remove_userinfo').then(() => {
-				this.$alert(res.status + ',' + res.info + '！', '登录错误api_custom！', {
+				this.$alert(res.status + ',' + res.info + '！', '登录错误', {
 					confirmButtonText: '确定',
 					callback: action => {
 						this.$router.push('/login');
@@ -54,7 +54,7 @@ var cbs = {
 			});
 		} else {
 			this.$store.dispatch('remove_userinfo').then(() => {
-				this.$alert(err.status + ',' + err.info + '！', '登录错误statusError！', {
+				this.$alert(err.status + ',' + err.info + '！', '登录错误', {
 					confirmButtonText: '确定',
 					callback: action => {
 						this.$router.push('/login');
