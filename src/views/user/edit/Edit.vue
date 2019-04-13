@@ -29,7 +29,7 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="发货电话" prop="phone">
-              <el-input v-model="form.phone" placeholder="请输入发货电话"></el-input>
+              <el-input type="number" v-model="form.phone" placeholder="请输入发货电话"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="16">
@@ -202,8 +202,8 @@ export default {
             message: "不能为空！",
             trigger: "blur"
           },
-          {
-            pattern: /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/,
+          { 
+            pattern: /^\d{11}$/,
             message: "请输入正确的电话格式",
             trigger: "blur"
           }
