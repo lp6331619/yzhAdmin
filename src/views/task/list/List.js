@@ -129,6 +129,7 @@ export default {
                 query: this.selectData
             })
             this.getList()
+            
         },
         handleCurrentChange(item) { //分页
             this.selectData.p = item
