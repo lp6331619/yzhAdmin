@@ -225,7 +225,7 @@ export default {
                     tokenFlag: true
                 });
             }).catch(() => {
-                
+
             });
         },
         formatHuabei(item) {
@@ -260,10 +260,10 @@ export default {
             let text = ''
             switch (parseInt(item.grade_buyer)) {
                 case 1:
-                    text = '不需要'
+                    text = '需要'
                     break;
                 case 2:
-                    text = '需要'
+                    text = '不需要'
                     break;
             }
             return text

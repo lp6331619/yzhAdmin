@@ -192,7 +192,7 @@
             <el-form-item label="结束时间" prop="release_end_time">
               <el-select v-model="form.release_end_time" placeholder="请选择">
                 <el-option
-                  v-for="(item,index) in 24"
+                  v-for="(item,index) in 25"
                   :key="index"
                   :label="`${item-1}点`"
                   :value="index"
@@ -328,8 +328,8 @@
           <el-col :span="12">
             <el-form-item label="高优质买号" prop="grade_buyer">
               <el-radio-group v-model="form.grade_buyer">
-                <el-radio label="0">不需要</el-radio>
                 <el-radio label="1">需要</el-radio>
+                <el-radio label="2">不需要</el-radio>
               </el-radio-group>
               <small class="red ml20">({{getCostPrice.grade_buyer}} 金 /单)</small>
             </el-form-item>
