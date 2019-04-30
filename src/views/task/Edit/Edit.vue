@@ -229,9 +229,14 @@
               <el-input v-model="form.product_format" placeholder="购买规格"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="16">
+          <el-col class="clear" :span="16">
             <el-form-item label="特殊需求" prop="other_ask">
-              <el-input v-model="form.other_ask" placeholder="特殊需求"></el-input>
+              <el-input
+                type="textarea"
+                :autosize="{ minRows: 5, maxRows: 5}"
+                v-model="form.other_ask"
+                placeholder="重要！如果对用户有特别的要求，请在特殊需求里注明，用户在做任务时会看到，最多不能超过300字(特殊需求只是商家要求，我们只能做到传达给用户但不会强制用户按要求执行)"
+              ></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="24">
