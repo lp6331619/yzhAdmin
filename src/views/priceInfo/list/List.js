@@ -7,6 +7,7 @@ export default {
             loading: false,
             tableData: Array,
             pageShow: false,
+            activeName: '1',
             tableData: [{
                 payment: '0.00-50',
                 price: '7',
@@ -59,6 +60,8 @@ export default {
         }
     },
     methods: {
+        handleClick() {
 
+        }
     },
 }

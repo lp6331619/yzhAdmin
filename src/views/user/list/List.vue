@@ -38,7 +38,16 @@
     >
       <el-table-column prop="name" label="店铺名称" align="center" width="auto">
         <template slot-scope="scope">
-          <a :href="scope.row.url" target="_blank" class="blue">{{scope.row.name}}</a>
+          <a :href="scope.row.url" target="_blank" class="blue">
+            <svg class="icon" aria-hidden="true">
+              <use v-if="scope.row.type == '1'" xlink:href="#icon-taobao"></use>
+              <use v-if="scope.row.type == '2'" xlink:href="#icon-tianmaoxingxiang1"></use>
+              <use v-if="scope.row.type == '3'" xlink:href="#icon-jingdong-"></use>
+              <use v-if="scope.row.type == '4'" xlink:href="#icon-pinduoduo"></use>
+            </svg>
+            <br>
+            {{scope.row.name}}
+          </a>
         </template>
       </el-table-column>
       <el-table-column prop="wangwang" label="掌柜名称" align="center" width="auto"></el-table-column>
@@ -121,6 +130,10 @@ import ListJs from "./List.js";
 export default ListJs;
 </script>
 <style scoped lang="less">
+.icon {
+  width: 30px;
+  height: 30px;
+}
 .tit {
   line-height: 24px;
   padding-bottom: 20px;

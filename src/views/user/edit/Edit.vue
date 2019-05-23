@@ -1,9 +1,9 @@
 <template>
   <div class="edit">
-    <div class="titleBox">账户详情</div>
+    <div class="titleBox">绑定店铺</div>
     <div class="p20 mt20">
       <el-form
-        label-width="80px"
+        label-width="120px"
         class="clearfix"
         v-loading="loading"
         element-loading-text="正在获取数据！"
@@ -12,32 +12,7 @@
         ref="form"
       >
         <el-row :gutter="20">
-          <el-col :span="8">
-            <el-form-item label="店铺名称" prop="name">
-              <el-input v-model="form.name" placeholder="请输入店铺名称"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="店铺旺旺" prop="wangwang">
-              <el-input v-model="form.wangwang" placeholder="请输入店铺旺旺"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="发货人" prop="user_name">
-              <el-input v-model="form.user_name" placeholder="请输入发货人"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="发货电话" prop="phone">
-              <el-input type="number" v-model="form.phone" placeholder="请输入发货电话"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="16">
-            <el-form-item label="店铺网址" prop="url">
-              <el-input v-model="form.url" placeholder="请输入http://开头的网址"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
+          <el-col :span="12">
             <el-form-item label="平台选择" prop="type">
               <el-select v-model="form.type" placeholder="请选择">
                 <el-option
@@ -49,7 +24,33 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
+          <el-col class="clear" :span="18">
+            <el-form-item label="店铺名称" prop="name">
+              <el-input v-model="form.name" placeholder="请输入店铺名称"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col class="clear" :span="18">
+            <el-form-item label="店铺首页网址" prop="url">
+              <el-input v-model="form.url" placeholder="请输入http://开头的网址"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col class="clear" :span="18">
+            <el-form-item label="掌柜名称" prop="wangwang">
+              <el-input v-model="form.wangwang" placeholder="请输入掌柜名称"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col class="clear" :span="9">
+            <el-form-item label="发货人" prop="user_name">
+              <el-input v-model="form.user_name" placeholder="请输入发货人"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="9">
+            <el-form-item label="发货电话" prop="phone">
+              <el-input type="number" v-model="form.phone" placeholder="请输入发货电话"></el-input>
+            </el-form-item>
+          </el-col>
+
+          <el-col class="clear" :span="6">
             <el-form-item label="省" prop="province_id">
               <el-select v-model="form.province_id" placeholder="请选择" @change="setCity">
                 <el-option
@@ -85,9 +86,10 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="16">
+          <el-col :span="18">
             <el-form-item label="发货地址" prop="address">
               <el-input v-model="form.address" placeholder="请输入发货地址"></el-input>
+              <small class="c999">(请勿重复输入省市区)</small>
             </el-form-item>
           </el-col>
           <el-col :span="24">&nbsp;</el-col>
@@ -202,7 +204,7 @@ export default {
             message: "不能为空！",
             trigger: "blur"
           },
-          { 
+          {
             pattern: /^\d{11}$/,
             message: "请输入正确的电话格式",
             trigger: "blur"

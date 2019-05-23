@@ -13,6 +13,7 @@ export default {
             selectData: {//搜索条件
                 p: this.$route.query.p ? parseInt(this.$route.query.p) : 1,
             },
+            pingt: [],
             passwordStatus: false,
             passwordForm: {
                 old_password: '',
@@ -66,6 +67,23 @@ export default {
                     this.$message.error(err.info);
                     this.loading = false;
                 },
+            });
+            this.$$api_shop_getShopTypes({
+                //获取平台
+                data: {},
+                fn: data => {
+                    for (let i in data) {
+                        this.pingt.push({
+                            label: data[i],
+                            value: i
+                        });
+                    }
+                    this.loading = false;
+                },
+                errFn: err => {
+                    this.$message.error(err.info);
+                    this.loading = false;
+                }
             });
         },
         handleCurrentChange(item) {//分页

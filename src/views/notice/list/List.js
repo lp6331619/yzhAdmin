@@ -8,9 +8,11 @@ export default {
             loading: false,
             tableData: [],
             pageShow: false,
+            notice: require("../../../assets/images/notic.jpg"),
             selectData: {//搜索条件
                 p: this.$route.query.p ? parseInt(this.$route.query.p) : 1,
             },
+            childData: {}
         }
     },
     methods: {
@@ -24,7 +26,18 @@ export default {
                 data: data,
                 fn: data => {
                     this.loading = false;
-                    this.tableData = data
+                    this.tableData = data;
+                    this.$$api_user_notice({
+                        data: { id: this.tableData.list[0].id },
+                        fn: data => {
+                            this.childData = data;
+                            this.loading = false;
+                        },
+                        errFn: err => {
+                            this.$message.error(err.info);
+                            this.loading = false;
+                        }
+                    });
                 },
                 errFn: (err) => {
                     this.$message.error(err.info);

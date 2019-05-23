@@ -1,5 +1,10 @@
 <template>
   <div class="list">
+    <div class="noticeTop">
+      <img :src="notice" alt>
+      <p class="title">{{childData.title}}</p>
+      <div v-html="childData.content" class="mt10"></div>
+    </div>
     <el-table
       v-loading="loading"
       element-loading-text="拼命加载中！"
@@ -39,5 +44,17 @@
 import ListJs from "./List.js";
 export default ListJs;
 </script>
-<style scoped>
+<style scoped lang="less">
+.noticeTop {
+  position: relative;
+  padding: 20px 20px 20px 140px;
+  min-height: 140px;
+  border: 1px solid #ff8762;
+  margin-bottom: 20px;
+  img {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+  }
+}
 </style>

@@ -111,7 +111,7 @@ export default {
                             this.$store.dispatch('update_userinfo', {
                                 userinfo: data,
                             }).then(() => {
-                                this.$router.push('/home');
+                                this.$router.push('/notice/list');
                                 this.$message.success('恭喜您登录成功！');
                             });
                         },
@@ -131,7 +131,7 @@ export default {
                     this.$store.dispatch('update_userinfo', {
                         userinfo: data,
                     }).then(() => {
-                        this.$router.push('/home');
+                        this.$router.push('/notice/list');
                         this.$message.success('恭喜您登录成功！');
                     });
                 },
@@ -147,7 +147,6 @@ export default {
             let data = {};
             data.type = status;
             data.code_key = this.loginData.code_key;
-            console.log(status)
             switch (status) {
                 case 1:
                     if (this.registerData.phone === '') {
@@ -318,5 +317,5 @@ export default {
 
         }
     },
-    mounted() {}
+    mounted() { }
 }

@@ -20,6 +20,7 @@ export default {
             pageShow: false,
             bankList: [], //银行列表
             bankInfo: {}, //平台信息
+            activeName: '1',
             selectData: { //搜索条件
                 limit: 10,
                 p: this.$route.query.p ? parseInt(this.$route.query.p) : 1,
@@ -48,6 +49,11 @@ export default {
                     trigger: 'blur'
                 }],
                 cost_money: [{
+                    required: true,
+                    message: '不能为空！',
+                    trigger: 'blur'
+                }],
+                password: [{
                     required: true,
                     message: '不能为空！',
                     trigger: 'blur'
@@ -115,7 +121,7 @@ export default {
                                 type: 'success',
                                 message: '我已知道!'
                             });
-                        }).catch(() => {})
+                        }).catch(() => { })
                 },
                 errFn: (err) => {
                     this.$message.error(err.info);
@@ -123,44 +129,96 @@ export default {
                 },
                 tokenFlag: true
             });
-            this.$$api_recharge_getLastLog({ //上一条充值记录
-                data: {},
-                fn: data => {
-                    this.loading = false;
-                    let box = data
-                    this.form = Object.assign({}, this.form, {
-                        bank_id: box.bank_id,
-                        bank_no: box.bank_no,
-                        name: box.name,
-                    })
-                },
-                errFn: (err) => {
-                    this.$message.error(err.info);
-                    this.loading = false;
-                },
-                tokenFlag: true
-            });
+            this.Recharge()
+        },
+        //获取上一条记录
+        Recharge() {
+            switch (this.activeName) {
+                case '1':
+                    this.$$api_recharge_getLastLog({ //上一条充值记录
+                        data: {},
+                        fn: data => {
+                            this.loading = false;
+                            let box = data
+                            this.form = Object.assign({}, this.form, {
+                                bank_id: box.bank_id,
+                                bank_no: box.bank_no,
+                                name: box.name,
+                            })
+                        },
+                        errFn: (err) => {
+                            this.$message.error(err.info);
+                            this.loading = false;
+                        },
+                        tokenFlag: true
+                    });
+                    break;
+                case '2':
+                    this.$$api_recharge_getLastLog({ //上一条充值记录
+                        data: {},
+                        fn: data => {
+                            this.loading = false;
+                            let box = data
+                            this.form = Object.assign({}, this.form, {
+                                bank_id: box.bank_id,
+                                bank_no: box.bank_no,
+                                name: box.name,
+                            })
+                        },
+                        errFn: (err) => {
+                            this.$message.error(err.info);
+                            this.loading = false;
+                        },
+                        tokenFlag: true
+                    });
+                    break;
+            }
+
         },
         getList() { //获取列表数据
             this.loading = true;
-            this.$$api_recharge_getRechargeList({
-                data: this.selectData,
-                fn: data => {
-                    this.loading = false;
-                    this.tableData = data
-                    this.tableData.count = parseInt(this.tableData.count)
-                    if (this.tableData.count > 10) {
-                        this.pageShow = true
-                    } else {
-                        this.pageShow = false
-                    }
-                },
-                errFn: (err) => {
-                    this.$message.error(err.info);
-                    this.loading = false;
-                },
-                tokenFlag: true
-            });
+            switch (this.activeName) {
+                case '1':
+                    this.$$api_recharge_getRechargeList({
+                        data: this.selectData,
+                        fn: data => {
+                            this.loading = false;
+                            this.tableData = data
+                            this.tableData.count = parseInt(this.tableData.count)
+                            if (this.tableData.count > 10) {
+                                this.pageShow = true
+                            } else {
+                                this.pageShow = false
+                            }
+                        },
+                        errFn: (err) => {
+                            this.$message.error(err.info);
+                            this.loading = false;
+                        },
+                        tokenFlag: true
+                    });
+                    break;
+                case '2':
+                    this.$$api_shop_getCashList({
+                        data: this.selectData,
+                        fn: data => {
+                            this.loading = false;
+                            this.tableData = data
+                            this.tableData.count = parseInt(this.tableData.count)
+                            if (this.tableData.count > 10) {
+                                this.pageShow = true
+                            } else {
+                                this.pageShow = false
+                            }
+                        },
+                        errFn: (err) => {
+                            this.$message.error(err.info);
+                            this.loading = false;
+                        },
+                        tokenFlag: true
+                    });
+                    break;
+            }
         },
         handleCurrentChange(item) { //分页
             this.selectData.p = item
@@ -244,24 +302,40 @@ export default {
         subRecharge(ref) {
             this.$refs[ref].validate((valid) => {
                 if (valid) {
-                    this.$$api_recharge_addRecharge({
-                        data: this.form,
-                        fn: data => {
-                            this.loading = false;
-                            this.$message.success('恭喜您提交成功！');
-                            this.form = Object.assign({}, this.form, {
-                                transfer_pic: '',
-                                url: '',
-                                cost_money: ''
-                            });
-                            this.getMoney()
-                        },
-                        errFn: (err) => {
-                            this.$message.error(err.info);
-                            this.loading = false;
-                        },
-                        tokenFlag: true
-                    });
+                    if (this.activeName == '1') {
+                        this.$$api_recharge_addRecharge({
+                            data: this.form,
+                            fn: data => {
+                                this.loading = false;
+                                this.$message.success('恭喜您提交成功！');
+                                this.form = Object.assign({}, this.form, {
+                                    transfer_pic: '',
+                                    url: '',
+                                    cost_money: ''
+                                });
+                                this.getMoney()
+                            },
+                            errFn: (err) => {
+                                this.$message.error(err.info);
+                                this.loading = false;
+                            },
+                            tokenFlag: true
+                        });
+                    } else {
+                        this.$$api_shop_addCash({
+                            data: this.form,
+                            fn: data => {
+                                this.loading = false;
+                                this.$message.success('恭喜您提交成功！');
+                                this.getMoney()
+                            },
+                            errFn: (err) => {
+                                this.$message.error(err.info);
+                                this.loading = false;
+                            },
+                            tokenFlag: true
+                        });
+                    }
                 }
             })
         },
@@ -292,7 +366,7 @@ export default {
                         this.$message.error(err.info);
                     },
                 });
-            }).catch(() => {});
+            }).catch(() => { });
         },
         created_atTime(item) {
             if (item.created_at != '0')
@@ -300,7 +374,11 @@ export default {
         },
         audit_atTime(item) {
             if (item.audit_at != '0')
-            return this.timeDate(item.audit_at)
+                return this.timeDate(item.audit_at)
+        },
+        handleClick(tab) {
+            this.Recharge()
+            this.getList()
         }
     },
     computed: {
