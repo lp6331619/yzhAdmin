@@ -28,6 +28,7 @@ export default {
             path: '/home',
             name: '任务列表',
             redirect: '/home',
+            child: true,
             component: Content,
             children: [{
                 path: '',
@@ -35,10 +36,12 @@ export default {
                 component: Task.List,
             }, {
                 path: 'detail',
+                hidden: true,
                 name: '任务详情',
                 component: Task.Detail,
             }, {
                 path: 'edit',
+                hidden: true,
                 name: '编辑',
                 component: Task.Edit,
             }]
@@ -82,7 +85,7 @@ export default {
             }]
         }, {
             path: '/recharge',
-            name: '充值',
+            name: '充值/提现',
             redirect: '/recharge/home',
             component: Content,
             children: [{

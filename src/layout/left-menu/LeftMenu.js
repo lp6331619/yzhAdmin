@@ -7,6 +7,7 @@ export default {
         });
         this.updateCurMenu();
         this.getMoney();
+        console.log(this.$router.options.routes, 1111)
     },
     data() {
         return {
