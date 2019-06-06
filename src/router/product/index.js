@@ -18,21 +18,21 @@ import {
     Task,
     Order
 } from 'views/';
-
 export default {
+
     path: '',
     name: '首页',
     component: Home,
     // redirect: '',
     children: [{
-            path: '/home',
-            name: '任务列表',
+            path: 'home',
+            name: '销量管理',
             redirect: '/home',
             child: true,
             component: Content,
             children: [{
                 path: '',
-                name: '任务列表',
+                name: '计划列表',
                 component: Task.List,
             }, {
                 path: 'detail',
@@ -44,9 +44,13 @@ export default {
                 hidden: true,
                 name: '编辑',
                 component: Task.Edit,
+            }, {
+                path: 'orderList',
+                name: '销量订单',
+                component: Task.OrderList,
             }]
         }, {
-            path: '/order',
+            path: 'order',
             name: '订单列表',
             redirect: '/order/list',
             component: Content,
@@ -60,7 +64,7 @@ export default {
                 component: Order.Detail,
             }]
         }, {
-            path: '/fundRecord',
+            path: 'fundRecord',
             name: '资金记录',
             redirect: '/fundRecord/list',
             component: Content,
@@ -70,7 +74,7 @@ export default {
                 component: FundRecord.List,
             }]
         }, {
-            path: '/user',
+            path: 'user',
             name: '账户信息',
             redirect: '/user/list',
             component: Content,
@@ -84,7 +88,7 @@ export default {
                 component: User.Edit,
             }]
         }, {
-            path: '/recharge',
+            path: 'recharge',
             name: '充值/提现',
             redirect: '/recharge/home',
             component: Content,
@@ -94,7 +98,7 @@ export default {
                 component: Recharge.Home,
             }]
         }, {
-            path: '/appeal',
+            path: 'appeal',
             name: '申诉管理',
             redirect: '/appeal/list',
             component: Content,
@@ -104,7 +108,7 @@ export default {
                 component: Appeal.List,
             }]
         }, {
-            path: '/invite',
+            path: 'invite',
             name: '邀请好友',
             redirect: '/invite/list',
             component: Content,
@@ -114,7 +118,7 @@ export default {
                 component: Invite.List,
             }]
         }, {
-            path: '/suggest',
+            path: 'suggest',
             name: '意见建议',
             redirect: '/suggest/list',
             component: Content,
@@ -136,7 +140,7 @@ export default {
         //     }]
         // }, 
         {
-            path: '/priceInfo',
+            path: 'priceInfo',
             name: '价格明细',
             redirect: '/priceInfo/list',
             component: Content,
@@ -146,7 +150,7 @@ export default {
                 component: PriceInfo.List,
             }]
         }, {
-            path: '/notice',
+            path: 'notice',
             name: '公告列表',
             hidden: true,
             redirect: '/notice/list',

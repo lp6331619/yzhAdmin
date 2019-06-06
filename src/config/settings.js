@@ -32,13 +32,13 @@ var gbs = {
 					confirmButtonText: '确定',
 					cancelButtonText: '取消',
 					type: 'warning'
-				  }).then(() => {
+				}).then(() => {
 					this.$router.push('/login');
-						window.reload()
-				  }).catch(() => {
+					// window.reload()
+				}).catch(() => {
 					this.$router.push('/login');
-						window.reload()       
-				  });
+					// window.reload()       
+				});
 			});
 		},
 		'-101': function (res) {
@@ -76,13 +76,13 @@ var cbs = {
 					confirmButtonText: '确定',
 					cancelButtonText: '取消',
 					type: 'warning'
-				  }).then(() => {
+				}).then(() => {
 					this.$router.push('/login');
-						window.reload()
-				  }).catch(() => {
+					// window.reload()
+				}).catch(() => {
 					this.$router.push('/login');
-						window.reload()       
-				  });
+					// window.reload()
+				});
 			});
 		}
 	},

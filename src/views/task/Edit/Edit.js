@@ -8,7 +8,7 @@ export default {
         return {
             loading: false,
             form: {
-                type: 1,
+                type: '1',
                 step_num: 1,
                 search: [{
                     keyword: '',
@@ -16,6 +16,7 @@ export default {
                 }],
                 release_date: '',
                 age: [],
+                order_type: '1',
                 delay_accept: '0',
                 is_time_out_cancel: '2',
                 release_type: '1',
@@ -24,7 +25,10 @@ export default {
                 credit_level: '0',
                 huabei: '0',
                 grade_buyer: '0',
-                phone_type: '0'
+                phone_type: '0',
+                attgoods: [],
+                limit_buy_time: '1',
+                is_only_allow_browse: '0'
             },
             status: false,
             shopBox: [], //商家
@@ -117,7 +121,29 @@ export default {
                     message: '不能为空！',
                     trigger: 'blur'
                 }],
+
+                release_start_time: [{
+                    required: true,
+                    message: '不能为空！',
+                    trigger: 'blur'
+                }],
+                release_end_time: [{
+                    required: true,
+                    message: '不能为空！',
+                    trigger: 'blur'
+                }],
                 product_buy_num: [{
+                    required: true,
+                    message: '不能为空！',
+                    trigger: 'blur'
+                }],
+
+                limit_buy_time: [{
+                    required: true,
+                    message: '不能为空！',
+                    trigger: 'blur'
+                }],
+                is_only_allow_browse: [{
                     required: true,
                     message: '不能为空！',
                     trigger: 'blur'
@@ -127,12 +153,11 @@ export default {
                     message: '不能为空！',
                     trigger: 'blur'
                 }],
-                release_date: [{
+                order_type: [{
                     required: true,
                     message: '不能为空！',
-                    trigger: 'blur'
+                    trigger: 'change'
                 }],
-
                 release_type: [{
                     required: true,
                     message: '不能为空！',
@@ -143,7 +168,8 @@ export default {
                     message: '不能为空！',
                     trigger: 'change'
                 }],
-            }
+            },
+            uploadArray: {},
         }
     },
     methods: {
@@ -257,7 +283,6 @@ export default {
                             })
                         }
                         this.form = Object.assign({}, this.form, {
-                            date: [this.form.release_start_time, this.form.release_end_time],
                             url2: this.form.product_pic1,
                             age: this.form.task_service.age.split(','),
                             remove_area: remove_area,
@@ -266,9 +291,14 @@ export default {
                             credit_level: this.form.task_service.credit_level,
                             huabei: this.form.task_service.huabei,
                             grade_buyer: this.form.task_service.grade_buyer,
-                            release_start_time: parseInt(this.form.release_start_time),
-                            is_time_out_cancel: this.form.is_time_out_cancel == '0' ? '2' : this.form.is_time_out_cancel
-
+                            release_start_time: this.form.release_start_time,
+                            release_end_time: this.form.release_end_time,
+                            is_time_out_cancel: this.form.is_time_out_cancel == '0' ? '2' : this.form.is_time_out_cancel,
+                            is_only_allow_browse: this.form.task_service.is_only_allow_browse
+                        })
+                        console.log(this.form.release_start_time, this.form.release_end_time)
+                        this.form.attgoods.map((item) => {
+                            item.product_pic2 = item.product_pic
                         })
                         this.DateToday()
                     },
@@ -281,11 +311,10 @@ export default {
             }
         },
         setDate(item) {
-            this.form = Object.assign({}, this.form, {
-                release_start_time: item[0],
-                release_end_time: item[1]
-            })
-            console.log(this.form.release_start_time, this.form.release_end_time)
+            // this.form = Object.assign({}, this.form, {
+            //     release_start_time: item[0],
+            //     release_end_time: item[1]
+            // })
         },
         handleAvatarSuccess(res, file) { //图片上传成功
             this.form = Object.assign({}, this.form, {
@@ -294,7 +323,13 @@ export default {
             })
 
         },
-
+        product_picSuccess(res, file) {
+            this.$set(this.form.attgoods[this.uploadArray], 'product_pic', res.data.url)
+            this.$set(this.form.attgoods[this.uploadArray], 'product_pic2', res.data.all_url)
+        },
+        uploadMat(item) {
+            this.uploadArray = item;
+        },
         beforeAvatarUpload(file) { //图片上传前
             const isJPG = file.type === 'image/jpeg';
             const isPNG = file.type === 'image/png';
@@ -320,6 +355,7 @@ export default {
             }
         },
         submit(ref) {
+            console.log(this.form)
             this.$refs[ref].validate((valid) => {
                 if (valid) {
                     this.getPrice();
@@ -346,7 +382,7 @@ export default {
             }
         },
         getPrice() {
-            this.$$api_task_calculate({
+            this.$$api_task_calculateNew({
                 data: this.form,
                 fn: data => {
                     this.loading = false;
@@ -381,5 +417,29 @@ export default {
                 release_date: time
             })
         },
+
+        /**
+         *  添加附加商品
+         *
+         */
+        addAdditional() {
+            this.form.attgoods.push({
+                product_url: '', //产品链接',
+                product_pic2: '',
+                product_pic: '', //产品主图',
+                product_buy_price: '', //产品成交价',
+                product_buy_num: '', //`下单产品数量',
+                product_format: '' //购买规格',
+            })
+        },
+
+        /**
+         *  删除
+         *
+         * @param {*} index
+         */
+        delItem(index) {
+            this.form.attgoods.splice(index, 1)
+        }
     },
 }

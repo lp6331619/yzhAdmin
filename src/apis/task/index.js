@@ -46,7 +46,7 @@ export default [{
         type: 'post',
     },
     {
-        name: '获取增值服务价格',
+        name: '获取增值服务价格（销量管理）',
         method: 'getCostPrice',
         path: '/Task/getCostPrice',
         type: 'post',
@@ -56,9 +56,19 @@ export default [{
         path: '/Task/calculate',
         type: 'post',
     }, {
+        name: '计算任务费用明细(new)',
+        method: 'calculateNew',
+        path: '/Task/calculateNew',
+        type: 'post',
+    }, {
         name: '发布任务',
         method: 'addTask',
         path: '/Task/addTask',
+        type: 'post',
+    }, {
+        name: '支付任务费用',
+        method: 'payTask',
+        path: '/Task/payTask',
         type: 'post',
     },
 ];

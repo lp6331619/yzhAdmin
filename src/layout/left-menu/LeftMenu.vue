@@ -50,12 +50,12 @@
                         <!--第二层循环-->
                         <template
                             v-for="(itemChild,indexChild) in item.children"
-                            v-if="!itemChild.hidden "
+                            v-if="!itemChild.hidden"
                         >
                             <el-menu-item
                                 v-if="!itemChild.child"
                                 :key="indexChild"
-                                :index="`${route.path}${item.path}${itemChild.path}`"
+                                :index="`${route.path}/${item.path}/${itemChild.path}`"
                             >{{itemChild.name}}</el-menu-item>
                             <!-- <el-menu-item-group v-else :title="itemChild.name">
                                 <el-menu-item

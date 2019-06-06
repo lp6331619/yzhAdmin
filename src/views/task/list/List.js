@@ -129,7 +129,7 @@ export default {
                 query: this.selectData
             })
             this.getList()
-            
+
         },
         handleCurrentChange(item) { //分页
             this.selectData.p = item
@@ -145,5 +145,29 @@ export default {
                 end_time: item[1]
             })
         },
+        pay(id) {
+            this.$confirm('是否确认支付!', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                this.$$api_task_payTask({
+                    data: {
+                        id: id
+                    },
+                    fn: data => {
+                        this.loading = false;
+                    },
+                    errFn: (err) => {
+                        this.$message.error(err.info);
+                        this.loading = false;
+                    },
+                    tokenFlag: true
+                });
+            }).catch(() => {
+                this.$router.push('/login');
+            });
+
+        }
     },
 }
