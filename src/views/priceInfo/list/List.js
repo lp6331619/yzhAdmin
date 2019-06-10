@@ -176,6 +176,15 @@ export default {
                     price2: '71',
                 }
             ],
+            tableData3: [{
+                product: '0.6',
+                additional: '0.3'
+            }],
+            tableData4: [{
+                text: '1',
+                pic: '2',
+                video: '2'
+            }]
 
         }
     },

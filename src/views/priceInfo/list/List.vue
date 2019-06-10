@@ -36,30 +36,27 @@
                 <el-table
                     v-loading="loading"
                     element-loading-text="拼命加载中！"
-                    :data="tableData"
+                    :data="tableData3"
                     border
                     style="width: 100%"
                     align="center"
                 >
-                    <el-table-column prop="payment" label="垫付区间" align="center" width="auto"></el-table-column>
-                    <el-table-column prop="price" label="价格" align="center" width="auto"></el-table-column>
-                    <el-table-column prop="payment2" label="垫付区间" align="center" width="auto"></el-table-column>
-                    <el-table-column prop="price2" label="价格" align="center" width="auto"></el-table-column>
+                    <el-table-column prop="product" label="主商品" align="center" width="auto"></el-table-column>
+                    <el-table-column prop="additional" label="附加商品" align="center" width="auto"></el-table-column>
                 </el-table>
             </el-tab-pane>
             <el-tab-pane label="评价任务" name="4">
                 <el-table
                     v-loading="loading"
                     element-loading-text="拼命加载中！"
-                    :data="tableData"
+                    :data="tableData4"
                     border
                     style="width: 100%"
                     align="center"
                 >
-                    <el-table-column prop="payment" label="垫付区间" align="center" width="auto"></el-table-column>
-                    <el-table-column prop="price" label="价格" align="center" width="auto"></el-table-column>
-                    <el-table-column prop="payment2" label="垫付区间" align="center" width="auto"></el-table-column>
-                    <el-table-column prop="price2" label="价格" align="center" width="auto"></el-table-column>
+                    <el-table-column prop="text" label="文字评价" align="center" width="auto"></el-table-column>
+                    <el-table-column prop="pic" label="图文评价" align="center" width="auto"></el-table-column>
+                    <el-table-column prop="video" label="视频评价" align="center" width="auto"></el-table-column>
                 </el-table>
             </el-tab-pane>
         </el-tabs>

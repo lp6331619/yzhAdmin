@@ -145,7 +145,7 @@
                                 width="auto"
                             ></el-table-column>
                         </el-table>
-                        <div class="tip">
+                        <div class="tip mt20">
                             <p>任务搜索条件列表</p>
                         </div>
                         <el-table
@@ -225,6 +225,59 @@
                                 align="center"
                                 width="auto"
                             ></el-table-column>
+                            <el-table-column
+                                v-if="data.type == '2'"
+                                prop="is_only_allow_browse"
+                                label="仅限做过此商品浏览任务的账号可接此任务"
+                                align="center"
+                                width="auto"
+                            >
+                                <template
+                                    slot-scope="scrow"
+                                >{{scrow.row.is_only_allow_browse == '0' ? '不限' : '仅限下单任务和预售任务专用'}}</template>
+                            </el-table-column>
+                            <el-table-column
+                                v-if="data.type == '2'"
+                                prop="limit_buy_time"
+                                label="指定日期下单"
+                                align="center"
+                                width="auto"
+                            >
+                                <template slot-scope="scrow">隔{{scrow.row.limit_buy_time}}天</template>
+                            </el-table-column>
+                            <el-table-column
+                                v-if="data.type == '3'"
+                                prop="is_add_shopping_cart"
+                                label="加购物车"
+                                align="center"
+                                width="auto"
+                            >
+                                <template
+                                    slot-scope="scrow"
+                                >{{scrow.row.is_add_shopping_cart == '0'?'不需要':'需要'}}</template>
+                            </el-table-column>
+                            <el-table-column
+                                v-if="data.type == '3'"
+                                prop="is_save_shop"
+                                label="关注店铺"
+                                align="center"
+                                width="auto"
+                            >
+                                <template
+                                    slot-scope="scrow"
+                                >{{scrow.row.is_save_shop == '0'?'不需要':'需要'}}</template>
+                            </el-table-column>
+                            <el-table-column
+                                v-if="data.type == '3'"
+                                prop="is_save_product"
+                                label="收藏宝贝"
+                                align="center"
+                                width="auto"
+                            >
+                                <template
+                                    slot-scope="scrow"
+                                >{{scrow.row.is_save_product == '0'?'不需要':'需要'}}</template>
+                            </el-table-column>
                         </el-table>
                         <div class="tip mt20">
                             <p>价格明细</p>
