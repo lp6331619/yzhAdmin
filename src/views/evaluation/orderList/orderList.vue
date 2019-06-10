@@ -1,7 +1,7 @@
 <template>
     <div class="list">
         <imgPop v-if="imgPopData.status" :data="imgPopData" @closeImg="closeImg"></imgPop>
-        <div class="titleBox">销售订单</div>
+        <div class="titleBox">评价列表</div>
         <div class="p20">
             <el-form :inline="true" :model="selectData" class="demo-form-inline">
                 <el-form-item>
@@ -68,20 +68,6 @@
                 </el-form-item>
                 <el-form-item>
                     <el-button type="warning" @click="onSelectData">查询</el-button>
-                    <el-button
-                        @click="openPop(multipleSelection,3)"
-                        type="primary"
-                        v-if="selectData.status == '2'"
-                        :disabled="multipleSelection.length<=0"
-                        plain
-                    >批量本金审核</el-button>
-                    <el-button
-                        @click="openPop(multipleSelection,4)"
-                        type="primary"
-                        v-if="selectData.status == '5'"
-                        :disabled="multipleSelection.length<=0"
-                        plain
-                    >批量佣金审核</el-button>
                     <el-button @click="onExport()">导出表格</el-button>
                 </el-form-item>
             </el-form>
@@ -97,20 +83,7 @@
                 <el-table-column fixed type="selection" width="55" align="center"></el-table-column>
                 <el-table-column prop="id" label="订单ID" align="center" width="auto"></el-table-column>
                 <el-table-column prop="shop_name" label="店铺名称" align="center" width="auto"></el-table-column>
-                <el-table-column prop="sale_price" label="垫付金额" align="center" width="auto"></el-table-column>
-                <el-table-column prop="real_buy_price" label="支付金额" align="center" width="auto">
-                    <template slot-scope="scrow">
-                        {{scrow.row.real_buy_price}}
-                        <el-button
-                            type="primary"
-                            icon="el-icon-edit"
-                            v-if="scrow.row.status==2"
-                            @click="payModify(scrow.row.id)"
-                            size="mini"
-                            circle
-                        ></el-button>
-                    </template>
-                </el-table-column>
+
                 <el-table-column prop="product_pic1" label="商品主图" align="center" width="110">
                     <template slot-scope="scrow">
                         <a @click="openImg(scrow.row.product_pic1)">
@@ -136,6 +109,13 @@
                     align="center"
                     width="100"
                 ></el-table-column>
+                <el-table-column prop="evaluate_pic" label="评价截图" align="center" width="110">
+                    <template slot-scope="scrow">
+                        <a @click="openImg(scrow.row.evaluate_pic)">
+                            <img :src="scrow.row.evaluate_pic" style="height:100px;">
+                        </a>
+                    </template>
+                </el-table-column>
                 <el-table-column prop="cancel_content" label="不通过原因" align="center" width="auto"></el-table-column>
                 <el-table-column prop="status_name" label="状态" align="center" width="80">
                     <template slot-scope="scrow">
@@ -151,26 +131,8 @@
                             plain
                             type="warning"
                             size="mini"
-                            @click="$router.push(`/home/orderDetail?id=${scrow.row.id}`)"
+                            @click="$router.push(`/evaluation/orderDetail?id=${scrow.row.id}`)"
                         >查看</el-button>
-                        <el-button
-                            plain
-                            size="mini"
-                            @click="openPop(scrow.row.id,1)"
-                            v-if="scrow.row.status == '2'"
-                        >本金审核</el-button>
-                        <el-button
-                            plain
-                            size="mini"
-                            v-if="scrow.row.status == '5'"
-                            @click="openPop(scrow.row.id,2)"
-                        >佣金审核</el-button>
-                        <el-button
-                            v-if="scrow.row.status == '6' && scrow.row.is_invite_praise == '2'"
-                            plain
-                            size="mini"
-                            @click="openComment(scrow.row.id)"
-                        >邀请评价</el-button>
                     </template>
                 </el-table-column>
             </el-table>

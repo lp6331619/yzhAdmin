@@ -111,6 +111,11 @@ export default [
         method: 'loginByToken',
         path: '/Public/loginByToken',
         type: 'post',
+    }, {
+        name: '上传视频',
+        method: 'upload_video',
+        path: '/Public/upload_video',
+        type: 'post',
     },
 
 

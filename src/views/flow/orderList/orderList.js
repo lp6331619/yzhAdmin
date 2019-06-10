@@ -21,7 +21,7 @@ export default {
             selectData: { //搜索条件
                 limit: 10,
                 p: this.$route.query.p ? parseInt(this.$route.query.p) : 1,
-                task_type: 1,
+                task_type: 2,
                 type: this.$route.query.type ? this.$route.query.type : '',
                 is_invite_praise: this.$route.query.is_invite_praise ? this.$route.query.is_invite_praise : '',
                 status: this.$route.query.status ? this.$route.query.status : '',
@@ -131,7 +131,7 @@ export default {
             this.imgPopData.status = status
         },
         getType() {
-            this.$$api_order_getOrderStatus({ //获取状态
+            this.$$api_order_getFlowOrderStatus({ //获取状态
                 data: {},
                 fn: data => {
                     this.loading = false;
@@ -189,7 +189,7 @@ export default {
         onSelectData() { //搜索
             this.selectData.p = 1;
             this.$router.push({
-                path: '/home/orderList',
+                path: '/flow/orderList',
                 query: this.selectData
             })
             this.getList()
@@ -197,7 +197,7 @@ export default {
         handleCurrentChange(item) { //分页
             this.selectData.p = item
             this.$router.push({
-                path: '/home/orderList',
+                path: '/flow/orderList',
                 query: this.selectData
             })
             this.getList()
@@ -302,190 +302,6 @@ export default {
                 val.forEach((item) => {
                     this.multipleSelection.push(item.id)
                 })
-            }
-        },
-
-        /**
-         *  修改支付金额
-         *
-         * @param {*} id
-         */
-        payModify(id) {
-            this.$prompt('请输入修改金额', '提示', {
-                confirmButtonText: '确定',
-                cancelButtonText: '取消',
-                inputPattern: /^(-|\+)?\d+(\.\d+)?$/,
-                inputErrorMessage: '不能为空并且只能是数字！'
-            }).then(({
-                value
-            }) => {
-                this.$$api_order_editPayMoney({
-                    data: {
-                        id: id,
-                        real_buy_price: value
-                    },
-                    fn: data => {
-                        this.loading = false;
-                        this.$message.success('恭喜您!审核成功!')
-                    },
-                    errFn: (err) => {
-                        this.$message.error(err.info);
-                        this.loading = false;
-                    },
-                });
-            }).catch(() => {
-
-            });
-        },
-
-        /**
-         *  邀请评价
-         *
-         * @param {*} id
-         */
-        openComment(id) {
-            this.dialogFormVisible2 = true;
-            this.videoBox = '';
-            this.fileList = [];
-            this.form2 = {
-                id: id,
-                type: 1,
-                pics: [],
-                video: ''
-            }
-        },
-
-        /**
-         *  删除
-         *
-         * @param {*} file
-         * @param {*} fileList
-         */
-        handleRemove(file, fileList) {
-            this.form2.pics = fileList;
-        },
-        handlePictureCardPreview(file) {
-            this.dialogImageUrl = file.url;
-            this.dialogVisible3 = true;
-        },
-
-        /**
-         *  上传成功
-         *
-         * @param {*} response
-         * @param {*} file
-         * @param {*} fileList
-         */
-        handleSuccess(response, file, fileList) {
-
-            this.fileList = fileList
-            this.fileList.forEach((item) => {
-                this.form2.pics.push(item.response.data.url)
-            })
-
-        },
-
-        /**
-         * 超过限制时
-         *
-         * @param {*} files
-         * @param {*} fileList
-         */
-        exceedFunction(files, fileList) {
-            this.$message.error('最多上传 5 张!')
-        },
-        /**
-         *  图片格式化
-         *
-         * @param {*} file
-         * @returns
-         */
-        beforeAvatarUpload(file) { //图片上传前
-            const isJPG = file.type === 'image/jpeg';
-            const isPNG = file.type === 'image/png';
-            const isLt2M = file.size / 1024 / 1024 < 2;
-            let status;
-            if (!isJPG && !isPNG) {
-                this.$message.error('上传头像图片只能是 JPG、PNG 格式!');
-                status = false
-            }
-            if (!isLt2M) {
-                this.$message.error('上传头像图片大小不能超过 2MB!');
-            }
-            return status && isLt2M
-        },
-        /**
-         *  邀请评价提交
-         *
-         * @param {*} ref
-         */
-        sub2(ref) {
-            this.$refs[ref].validate((valid) => {
-                if (valid) {
-                    this.$$api_order_invitePraise({
-                        data: this.form2,
-                        fn: data => {
-                            this.loading = false;
-                            this.$message.success('恭喜您!审核成功!')
-                            this.dialogFormVisible2 = false
-                            this.getList()
-                        },
-                        errFn: (err) => {
-                            this.$message.error(err.info);
-                            this.loading = false;
-                        }
-                    });
-                }
-            })
-        },
-
-        /**
-         *
-         *
-         * @param {*} file
-         * @returns
-         */
-        beforeUploadVideo(file) {
-            const isLt20M = file.size / 1024 / 1024 < 20;
-            if (['video/mp4'].indexOf(file.type) == -1) { //'video/ogg', 'video/flv', 'video/avi', 'video/wmv', 'video/rmvb'
-                this.$message.error('请上传正确的视频格式');
-                return false;
-            }
-            if (!isLt20M) {
-                this.$message.error('上传视频大小不能超过20MB哦!');
-                return false;
-            }
-            this.isShowUploadVideo = false;
-        },
-
-        /**
-         * 进度条
-         *
-         * @param {*} event
-         * @param {*} file
-         * @param {*} fileList
-         */
-        uploadVideoProcess(event, file, fileList) {
-            this.videoFlag = true;
-            this.videoUploadPercent = file.percentage.toFixed(0) * 1;
-        },
-
-        /**
-         *  上传成功回调
-         *
-         * @param {*} res
-         * @param {*} file
-         */
-        handleVideoSuccess(res, file) {
-            this.isShowUploadVideo = true;
-            this.videoFlag = false;
-            this.videoUploadPercent = 0;
-            if (res.status == 1) {
-                this.videoBox = res.data.all_url;
-                this.form2.video = res.data.url;
-                // this.videoForm.showVideoPath = res.data.uploadUrl;
-            } else {
-                this.$message.error('视频上传失败，请重新上传！');
             }
         },
     },

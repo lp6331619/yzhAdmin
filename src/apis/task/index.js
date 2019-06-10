@@ -70,5 +70,22 @@ export default [{
         method: 'payTask',
         path: '/Task/payTask',
         type: 'post',
+    }, {
+        name: '资金明细列表',
+        method: 'getLogList',
+        path: '/AccountLog/getLogList',
+        type: 'post',
+    }, {
+        name: '获取操作类型',
+        method: 'getTypes',
+        path: '/AccountLog/getTypes',
+        type: 'post',
+    }, {
+        name: '获取增值服务价格（流量管理）',
+        method: 'getFlowCostPrice',
+        path: '/Task/getFlowCostPrice',
+        type: 'post',
     },
+
+
 ];

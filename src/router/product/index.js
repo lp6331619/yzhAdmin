@@ -16,7 +16,9 @@ import {
     PriceInfo,
     Invite,
     Task,
-    Order
+    Order,
+    Flow,
+    Evaluation
 } from 'views/';
 export default {
 
@@ -48,22 +50,61 @@ export default {
                 path: 'orderList',
                 name: '销量订单',
                 component: Task.OrderList,
+            }, {
+                path: 'orderDetail',
+                hidden: true,
+                name: '订单详情',
+                component: Task.OrderDetail,
             }]
-        }, {
-            path: 'order',
-            name: '订单列表',
-            redirect: '/order/list',
+        },
+        {
+            path: 'flow',
+            name: '流量管理',
+            redirect: '/flow',
+            child: true,
             component: Content,
             children: [{
-                path: 'list',
-                name: '订单列表',
-                component: Order.List,
+                path: '',
+                name: '计划列表',
+                component: Flow.List,
             }, {
                 path: 'detail',
-                name: '详情页',
-                component: Order.Detail,
+                hidden: true,
+                name: '任务详情',
+                component: Flow.Detail,
+            }, {
+                path: 'edit',
+                hidden: true,
+                name: '编辑',
+                component: Flow.Edit,
+            }, {
+                path: 'orderList',
+                name: '销量订单',
+                component: Flow.OrderList,
+            }, {
+                path: 'orderDetail',
+                hidden: true,
+                name: '订单详情',
+                component: Flow.OrderDetail,
             }]
-        }, {
+        },
+        {
+            path: 'evaluation',
+            name: '评价列表',
+            redirect: '/evaluation/orderList',
+            component: Content,
+            children: [{
+                path: 'orderList',
+                name: '评价列表',
+                component: Evaluation.OrderList,
+            }, {
+                path: 'orderDetail',
+                name: '评价详情页',
+                component: Evaluation.OrderDetail,
+            }]
+        },
+
+        {
             path: 'fundRecord',
             name: '资金记录',
             redirect: '/fundRecord/list',

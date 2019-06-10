@@ -13,6 +13,8 @@ import PriceInfo from './priceInfo/';
 import Invite from './invite/';
 import Task from './task/';
 import Order from './order/';
+import Flow from './flow/';
+import Evaluation from './evaluation/';
 
 
 export {
@@ -27,7 +29,9 @@ export {
   PriceInfo,
   Invite,
   Task,
-  Order
+  Order,
+  Flow,
+  Evaluation
   // Order,
   // HardCurrency,
   // Supplier,

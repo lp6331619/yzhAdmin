@@ -32,8 +32,8 @@ export default {
             tableData: Array,
             selectData: { //搜索条件
                 limit: 10,
-                task_type: 1,
                 p: this.$route.query.p ? parseInt(this.$route.query.p) : 1,
+                task_type: 2,
                 status: this.$route.query.status ? this.$route.query.status : '100',
                 start_time: this.$route.query.start_time ? this.$route.query.start_time : '',
                 id: this.$route.query.id ? this.$route.query.id : '',
@@ -217,7 +217,7 @@ export default {
                     fn: data => {
                         this.loading = false;
                         this.$message.success('撤销成功!')
-                        this.$router.push('/home')
+                        this.$router.push('/flow')
                     },
                     errFn: (err) => {
                         this.$message.error(err.info);
@@ -271,7 +271,7 @@ export default {
         },
         handleClick() {
             this.$router.push({
-                path: '/home/detail',
+                path: '/flow/detail',
                 query: {
                     tid: this.$route.query.tid,
                     status: this.selectData.status
@@ -293,7 +293,7 @@ export default {
         onSelectData() { //搜索
             this.selectData.p = 1;
             this.$router.push({
-                path: '/home/detail',
+                path: '/flow/detail',
                 query: this.selectData
             })
             this.getList()
@@ -301,7 +301,7 @@ export default {
         handleCurrentChange(item) { //分页
             this.selectData.p = item
             this.$router.push({
-                path: '/home/detail',
+                path: '/flow/detail',
                 query: this.selectData
             })
             this.getList()

@@ -189,7 +189,7 @@ export default {
         onSelectData() { //搜索
             this.selectData.p = 1;
             this.$router.push({
-                path: '/home/orderList',
+                path: '/evaluation/orderList',
                 query: this.selectData
             })
             this.getList()
@@ -197,7 +197,7 @@ export default {
         handleCurrentChange(item) { //分页
             this.selectData.p = item
             this.$router.push({
-                path: '/home/orderList',
+                path: '/evaluation/orderList',
                 query: this.selectData
             })
             this.getList()

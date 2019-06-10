@@ -56,7 +56,7 @@
                                 v-if="!itemChild.child"
                                 :key="indexChild"
                                 :index="`${route.path}/${item.path}/${itemChild.path}`"
-                            >{{itemChild.name}}</el-menu-item>
+                            >--{{itemChild.name}}</el-menu-item>
                             <!-- <el-menu-item-group v-else :title="itemChild.name">
                                 <el-menu-item
                                 v-for="itemLast in itemChild.children"
