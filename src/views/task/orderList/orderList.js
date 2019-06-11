@@ -230,10 +230,12 @@ export default {
         sub(ref) {
             this.$refs[ref].validate((valid) => {
                 if (valid) {
+                    let data = JSON.parse(JSON.stringify(this.form))
                     switch (this.popStatus) {
                         case 1:
+                            data.status = data.status == '6' ? '4' : data.status;
                             this.$$api_order_payCapital({
-                                data: this.form,
+                                data: data,
                                 fn: data => {
                                     this.loading = false;
                                     this.$message.success('恭喜您!审核成功!')
@@ -248,7 +250,7 @@ export default {
                             break;
                         case 2:
                             this.$$api_order_payCommision({
-                                data: this.form,
+                                data: data,
                                 fn: data => {
                                     this.loading = false;
                                     this.$message.success('恭喜您!审核成功!')
@@ -262,8 +264,9 @@ export default {
                             });
                             break;
                         case 3:
+                            data.status = data.status == '6' ? '4' : data.status;
                             this.$$api_order_batchPayCapital({
-                                data: this.form,
+                                data: data,
                                 fn: data => {
                                     this.loading = false;
                                     this.$message.success('恭喜您!审核成功!')
@@ -278,7 +281,7 @@ export default {
                             break;
                         case 4:
                             this.$$api_order_batchPayCommision({
-                                data: this.form,
+                                data: data,
                                 fn: data => {
                                     this.loading = false;
                                     this.$message.success('恭喜您!审核成功!')

@@ -3,7 +3,7 @@
         <div class="logoBox">
             <div class="top">
                 商户管理系统
-                <router-link to="/home">
+                <router-link to="/notice/list">
                     <img src="../../assets/logo-sm.png" class="logo" alt>
                 </router-link>
             </div>

@@ -1,7 +1,7 @@
 <template>
     <div class="list">
         <imgPop v-if="imgPopData.status" :data="imgPopData" @closeImg="closeImg"></imgPop>
-        <div class="titleBox">销售订单</div>
+        <div class="titleBox">流量订单</div>
         <div class="p20">
             <el-form :inline="true" :model="selectData" class="demo-form-inline">
                 <el-form-item>
