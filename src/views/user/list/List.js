@@ -135,6 +135,7 @@ export default {
             this.$prompt('请输入QQ号码', '修改QQ号码', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
+                inputValue: this.user_info.qq,
                 inputPattern: /^(-|\+)?\d+(\.\d+)?$/,
                 inputErrorMessage: 'QQ不正确'
             }).then(({ value }) => {
@@ -166,6 +167,7 @@ export default {
             this.$prompt('请输入email号码', '修改email号码', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
+                inputValue: this.user_info.email,
                 inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
                 inputErrorMessage: 'email格式不正确'
             }).then(({ value }) => {
@@ -202,6 +204,7 @@ export default {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 dangerouslyUseHTMLString: true,
+                inputValue: item.interval_day,
                 inputPattern: /^(-|\+)?\d+(\.\d+)?$/,
                 inputErrorMessage: '不能为空并且只能是数字！'
             }).then(({ value }) => {

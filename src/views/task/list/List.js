@@ -20,6 +20,7 @@ export default {
             selectData: { //搜索条件
                 limit: 5,
                 p: this.$route.query.p ? parseInt(this.$route.query.p) : 1,
+                task_type: 1,
                 status: this.$route.query.status ? this.$route.query.status : '',
                 sid: this.$route.query.sid ? this.$route.query.sid : '',
                 title: this.$route.query.title ? this.$route.query.title : '',

@@ -33,6 +33,12 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item>
+                    <el-select v-model="selectData.type" placeholder="请选择任务类型">
+                        <el-option label="下单任务" :value="1">下单任务</el-option>
+                        <el-option label="预售任务" :value="2">预售任务</el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item>
                     <el-date-picker
                         v-model="date"
                         type="daterange"
@@ -80,6 +86,7 @@
                                 任务名称:{{item.title}}
                             </li>
                             <li>任务ID:{{item.id}}</li>
+                            <li>任务类型:{{item.type_name}}</li>
                             <li>创建时间:{{timeDate(item.created_at)}}</li>
                             <li>
                                 任务状态:

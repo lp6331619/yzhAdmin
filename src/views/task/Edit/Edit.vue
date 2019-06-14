@@ -1,6 +1,6 @@
 <template>
     <div class="list">
-        <div class="titleBox">新增修改任务</div>
+        <div class="titleBox">新增修改销量任务</div>
         <div class="p20">
             <el-form ref="form" class="form" :rules="rulesBox" :model="form" label-width="140px">
                 <el-row :gutter="20">
@@ -229,13 +229,7 @@
                                 </el-form-item>
                             </el-col>
                             <el-col :span="8">
-                                <el-form-item
-                                    label="购买规格"
-                                    :prop="'attgoods.' + index + '.product_format'"
-                                    :rules="{
-										required: true, message: '不能为空!', trigger: 'blur'
-									}"
-                                >
+                                <el-form-item label="购买规格">
                                     <el-input
                                         type="text"
                                         v-model="item.product_format"

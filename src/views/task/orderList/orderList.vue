@@ -165,12 +165,9 @@
                             v-if="scrow.row.status == '5'"
                             @click="openPop(scrow.row.id,2)"
                         >佣金审核</el-button>
-                        <el-button
-                            v-if="scrow.row.status == '6' && scrow.row.is_invite_praise == '2'"
-                            plain
-                            size="mini"
-                            @click="openComment(scrow.row.id)"
-                        >邀请评价</el-button>
+                        <!-- v-if="scrow.row.status == '6' && scrow.row.is_invite_praise == '2'" -->
+
+                        <el-button plain size="mini" @click="openComment(scrow.row.id)">邀请评价</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -227,6 +224,21 @@
                         ></el-input>
                     </el-form-item>
                     <el-form-item label="图片" prop="pics" v-if="form2.type == 2">
+                        <el-upload
+                            :action="`${url}/Public/upload_img`"
+                            list-type="picture-card"
+                            :file-list="fileList"
+                            :before-upload="beforeAvatarUpload"
+                            :on-success="handleSuccess"
+                            :on-preview="handlePictureCardPreview"
+                            :limit="5"
+                            :on-exceed="exceedFunction"
+                            :on-remove="handleRemove"
+                        >
+                            <i class="el-icon-plus"></i>
+                        </el-upload>
+                    </el-form-item>
+                    <el-form-item label="图片" v-if="form2.type == 3">
                         <el-upload
                             :action="`${url}/Public/upload_img`"
                             list-type="picture-card"

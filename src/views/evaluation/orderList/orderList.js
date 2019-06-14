@@ -21,7 +21,6 @@ export default {
             selectData: { //搜索条件
                 limit: 10,
                 p: this.$route.query.p ? parseInt(this.$route.query.p) : 1,
-                task_type: 1,
                 type: this.$route.query.type ? this.$route.query.type : '',
                 is_invite_praise: this.$route.query.is_invite_praise ? this.$route.query.is_invite_praise : '',
                 status: this.$route.query.status ? this.$route.query.status : '',

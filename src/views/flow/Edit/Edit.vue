@@ -1,6 +1,6 @@
 <template>
     <div class="list">
-        <div class="titleBox">新增修改任务</div>
+        <div class="titleBox">新增修改流量任务</div>
         <div class="p20">
             <el-form ref="form" class="form" :rules="rulesBox" :model="form" label-width="140px">
                 <el-row :gutter="20">

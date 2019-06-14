@@ -106,16 +106,17 @@
                                 width="auto"
                             >
                                 <template slot-scope="scrow">
-                                    <img
-                                        @click="openImg(scrow.row.product_pic)"
-                                        :src="scrow.row.product_pic"
-                                        width="100px"
-                                        height="100px"
-                                        alt
-                                    >
+                                    <a target="_blank" :href="scrow.row.product_url">
+                                        <img
+                                            :src="scrow.row.product_pic"
+                                            width="100px"
+                                            height="100px"
+                                            alt
+                                        >
+                                    </a>
                                 </template>
                             </el-table-column>
-                            <el-table-column
+                            <!-- <el-table-column
                                 prop="product_url"
                                 label="附加商品链接"
                                 align="center"
@@ -124,7 +125,7 @@
                                 <template slot-scope="scrow">
                                     <a :href="scrow.row.product_url">{{scrow.row.product_url}}</a>
                                 </template>
-                            </el-table-column>
+                            </el-table-column>-->
                             <el-table-column
                                 prop="product_buy_price"
                                 label="附加商品成交价格"
