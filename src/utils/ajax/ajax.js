@@ -67,7 +67,6 @@ export default function ({
 				options[f] = opts[f];
 			}
 		}
-		// console.log(options);
 
 		//发送请求
 		axios(options).then((res) => {
@@ -91,7 +90,7 @@ export default function ({
 			}
 		}).catch((err) => {
 			// this.$store.dispatch('hide_loading');
-			cbs.requestError.call(this, err);
+			// cbs.requestError.call(this, err);
 		});
 	} else {
 		this.$alert('您没用权限请求该接口！', '请求错误', {

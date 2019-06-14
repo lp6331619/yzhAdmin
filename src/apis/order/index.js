@@ -71,4 +71,9 @@ export default [{
     method: 'cancelPraise',
     path: '/Order/cancelPraise',
     type: 'post',
+}, {
+    name: '获取评价任务类型选项',
+    method: 'getPraiseTypes',
+    path: '/Order/getPraiseTypes',
+    type: 'post',
 }];

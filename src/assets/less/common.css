@@ -289,6 +289,11 @@ a:hover {
 .el-dialog__header {
   background: #fdf5f2;
 }
+.badge .el-badge__content.is-fixed {
+  top: 10px;
+  right: -5px;
+  line-height: 14px;
+}
 .imgBoxPop {
   background: rgba(0, 0, 0, 0.8);
   position: fixed;

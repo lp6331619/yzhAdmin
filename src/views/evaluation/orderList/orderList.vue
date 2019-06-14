@@ -15,19 +15,16 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item>
-                    <el-select v-model="selectData.type" placeholder="订单类型">
-                        <el-option label="全部任务" value=" "></el-option>
-                        <el-option label="下单任务" value="1"></el-option>
-                        <el-option label="预售任务" value="2"></el-option>
+                    <el-select v-model="selectData.praise_type" placeholder="任务评价类型">
+                        <el-option
+                            v-for="(item,index) in getPraiseTypes"
+                            :key="index"
+                            :label="item"
+                            :value="index"
+                        ></el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item>
-                    <el-select v-model="selectData.is_invite_praise" placeholder="是否已邀请评价">
-                        <el-option label="全部" value=" "></el-option>
-                        <el-option label="已邀请" value="1"></el-option>
-                        <el-option label="未邀请" value="2"></el-option>
-                    </el-select>
-                </el-form-item>
+
                 <el-form-item>
                     <el-date-picker
                         v-model="date"
@@ -64,9 +61,6 @@
                     <el-input v-model="selectData.order_no" placeholder="淘宝平台订单号"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-input v-model="selectData.money" placeholder="付款金额"></el-input>
-                </el-form-item>
-                <el-form-item>
                     <el-button type="warning" @click="onSelectData">查询</el-button>
                     <el-button @click="onExport()">导出表格</el-button>
                 </el-form-item>
@@ -94,7 +88,7 @@
                 <el-table-column prop="member_name" label="接单账号" align="center" width="80"></el-table-column>
                 <el-table-column prop="order_no" label="平台订单号" align="center" width="80"></el-table-column>
                 <el-table-column prop="tid" label="任务 ID" align="center" width="auto"></el-table-column>
-                <el-table-column prop="type_name" label="任务类型" align="center" width="auto"></el-table-column>
+                <el-table-column prop="praise_type_name" label="评价类型" align="center" width="auto"></el-table-column>
                 <el-table-column
                     prop="created_at"
                     label="接单时间"
@@ -125,7 +119,7 @@
                         >({{scrow.row.flow_step_name}})</span>
                     </template>
                 </el-table-column>
-                <el-table-column label="操作" align="center" fixed="right" width="200">
+                <el-table-column label="操作" align="center" fixed="right" width="80">
                     <template slot-scope="scrow">
                         <el-button
                             plain

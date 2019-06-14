@@ -14,7 +14,12 @@
             align="center"
         >
             <el-table-column prop="title" label="公告标题" align="left" width="auto">
-                <template slot-scope="scope">{{scope.row.title}}</template>
+                <template slot-scope="scope">
+                    <div v-if="scope.row.is_read==2" class="badge">
+                        <el-badge value="new" class="item">{{scope.row.title}}</el-badge>
+                    </div>
+                    <span v-else>{{scope.row.title}}</span>
+                </template>
             </el-table-column>
             <el-table-column
                 prop="created_at"

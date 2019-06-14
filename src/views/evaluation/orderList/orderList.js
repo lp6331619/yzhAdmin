@@ -21,8 +21,8 @@ export default {
             selectData: { //搜索条件
                 limit: 10,
                 p: this.$route.query.p ? parseInt(this.$route.query.p) : 1,
-                type: this.$route.query.type ? this.$route.query.type : '',
-                is_invite_praise: this.$route.query.is_invite_praise ? this.$route.query.is_invite_praise : '',
+                task_type: 4,
+                praise_type: this.$route.query.praise_type ? this.$route.query.praise_type : '',
                 status: this.$route.query.status ? this.$route.query.status : '',
                 start_time: this.$route.query.start_time ? this.$route.query.start_time : '',
                 end_time: this.$route.query.end_time ? this.$route.query.end_time : '',
@@ -31,7 +31,6 @@ export default {
                 oid: this.$route.query.oid ? this.$route.query.oid : '',
                 member_name: this.$route.query.member_name ? this.$route.query.member_name : '',
                 order_no: this.$route.query.order_no ? this.$route.query.order_no : '',
-                money: this.$route.query.money ? this.$route.query.money : '',
             },
             dialogFormVisible: false,
             dialogFormVisible2: false,
@@ -117,6 +116,7 @@ export default {
             videoUploadPercent: "", //进度条的进度，
             isShowUploadVideo: false, //显示上传按钮
             videoBox: '', //视频容器
+            getPraiseTypes: '',//任务评价类型
         }
     },
     methods: {
@@ -130,6 +130,19 @@ export default {
             this.imgPopData.status = status
         },
         getType() {
+            this.$$api_order_getPraiseTypes({ //获取状态
+                data: {},
+                fn: data => {
+                    this.loading = false;
+                    this.getPraiseTypes = data;
+                    console.log(this.getPraiseTypes, 111)
+                },
+                errFn: (err) => {
+                    this.$message.error(err.info);
+                    this.loading = false;
+                },
+                tokenFlag: true
+            });
             this.$$api_order_getOrderStatus({ //获取状态
                 data: {},
                 fn: data => {
