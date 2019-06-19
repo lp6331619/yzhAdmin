@@ -201,8 +201,8 @@
                             @click="openPop(scrow.row.id,2)">佣金审核</el-button>
                         <el-button plain
                             size="mini"
+                            v-if="scrow.row.status == '6' && scrow.row.is_invite_praise == '2'"
                             @click="openComment(scrow.row.id)">邀请评价</el-button>
-                        <!-- v-if="scrow.row.status == '6' && scrow.row.is_invite_praise == '2'" -->
                     </template>
                 </el-table-column>
             </el-table>
