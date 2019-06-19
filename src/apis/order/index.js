@@ -76,4 +76,10 @@ export default [{
     method: 'getPraiseTypes',
     path: '/Order/getPraiseTypes',
     type: 'post',
-}];
+}, {
+    name: '获取邀请评价价格',
+    method: 'getPraisePrice',
+    path: '/Order/getPraisePrice',
+    type: 'post',
+},
+];

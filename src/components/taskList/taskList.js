@@ -122,6 +122,7 @@ export default {
             videoUploadPercent: "", //进度条的进度，
             isShowUploadVideo: false, //显示上传按钮
             videoBox: '', //视频容器
+            getPraisePrice: '',//价钱
         }
     },
     methods: {
@@ -159,6 +160,17 @@ export default {
                 fn: data => {
                     this.loading = false;
                     this.getMyShops = data
+                },
+                errFn: (err) => {
+                    this.$message.error(err.info);
+                    this.loading = false;
+                },
+            });
+            this.$$api_order_getPraisePrice({
+                data: {},
+                fn: data => {
+                    this.loading = false;
+                    this.getPraisePrice = data
                 },
                 errFn: (err) => {
                     this.$message.error(err.info);

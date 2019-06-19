@@ -201,8 +201,8 @@
                             @click="openPop(scrow.row.id,2)">佣金审核</el-button>
                         <el-button plain
                             size="mini"
-                            v-if="scrow.row.status == '6' && scrow.row.is_invite_praise == '2'"
                             @click="openComment(scrow.row.id)">邀请评价</el-button>
+                        <!-- v-if="scrow.row.status == '6' && scrow.row.is_invite_praise == '2'" -->
                     </template>
                 </el-table-column>
             </el-table>
@@ -254,9 +254,9 @@
                     <el-form-item label="评价类型"
                         prop="type">
                         <el-radio-group v-model="form2.type">
-                            <el-radio :label="1">文字</el-radio>
-                            <el-radio :label="2">图文</el-radio>
-                            <el-radio :label="3">视频</el-radio>
+                            <el-radio :label="1">文字 <span class="red"> ({{getPraisePrice.cur_word_commission}} 元)</span></el-radio>
+                            <el-radio :label="2">图文 <span class="red">({{getPraisePrice.cur_pic_commission}} 元)</span></el-radio>
+                            <el-radio :label="3">视频 <span class="red">({{getPraisePrice.cur_viedo_commission}} 元)</span></el-radio>
                         </el-radio-group>
                     </el-form-item>
                     <el-form-item label="评论"
