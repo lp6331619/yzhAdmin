@@ -4,7 +4,11 @@ export default {
     components: {
         'imgPop': imgPop
     },
-    created: function () {
+    props: {
+        pageList: Boolean,//是否需要搜索
+        listStatus: String,// 状态传递status
+    },
+    created() {
         this.getType()
         this.getList()
     },
@@ -21,9 +25,10 @@ export default {
             selectData: { //搜索条件
                 limit: 10,
                 p: this.$route.query.p ? parseInt(this.$route.query.p) : 1,
-                task_type: 4,
-                praise_type: this.$route.query.praise_type ? this.$route.query.praise_type : '',
-                status: this.$route.query.status ? this.$route.query.status : '',
+                task_type: 1,
+                type: this.$route.query.type ? this.$route.query.type : '',
+                is_invite_praise: this.$route.query.is_invite_praise ? this.$route.query.is_invite_praise : '',
+                status: this.$route.query.status ? this.$route.query.status : this.listStatus,
                 start_time: this.$route.query.start_time ? this.$route.query.start_time : '',
                 end_time: this.$route.query.end_time ? this.$route.query.end_time : '',
                 tid: this.$route.query.tid ? this.$route.query.tid : '',
@@ -31,6 +36,7 @@ export default {
                 oid: this.$route.query.oid ? this.$route.query.oid : '',
                 member_name: this.$route.query.member_name ? this.$route.query.member_name : '',
                 order_no: this.$route.query.order_no ? this.$route.query.order_no : '',
+                money: this.$route.query.money ? this.$route.query.money : '',
             },
             dialogFormVisible: false,
             dialogFormVisible2: false,
@@ -116,7 +122,6 @@ export default {
             videoUploadPercent: "", //进度条的进度，
             isShowUploadVideo: false, //显示上传按钮
             videoBox: '', //视频容器
-            getPraiseTypes: '',//任务评价类型
         }
     },
     methods: {
@@ -130,19 +135,6 @@ export default {
             this.imgPopData.status = status
         },
         getType() {
-            this.$$api_order_getPraiseTypes({ //获取状态
-                data: {},
-                fn: data => {
-                    this.loading = false;
-                    this.getPraiseTypes = data;
-                    console.log(this.getPraiseTypes, 111)
-                },
-                errFn: (err) => {
-                    this.$message.error(err.info);
-                    this.loading = false;
-                },
-                tokenFlag: true
-            });
             this.$$api_order_getOrderStatus({ //获取状态
                 data: {},
                 fn: data => {
@@ -179,6 +171,7 @@ export default {
             if (this.selectData.start_time && this.selectData.end_time) {
                 this.date = [this.selectData.start_time, this.selectData.end_time]
             }
+
             this.$$api_order_getOrderList({
                 data: this.selectData,
                 fn: data => {
@@ -201,7 +194,7 @@ export default {
         onSelectData() { //搜索
             this.selectData.p = 1;
             this.$router.push({
-                path: '/evaluation/orderList',
+                path: '/home/orderList',
                 query: this.selectData
             })
             this.getList()
@@ -209,7 +202,7 @@ export default {
         handleCurrentChange(item) { //分页
             this.selectData.p = item
             this.$router.push({
-                path: '/evaluation/orderList',
+                path: '/home/orderList',
                 query: this.selectData
             })
             this.getList()
@@ -242,10 +235,12 @@ export default {
         sub(ref) {
             this.$refs[ref].validate((valid) => {
                 if (valid) {
+                    let data = JSON.parse(JSON.stringify(this.form))
                     switch (this.popStatus) {
                         case 1:
+                            data.status = data.status == '6' ? '4' : data.status;
                             this.$$api_order_payCapital({
-                                data: this.form,
+                                data: data,
                                 fn: data => {
                                     this.loading = false;
                                     this.$message.success('恭喜您!审核成功!')
@@ -260,7 +255,7 @@ export default {
                             break;
                         case 2:
                             this.$$api_order_payCommision({
-                                data: this.form,
+                                data: data,
                                 fn: data => {
                                     this.loading = false;
                                     this.$message.success('恭喜您!审核成功!')
@@ -274,8 +269,9 @@ export default {
                             });
                             break;
                         case 3:
+                            data.status = data.status == '6' ? '4' : data.status;
                             this.$$api_order_batchPayCapital({
-                                data: this.form,
+                                data: data,
                                 fn: data => {
                                     this.loading = false;
                                     this.$message.success('恭喜您!审核成功!')
@@ -290,7 +286,7 @@ export default {
                             break;
                         case 4:
                             this.$$api_order_batchPayCommision({
-                                data: this.form,
+                                data: data,
                                 fn: data => {
                                     this.loading = false;
                                     this.$message.success('恭喜您!审核成功!')
@@ -314,6 +310,56 @@ export default {
                 val.forEach((item) => {
                     this.multipleSelection.push(item.id)
                 })
+            }
+        },
+
+        /**
+         *  修改支付金额
+         *
+         * @param {*} id
+         */
+        payModify(id) {
+            this.$prompt('请输入修改金额', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                inputPattern: /^(-|\+)?\d+(\.\d+)?$/,
+                inputErrorMessage: '不能为空并且只能是数字！'
+            }).then(({
+                value
+            }) => {
+                this.$$api_order_editPayMoney({
+                    data: {
+                        id: id,
+                        real_buy_price: value
+                    },
+                    fn: data => {
+                        this.loading = false;
+                        this.$message.success('恭喜您!审核成功!')
+                    },
+                    errFn: (err) => {
+                        this.$message.error(err.info);
+                        this.loading = false;
+                    },
+                });
+            }).catch(() => {
+
+            });
+        },
+
+        /**
+         *  邀请评价
+         *
+         * @param {*} id
+         */
+        openComment(id) {
+            this.dialogFormVisible2 = true;
+            this.videoBox = '';
+            this.fileList = [];
+            this.form2 = {
+                id: id,
+                type: 1,
+                pics: [],
+                video: ''
             }
         },
 
@@ -451,4 +497,10 @@ export default {
             }
         },
     },
+    watch: {
+        listStatus: function (newQuestion) {
+            this.selectData.status = newQuestion
+            this.getList()
+        }
+    }
 }

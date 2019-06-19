@@ -47,13 +47,6 @@ export default {
                 tokenFlag: true
             });
         },
-        created_atTime(item) {
-            if (item == '0') {
-                return '暂无时间'
-            } else {
-                return new Date(parseInt(item) * 1000).toLocaleString().replace(/:\d{1,2}$/, ' ');
-            }
-        },
         formatterAge(item) {
             if (item.age && item.age.length > 0) {
                 let arr = item.age.split(',')

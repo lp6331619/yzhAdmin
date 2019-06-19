@@ -4,6 +4,10 @@ export default {
     components: {
         'imgPop': imgPop
     },
+    props: {
+        pageList: Boolean,//是否需要搜索
+        listStatus: String,// 状态传递status
+    },
     created: function () {
         this.getType()
         this.getList()
@@ -21,9 +25,10 @@ export default {
             selectData: { //搜索条件
                 limit: 10,
                 p: this.$route.query.p ? parseInt(this.$route.query.p) : 1,
-                task_type: 4,
-                praise_type: this.$route.query.praise_type ? this.$route.query.praise_type : '',
-                status: this.$route.query.status ? this.$route.query.status : '',
+                task_type: 2,
+                type: this.$route.query.type ? this.$route.query.type : '',
+                is_invite_praise: this.$route.query.is_invite_praise ? this.$route.query.is_invite_praise : '',
+                status: this.$route.query.status ? this.$route.query.status : this.listStatus,
                 start_time: this.$route.query.start_time ? this.$route.query.start_time : '',
                 end_time: this.$route.query.end_time ? this.$route.query.end_time : '',
                 tid: this.$route.query.tid ? this.$route.query.tid : '',
@@ -31,6 +36,7 @@ export default {
                 oid: this.$route.query.oid ? this.$route.query.oid : '',
                 member_name: this.$route.query.member_name ? this.$route.query.member_name : '',
                 order_no: this.$route.query.order_no ? this.$route.query.order_no : '',
+                money: this.$route.query.money ? this.$route.query.money : '',
             },
             dialogFormVisible: false,
             dialogFormVisible2: false,
@@ -116,7 +122,6 @@ export default {
             videoUploadPercent: "", //进度条的进度，
             isShowUploadVideo: false, //显示上传按钮
             videoBox: '', //视频容器
-            getPraiseTypes: '',//任务评价类型
         }
     },
     methods: {
@@ -130,20 +135,7 @@ export default {
             this.imgPopData.status = status
         },
         getType() {
-            this.$$api_order_getPraiseTypes({ //获取状态
-                data: {},
-                fn: data => {
-                    this.loading = false;
-                    this.getPraiseTypes = data;
-                    console.log(this.getPraiseTypes, 111)
-                },
-                errFn: (err) => {
-                    this.$message.error(err.info);
-                    this.loading = false;
-                },
-                tokenFlag: true
-            });
-            this.$$api_order_getOrderStatus({ //获取状态
+            this.$$api_order_getFlowOrderStatus({ //获取状态
                 data: {},
                 fn: data => {
                     this.loading = false;
@@ -201,7 +193,7 @@ export default {
         onSelectData() { //搜索
             this.selectData.p = 1;
             this.$router.push({
-                path: '/evaluation/orderList',
+                path: '/flow/orderList',
                 query: this.selectData
             })
             this.getList()
@@ -209,7 +201,7 @@ export default {
         handleCurrentChange(item) { //分页
             this.selectData.p = item
             this.$router.push({
-                path: '/evaluation/orderList',
+                path: '/flow/orderList',
                 query: this.selectData
             })
             this.getList()
@@ -316,139 +308,11 @@ export default {
                 })
             }
         },
-
-        /**
-         *  删除
-         *
-         * @param {*} file
-         * @param {*} fileList
-         */
-        handleRemove(file, fileList) {
-            this.form2.pics = fileList;
-        },
-        handlePictureCardPreview(file) {
-            this.dialogImageUrl = file.url;
-            this.dialogVisible3 = true;
-        },
-
-        /**
-         *  上传成功
-         *
-         * @param {*} response
-         * @param {*} file
-         * @param {*} fileList
-         */
-        handleSuccess(response, file, fileList) {
-
-            this.fileList = fileList
-            this.fileList.forEach((item) => {
-                this.form2.pics.push(item.response.data.url)
-            })
-
-        },
-
-        /**
-         * 超过限制时
-         *
-         * @param {*} files
-         * @param {*} fileList
-         */
-        exceedFunction(files, fileList) {
-            this.$message.error('最多上传 5 张!')
-        },
-        /**
-         *  图片格式化
-         *
-         * @param {*} file
-         * @returns
-         */
-        beforeAvatarUpload(file) { //图片上传前
-            const isJPG = file.type === 'image/jpeg';
-            const isPNG = file.type === 'image/png';
-            const isLt2M = file.size / 1024 / 1024 < 2;
-            let status;
-            if (!isJPG && !isPNG) {
-                this.$message.error('上传头像图片只能是 JPG、PNG 格式!');
-                status = false
-            }
-            if (!isLt2M) {
-                this.$message.error('上传头像图片大小不能超过 2MB!');
-            }
-            return status && isLt2M
-        },
-        /**
-         *  邀请评价提交
-         *
-         * @param {*} ref
-         */
-        sub2(ref) {
-            this.$refs[ref].validate((valid) => {
-                if (valid) {
-                    this.$$api_order_invitePraise({
-                        data: this.form2,
-                        fn: data => {
-                            this.loading = false;
-                            this.$message.success('恭喜您!审核成功!')
-                            this.dialogFormVisible2 = false
-                            this.getList()
-                        },
-                        errFn: (err) => {
-                            this.$message.error(err.info);
-                            this.loading = false;
-                        }
-                    });
-                }
-            })
-        },
-
-        /**
-         *
-         *
-         * @param {*} file
-         * @returns
-         */
-        beforeUploadVideo(file) {
-            const isLt20M = file.size / 1024 / 1024 < 20;
-            if (['video/mp4'].indexOf(file.type) == -1) { //'video/ogg', 'video/flv', 'video/avi', 'video/wmv', 'video/rmvb'
-                this.$message.error('请上传正确的视频格式');
-                return false;
-            }
-            if (!isLt20M) {
-                this.$message.error('上传视频大小不能超过20MB哦!');
-                return false;
-            }
-            this.isShowUploadVideo = false;
-        },
-
-        /**
-         * 进度条
-         *
-         * @param {*} event
-         * @param {*} file
-         * @param {*} fileList
-         */
-        uploadVideoProcess(event, file, fileList) {
-            this.videoFlag = true;
-            this.videoUploadPercent = file.percentage.toFixed(0) * 1;
-        },
-
-        /**
-         *  上传成功回调
-         *
-         * @param {*} res
-         * @param {*} file
-         */
-        handleVideoSuccess(res, file) {
-            this.isShowUploadVideo = true;
-            this.videoFlag = false;
-            this.videoUploadPercent = 0;
-            if (res.status == 1) {
-                this.videoBox = res.data.all_url;
-                this.form2.video = res.data.url;
-                // this.videoForm.showVideoPath = res.data.uploadUrl;
-            } else {
-                this.$message.error('视频上传失败，请重新上传！');
-            }
-        },
     },
+    watch: {
+        listStatus: function (newQuestion) {
+            this.selectData.status = newQuestion
+            this.getList()
+        }
+    }
 }

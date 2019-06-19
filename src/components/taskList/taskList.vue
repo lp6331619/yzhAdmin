@@ -3,12 +3,11 @@
         <imgPop v-if="imgPopData.status"
             :data="imgPopData"
             @closeImg="closeImg"></imgPop>
-        <div class="titleBox">评价列表</div>
         <div class="p20">
             <el-form :inline="true"
                 :model="selectData"
                 class="demo-form-inline">
-                <el-form-item>
+                <el-form-item v-if="pageList">
                     <el-select v-model="selectData.status"
                         placeholder="任务状态">
                         <el-option v-for="item in status"
@@ -17,17 +16,29 @@
                             :value="item.type"></el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item>
-                    <el-select v-model="selectData.praise_type"
-                        placeholder="任务评价类型">
-                        <el-option v-for="(item,index) in getPraiseTypes"
-                            :key="index"
-                            :label="item"
-                            :value="index"></el-option>
+                <el-form-item v-if="pageList">
+                    <el-select v-model="selectData.type"
+                        placeholder="订单类型">
+                        <el-option label="全部任务"
+                            value=" "></el-option>
+                        <el-option label="下单任务"
+                            value="1"></el-option>
+                        <el-option label="预售任务"
+                            value="2"></el-option>
                     </el-select>
                 </el-form-item>
-
-                <el-form-item>
+                <el-form-item v-if="pageList">
+                    <el-select v-model="selectData.is_invite_praise"
+                        placeholder="是否已邀请评价">
+                        <el-option label="全部"
+                            value=" "></el-option>
+                        <el-option label="已邀请"
+                            value="1"></el-option>
+                        <el-option label="未邀请"
+                            value="2"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item v-if="pageList">
                     <el-date-picker v-model="date"
                         type="daterange"
                         align="right"
@@ -38,7 +49,7 @@
                         value-format="yyyy-MM-dd"
                         :picker-options="pickerOptions2"></el-date-picker>
                 </el-form-item>
-                <el-form-item>
+                <el-form-item v-if="pageList">
                     <el-select v-model="selectData.sid"
                         placeholder="请选择店铺">
                         <el-option v-for="(item,index) in getMyShops"
@@ -47,25 +58,35 @@
                             :value="index"></el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item>
+                <el-form-item v-if="pageList">
                     <el-input v-model="selectData.tid"
                         placeholder="任务ID"></el-input>
                 </el-form-item>
-                <el-form-item>
+                <el-form-item v-if="pageList">
                     <el-input v-model="selectData.oid"
                         placeholder="订单ID"></el-input>
                 </el-form-item>
-                <el-form-item>
+                <el-form-item v-if="pageList">
                     <el-input v-model="selectData.member_name"
                         placeholder="接单账号"></el-input>
                 </el-form-item>
-                <el-form-item>
+                <el-form-item v-if="pageList">
                     <el-input v-model="selectData.order_no"
                         placeholder="淘宝平台订单号"></el-input>
                 </el-form-item>
+                <el-form-item v-if="pageList">
+                    <el-input v-model="selectData.money"
+                        placeholder="付款金额"></el-input>
+                </el-form-item>
                 <el-form-item>
                     <el-button type="warning"
+                        v-if="pageList"
                         @click="onSelectData">查询</el-button>
+                    <el-button @click="openPop(multipleSelection,3)"
+                        type="primary"
+                        v-if="selectData.status == '2'"
+                        :disabled="multipleSelection.length<=0"
+                        plain>批量本金审核</el-button>
                     <el-button @click="openPop(multipleSelection,4)"
                         type="primary"
                         v-if="selectData.status == '5'"
@@ -93,7 +114,24 @@
                     label="店铺名称"
                     align="center"
                     width="auto"></el-table-column>
-
+                <el-table-column prop="sale_price"
+                    label="垫付金额"
+                    align="center"
+                    width="auto"></el-table-column>
+                <el-table-column prop="real_buy_price"
+                    label="支付金额"
+                    align="center"
+                    width="auto">
+                    <template slot-scope="scrow">
+                        {{scrow.row.real_buy_price}}
+                        <el-button type="primary"
+                            icon="el-icon-edit"
+                            v-if="scrow.row.status==2"
+                            @click="payModify(scrow.row.id)"
+                            size="mini"
+                            circle></el-button>
+                    </template>
+                </el-table-column>
                 <el-table-column prop="product_pic1"
                     label="商品主图"
                     align="center"
@@ -117,8 +155,8 @@
                     label="任务 ID"
                     align="center"
                     width="auto"></el-table-column>
-                <el-table-column prop="praise_type_name"
-                    label="评价类型"
+                <el-table-column prop="type_name"
+                    label="任务类型"
                     align="center"
                     width="auto"></el-table-column>
                 <el-table-column prop="created_at"
@@ -131,17 +169,6 @@
                     :formatter="complete_timeTime"
                     align="center"
                     width="100"></el-table-column>
-                <el-table-column prop="evaluate_pic"
-                    label="评价截图"
-                    align="center"
-                    width="110">
-                    <template slot-scope="scrow">
-                        <a @click="openImg(scrow.row.evaluate_pic)">
-                            <img :src="scrow.row.evaluate_pic"
-                                style="height:100px;">
-                        </a>
-                    </template>
-                </el-table-column>
                 <el-table-column prop="cancel_content"
                     label="不通过原因"
                     align="center"
@@ -163,11 +190,19 @@
                         <el-button plain
                             type="warning"
                             size="mini"
-                            @click="$router.push(`/evaluation/orderDetail?id=${scrow.row.id}`)">查看</el-button>
+                            @click="$router.push(`/home/orderDetail?id=${scrow.row.id}`)">查看</el-button>
+                        <el-button plain
+                            size="mini"
+                            @click="openPop(scrow.row.id,1)"
+                            v-if="scrow.row.status == '2'">本金审核</el-button>
                         <el-button plain
                             size="mini"
                             v-if="scrow.row.status == '5'"
                             @click="openPop(scrow.row.id,2)">佣金审核</el-button>
+                        <el-button plain
+                            size="mini"
+                            v-if="scrow.row.status == '6' && scrow.row.is_invite_praise == '2'"
+                            @click="openComment(scrow.row.id)">邀请评价</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -246,6 +281,20 @@
                             <i class="el-icon-plus"></i>
                         </el-upload>
                     </el-form-item>
+                    <el-form-item label="图片"
+                        v-if="form2.type == 3">
+                        <el-upload :action="`${url}/Public/upload_img`"
+                            list-type="picture-card"
+                            :file-list="fileList"
+                            :before-upload="beforeAvatarUpload"
+                            :on-success="handleSuccess"
+                            :on-preview="handlePictureCardPreview"
+                            :limit="5"
+                            :on-exceed="exceedFunction"
+                            :on-remove="handleRemove">
+                            <i class="el-icon-plus"></i>
+                        </el-upload>
+                    </el-form-item>
                     <el-form-item label="视频"
                         prop="video"
                         v-if="form2.type == 3">
@@ -294,8 +343,8 @@
     </div>
 </template>
 <script>
-import OrderListJs from "./orderList.js";
-export default OrderListJs;
+import TaskList from "./taskList.js";
+export default TaskList;
 </script>
 <style scoped>
 .avatar-uploader .el-upload {
