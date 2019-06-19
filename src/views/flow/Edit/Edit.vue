@@ -486,26 +486,15 @@
                         <th>小计</th>
                     </tr>
                     <tr>
-                        <td class="b3"
-                            rowspan="3">本元</td>
-                        <td>项目本元</td>
-                        <td class="b3">{{calculate.price?calculate.price:0*calculate.product_num?calculate.product_num:0}}</td>
-                        <td rowspan="3">{{calculate.unit_capital_cost}}</td>
-                    </tr>
-                    <tr>
-                        <td>返款手续费</td>
-                        <td class="b3">{{calculate.serve}}</td>
-                    </tr>
-                    <tr>
-                        <td>快递费用</td>
-                        <td class="b3">{{calculate.express}}</td>
-                    </tr>
-                    <tr>
-                        <td rowspan="10"
-                            class="b3">佣元</td>
-                        <td>佣元费用</td>
+                        <td rowspan="12"
+                            class="b3">佣金</td>
+                        <td>佣金费用</td>
                         <td class="b3">{{calculate.cur_commision}}</td>
-                        <td rowspan="10">{{calculate.unit_commision_cost}}</td>
+                        <td rowspan="12">{{calculate.unit_commision_cost}}</td>
+                    </tr>
+                    <tr>
+                        <td>附加商品</td>
+                        <td class="b3">{{calculate.attgoods}}</td>
                     </tr>
                     <tr>
                         <td>加赏费用</td>
@@ -528,10 +517,6 @@
                         <td class="b3">{{calculate.limit_credit}}</td>
                     </tr>
                     <tr>
-                        <td>花呗号</td>
-                        <td class="b3">{{calculate.huabei}}</td>
-                    </tr>
-                    <tr>
                         <td>高优质买号</td>
                         <td class="b3">{{calculate.grade_buyer}}</td>
                     </tr>
@@ -540,13 +525,24 @@
                         <td class="b3">{{calculate.phone_type}}</td>
                     </tr>
                     <tr>
-                        <td colspan="4">
+                        <td>加购物车</td>
+                        <td class="b3">{{calculate.add_shopping_cart}}</td>
+                    </tr>
+                    <tr>
+                        <td>关注店铺</td>
+                        <td class="b3">{{calculate.save_shop}}</td>
+                    </tr>
+                    <tr>
+                        <td>收藏宝贝</td>
+                        <td class="b3">{{calculate.save_product}}</td>
+                    </tr>
+                    <tr>
+                        <td>总数</td>
+                        <td colspan="3">
                             单数：
                             <span class="red">{{calculate.num}}</span>
-                            总本元：
-                            <span class="red">{{calculate.total_capital_cost}}</span>
-                            总佣元：
-                            <span class="red">{{calculate.total_commision_cost}}</span>
+                            总佣金：
+                            <span class="red">{{calculate.total_commision_cost }}</span>
                             总价：
                             <span class="red">{{calculate.total_cost}}</span>
                         </td>

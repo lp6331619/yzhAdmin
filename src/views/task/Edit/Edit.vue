@@ -567,8 +567,8 @@
                     <tr>
                         <td class="b3"
                             rowspan="3">本金</td>
-                        <td>项目本金</td>
-                        <td class="b3">{{calculate.price?calculate.price:0*calculate.product_num?calculate.product_num:0}}</td>
+                        <td>垫付本金</td>
+                        <td class="b3">{{calculate.product_all_price}}</td>
                         <td rowspan="3">{{calculate.unit_capital_cost}}</td>
                     </tr>
                     <tr>
@@ -580,11 +580,11 @@
                         <td class="b3">{{calculate.express}}</td>
                     </tr>
                     <tr>
-                        <td rowspan="10"
+                        <td rowspan="11"
                             class="b3">佣金</td>
                         <td>佣金费用</td>
                         <td class="b3">{{calculate.cur_commision}}</td>
-                        <td rowspan="10">{{calculate.unit_commision_cost}}</td>
+                        <td rowspan="11">{{calculate.unit_commision_cost}}</td>
                     </tr>
                     <tr>
                         <td>加赏费用</td>
@@ -607,7 +607,7 @@
                         <td class="b3">{{calculate.limit_credit}}</td>
                     </tr>
                     <tr>
-                        <td>花呗号</td>
+                        <td>花呗号下单</td>
                         <td class="b3">{{calculate.huabei}}</td>
                     </tr>
                     <tr>
@@ -619,7 +619,16 @@
                         <td class="b3">{{calculate.phone_type}}</td>
                     </tr>
                     <tr>
-                        <td colspan="4">
+                        <td>标签单</td>
+                        <td class="b3">{{calculate.only_allow_browse}}</td>
+                    </tr>
+                    <tr>
+                        <td>指定下单日期</td>
+                        <td class="b3">{{calculate.limit_buy_time}}</td>
+                    </tr>
+                    <tr>
+                        <td>总数</td>
+                        <td colspan="3">
                             单数：
                             <span class="red">{{calculate.num}}</span>
                             总本金：
