@@ -41,7 +41,7 @@
                                 target="_blank">{{dataBox.product_name}}</a>
                         </small>
                         <small v-if="dataBox.type == 2 && dataBox.order_time">
-                            <span>浏览任务下单日期 : {{timeDate(dataBox.order_time)}}</span>
+                            <span>浏览任务下单日期 : {{timeDay(dataBox.order_time)}}</span>
                         </small>
                     </div>
                     <p class="bottom">
