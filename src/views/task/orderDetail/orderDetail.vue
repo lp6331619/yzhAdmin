@@ -16,7 +16,7 @@
                     <span class="mr20">订单ID:{{dataBox.id}}</span>
                     <span class="mr20">买手ID:{{dataBox.bid}}</span>
                     <span class="mr20">接单账号:{{dataBox.member_name}}</span>
-                    <span class="mr20">任务Id:{{dataBox.tid}}</span>
+                    <span class="mr20">任务ID:{{dataBox.tid}}</span>
                     <span class="mr20">平台订单编号:{{dataBox.order_no}}</span>
                 </p>
             </div>

@@ -61,7 +61,12 @@
                                     <i class="red">{{data.product_address}}</i>
                                 </span>
                             </p>
-                            <p>备注说明：看五张主图，点赞买家秀，一定要收藏加入购物车，操作15分钟</p>
+                            <p>
+                                <span v-if="data.other_ask"
+                                    class="mr20">特殊需求:{{data.other_ask}}</span>
+                                <span v-if="data.order_message"
+                                    class="mr20">订单留言:{{data.order_message}}</span>
+                            </p>
                             <ul class="right">
                                 <li>
                                     订单总数:

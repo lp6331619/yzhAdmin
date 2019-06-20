@@ -16,28 +16,7 @@
                             :value="item.type"></el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item v-if="pageList">
-                    <el-select v-model="selectData.type"
-                        placeholder="订单类型">
-                        <el-option label="全部任务"
-                            value=" "></el-option>
-                        <el-option label="下单任务"
-                            value="1"></el-option>
-                        <el-option label="预售任务"
-                            value="2"></el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item v-if="pageList">
-                    <el-select v-model="selectData.is_invite_praise"
-                        placeholder="是否已邀请评价">
-                        <el-option label="全部"
-                            value=" "></el-option>
-                        <el-option label="已邀请"
-                            value="1"></el-option>
-                        <el-option label="未邀请"
-                            value="2"></el-option>
-                    </el-select>
-                </el-form-item>
+
                 <el-form-item v-if="pageList">
                     <el-date-picker v-model="date"
                         type="daterange"
@@ -70,14 +49,7 @@
                     <el-input v-model="selectData.member_name"
                         placeholder="接单账号"></el-input>
                 </el-form-item>
-                <el-form-item v-if="pageList">
-                    <el-input v-model="selectData.order_no"
-                        placeholder="淘宝平台订单号"></el-input>
-                </el-form-item>
-                <el-form-item v-if="pageList">
-                    <el-input v-model="selectData.money"
-                        placeholder="付款金额"></el-input>
-                </el-form-item>
+
                 <el-form-item>
                     <el-button type="warning"
                         v-if="pageList"

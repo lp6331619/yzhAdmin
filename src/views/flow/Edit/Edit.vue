@@ -331,7 +331,7 @@
 
                     <!--  -->
                     <div class="tip mt0 clear">
-                        <p>商品留言</p>
+                        <p>订单留言</p>
                     </div>
 
                     <el-col class="clear"
@@ -345,12 +345,12 @@
                         </el-form-item>
                     </el-col>
                     <el-col :span="24">
-                        <el-form-item label="商品留言"
+                        <el-form-item label="订单留言"
                             prop="order_message">
                             <el-input type="textarea"
                                 :autosize="{ minRows: 5, maxRows: 5}"
                                 v-model="form.order_message"
-                                placeholder="商品留言"></el-input>
+                                placeholder="订单留言"></el-input>
                         </el-form-item>
                     </el-col>
                     <div class="tip mt0 clear">

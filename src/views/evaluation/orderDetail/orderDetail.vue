@@ -3,7 +3,13 @@
         <imgPop v-if="imgPopData.status"
             :data="imgPopData"
             @closeImg="closeImg"></imgPop>
-        <div class="titleBox">评价详情</div>
+        <div class="titleBox relative">评价详情
+            <el-button size="small"
+                icon="el-icon-arrow-left"
+                class="backDetail"
+                @click="$router.push('/evaluation/orderList')"
+                type="warning">返回</el-button>
+        </div>
         <div class="p20">
             <div class="tip">
                 <p class="clearfix">
@@ -11,7 +17,7 @@
                     <span class="mr20">订单ID:{{dataBox.id}}</span>
                     <span class="mr20">买手ID:{{dataBox.bid}}</span>
                     <span class="mr20">接单账号:{{dataBox.member_name}}</span>
-                    <span class="mr20">任务Id:{{dataBox.tid}}</span>
+                    <span class="mr20">任务ID:{{dataBox.tid}}</span>
                     <span class="mr20">平台订单编号:{{dataBox.order_no}}</span>
                 </p>
             </div>
@@ -35,7 +41,7 @@
                                 target="_blank">{{dataBox.product_name}}</a>
                         </small>
                         <small v-if="dataBox.type == 2 && dataBox.order_time">
-                            <span>浏览任务下单日期 : {{created_atTime(dataBox.order_time)}}</span>
+                            <span>浏览任务下单日期 : {{timeDay(dataBox.order_time)}}</span>
                         </small>
                     </div>
                     <p class="bottom">

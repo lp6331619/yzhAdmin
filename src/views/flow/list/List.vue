@@ -2,39 +2,38 @@
     <div class="list">
         <div class="titleBox">
             任务列表
-            <imgPop v-if="imgPopData.status" :data="imgPopData" @closeImg="closeImg"></imgPop>
-            <el-button
-                class="ml20"
+            <imgPop v-if="imgPopData.status"
+                :data="imgPopData"
+                @closeImg="closeImg"></imgPop>
+            <el-button class="ml20"
                 type="warning"
                 @click="$router.push(`/flow/edit`)"
-                size="mini"
-            >+发布任务</el-button>
+                size="mini">+发布任务</el-button>
         </div>
         <div class="p20">
-            <el-form :inline="true" :model="selectData" class="demo-form-inline">
+            <el-form :inline="true"
+                :model="selectData"
+                class="demo-form-inline">
                 <el-form-item>
-                    <el-select v-model="selectData.status" placeholder="请选择任务状态">
-                        <el-option
-                            v-for="(item,index) in status"
+                    <el-select v-model="selectData.status"
+                        placeholder="请选择任务状态">
+                        <el-option v-for="(item,index) in status"
                             :key="index"
                             :label="item"
-                            :value="index"
-                        ></el-option>
+                            :value="index"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item>
-                    <el-select v-model="selectData.sid" placeholder="请选择店铺">
-                        <el-option
-                            v-for="(item,index) in getMyShops"
+                    <el-select v-model="selectData.sid"
+                        placeholder="请选择店铺">
+                        <el-option v-for="(item,index) in getMyShops"
                             :key="index"
                             :label="item"
-                            :value="index"
-                        ></el-option>
+                            :value="index"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item>
-                    <el-date-picker
-                        v-model="date"
+                    <el-date-picker v-model="date"
                         type="daterange"
                         align="right"
                         range-separator="至"
@@ -42,39 +41,39 @@
                         end-placeholder="结束日期"
                         @change="setDate"
                         value-format="yyyy-MM-dd"
-                        :picker-options="pickerOptions2"
-                    ></el-date-picker>
+                        :picker-options="pickerOptions2"></el-date-picker>
                 </el-form-item>
                 <el-form-item>
-                    <el-input
-                        placeholder="请输入任务id"
+                    <el-input placeholder="请输入任务ID"
                         v-model="selectData.order_id"
-                        @keyup.native.enter="onSelectData()"
-                    ></el-input>
+                        @keyup.native.enter="onSelectData()"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-input
-                        placeholder="请输入任务名称"
+                    <el-input placeholder="请输入任务名称"
                         v-model="selectData.title"
-                        @keyup.native.enter="onSelectData()"
-                    ></el-input>
+                        @keyup.native.enter="onSelectData()"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="warning" @click="onSelectData">查询</el-button>
+                    <el-button type="warning"
+                        @click="onSelectData">查询</el-button>
                 </el-form-item>
             </el-form>
             <div class="listBox">
                 <div v-if="tableData.list && tableData.list.length>0">
-                    <div class="item" v-for="(item,index) in tableData.list" :key="index">
+                    <div class="item"
+                        v-for="(item,index) in tableData.list"
+                        :key="index">
                         <div class="title">
                             <li>
-                                <svg class="icon" aria-hidden="true">
+                                <svg class="icon"
+                                    aria-hidden="true">
                                     <use xlink:href="#icon-taobao"></use>
                                 </svg>
                                 {{item.shop_name}}
                             </li>
                             <li>
-                                <svg class="icon" aria-hidden="true">
+                                <svg class="icon"
+                                    aria-hidden="true">
                                     <use xlink:href="#icon-xiaoliang"></use>
                                 </svg>
                                 任务名称:{{item.title}}
@@ -87,15 +86,15 @@
                             </li>
                         </div>
                         <div class="bottom">
-                            <a @click="openImg(item.product_pic1)" class="imgBox">
-                                <img :src="item.product_pic1" alt>
+                            <a @click="openImg(item.product_pic1)"
+                                class="imgBox">
+                                <img :src="item.product_pic1"
+                                    alt>
                             </a>
                             <div class="name">
-                                <a
-                                    :href="item.product_url"
+                                <a :href="item.product_url"
                                     target="_blank"
-                                    rel="noreferrer"
-                                >{{item.product_name}}</a>
+                                    rel="noreferrer">{{item.product_name}}</a>
                             </div>
                             <div class="num">
                                 <a @click="$router.push(`/flow/detail?tid=${item.id}&status=0`)">
@@ -129,37 +128,31 @@
                             </div>
                             <div class="timeBox">
                                 开始时间:{{item.push_start_time}}
-                                <span
-                                    class="ml20"
-                                >结束时间:{{item.push_end_time}}</span>
+                                <span class="ml20">结束时间:{{item.push_end_time}}</span>
                             </div>
                             <div class="buttonBox">
-                                <el-button
+                                <el-button type="warning"
+                                    @click="$router.push(`/flow/detail?tid=${item.id}`)">查看详情</el-button>
+                                <el-button v-if="item.status_name == '待支付'"
                                     type="warning"
-                                    @click="$router.push(`/flow/detail?tid=${item.id}`)"
-                                >查看详情</el-button>
-                                <el-button
-                                    v-if="item.status_name == '待支付'"
-                                    type="warning"
-                                    @click="pay(item.id)"
-                                >立即支付</el-button>
+                                    @click="pay(item.id)">立即支付</el-button>
                                 <el-button @click="$router.push(`/flow/edit?tid=${item.id}`)">重新发布</el-button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="noneData" v-else>暂无数据</div>
+                <div class="noneData"
+                    v-else>暂无数据</div>
             </div>
             <!--翻页-->
-            <div class="pageBox" v-show="pageShow">
-                <el-pagination
-                    @current-change="handleCurrentChange"
+            <div class="pageBox"
+                v-show="pageShow">
+                <el-pagination @current-change="handleCurrentChange"
                     :current-page="selectData.p"
                     background
                     :page-size="selectData.limit"
                     layout="prev, pager, next, jumper"
-                    :total="tableData.count"
-                ></el-pagination>
+                    :total="tableData.count"></el-pagination>
             </div>
         </div>
     </div>

@@ -26,8 +26,6 @@ export default {
                 limit: 10,
                 p: this.$route.query.p ? parseInt(this.$route.query.p) : 1,
                 task_type: 2,
-                type: this.$route.query.type ? this.$route.query.type : '',
-                is_invite_praise: this.$route.query.is_invite_praise ? this.$route.query.is_invite_praise : '',
                 status: this.$route.query.status ? this.$route.query.status : this.listStatus,
                 start_time: this.$route.query.start_time ? this.$route.query.start_time : '',
                 end_time: this.$route.query.end_time ? this.$route.query.end_time : '',
@@ -35,8 +33,6 @@ export default {
                 sid: this.$route.query.sid ? this.$route.query.sid : '',
                 oid: this.$route.query.oid ? this.$route.query.oid : '',
                 member_name: this.$route.query.member_name ? this.$route.query.member_name : '',
-                order_no: this.$route.query.order_no ? this.$route.query.order_no : '',
-                money: this.$route.query.money ? this.$route.query.money : '',
             },
             dialogFormVisible: false,
             dialogFormVisible2: false,
@@ -214,7 +210,7 @@ export default {
         },
         onExport() { //导出表格
             let token = this.$store.state.user.userinfo.token
-            window.open(`${this.url}/Order/getOrderList?token=${token}&status=${this.selectData.status}&export=1&start_time=${this.selectData.start_time}&end_time=${this.selectData.end_time}&tid=${this.selectData.tid}&oid=${this.selectData.oid}&member_name=${this.selectData.member_name}&order_no=${this.selectData.order_no}&money=${this.selectData.money}&export=1`);
+            window.open(`${this.url}/Order/getOrderList?token=${token}&status=${this.selectData.status}&export=1&start_time=${this.selectData.start_time}&end_time=${this.selectData.end_time}&tid=${this.selectData.tid}&oid=${this.selectData.oid}&member_name=${this.selectData.member_name}&export=1`);
         },
         created_atTime(item) {
             if (item.created_at != '0')

@@ -3,7 +3,8 @@
         <imgPop v-if="imgPopData.status"
             :data="imgPopData"
             @closeImg="closeImg"></imgPop>
-        <div class="titleBox relative">订单详情 <el-button size="small"
+        <div class="titleBox relative">订单详情
+            <el-button size="small"
                 icon="el-icon-arrow-left"
                 class="backDetail"
                 @click="$router.push('/flow/orderList')"
