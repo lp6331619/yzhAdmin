@@ -346,7 +346,8 @@ export default {
                     },
                     fn: data => {
                         this.loading = false;
-                        this.$message.success('恭喜您!审核成功!')
+                        this.$message.success('恭喜您!修改成功!')
+                        this.getList()
                     },
                     errFn: (err) => {
                         this.$message.error(err.info);
