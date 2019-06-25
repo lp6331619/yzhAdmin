@@ -1,10 +1,10 @@
 import Vue from 'vue';
 var env = process.env;
 let url = ''
-if (window.location.host.indexOf('userbeta.') != -1) {
-	url = 'http://yzhbeta.youzihui.com.cn'
-} else if (window.location.host.indexOf('user.') != -1) {
-	url = 'http://yzh.youzihui.com.cn'
+if (window.location.host.indexOf('user.youzihui.net') != -1) {
+	url = 'http://yzh.youzihui.net'
+} else if (window.location.host.indexOf('userbeta.youzihui.net') != -1) {
+	url = 'http://yzhbeta.youzihui.net'
 } else if (window.location.host.indexOf('localhost') != -1) {
 	url = '/AdminApi'
 }
