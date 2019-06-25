@@ -32,7 +32,42 @@ export default {
                 cost_money: '',
                 transfer_pic: ''
             },
+            form2: {
+                bank_id: '',
+                name: '',
+                bank_no: '',
+                cost_money: '',
+                password: '',
+                transfer_pic: ''
+            },
             rule_data: {
+                bank_id: [{
+                    required: true,
+                    message: '不能为空！',
+                    trigger: 'change'
+                }],
+                name: [{
+                    required: true,
+                    message: '不能为空！',
+                    trigger: 'blur'
+                }],
+                bank_no: [{
+                    required: true,
+                    message: '不能为空！',
+                    trigger: 'blur'
+                }],
+                cost_money: [{
+                    required: true,
+                    message: '不能为空！',
+                    trigger: 'blur'
+                }],
+                url: [{
+                    required: true,
+                    message: '不能为空！',
+                    trigger: 'change'
+                }],
+            },
+            rule_data2: {
                 bank_id: [{
                     required: true,
                     message: '不能为空！',
@@ -323,7 +358,7 @@ export default {
                         });
                     } else {
                         this.$$api_shop_addCash({
-                            data: this.form,
+                            data: this.form2,
                             fn: data => {
                                 this.loading = false;
                                 this.$message.success('恭喜您提交成功！');

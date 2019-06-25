@@ -1,16 +1,18 @@
 <template>
     <div class="list">
-        <imgPop v-if="imgPopData.status" :data="imgPopData" @closeImg="closeImg"></imgPop>
-        <el-tabs v-model="activeName" @tab-click="handleClick">
-            <el-tab-pane label="账户充值" name="1">
+        <imgPop v-if="imgPopData.status"
+            :data="imgPopData"
+            @closeImg="closeImg"></imgPop>
+        <el-tabs v-model="activeName"
+            @tab-click="handleClick">
+            <el-tab-pane label="账户充值"
+                name="1">
                 <div class="tip text-center">
                     <p>
                         本金余额（元）:
                         <strong class="f20 mr20">{{balance_capital_money}}</strong>
                         佣金余额（元）:
-                        <strong
-                            class="f20"
-                        >{{balance_commision_money}}</strong>
+                        <strong class="f20">{{balance_commision_money}}</strong>
                     </p>
                 </div>
                 <div class="box clearfix">
@@ -28,74 +30,70 @@
                         <div class="card">
                             <div class="title last">第二步：确认提交转账金额</div>
                             <div class="formBox">
-                                <el-form
-                                    size="mini"
+                                <el-form size="mini"
                                     label-width="100px"
                                     class="form clearfix"
                                     v-loading="loading"
                                     element-loading-text="正在登录"
                                     :model="form"
                                     :rules="rule_data"
-                                    ref="form"
-                                >
+                                    ref="form">
                                     <el-col :span="12">
-                                        <el-form-item class="formRow" prop="bank_id" label="转账银行">
-                                            <el-select v-model="form.bank_id" placeholder="请选择银行">
-                                                <el-option
-                                                    v-for="item in bankList"
+                                        <el-form-item class="formRow"
+                                            prop="bank_id"
+                                            label="转账银行">
+                                            <el-select v-model="form.bank_id"
+                                                placeholder="请选择银行">
+                                                <el-option v-for="item in bankList"
                                                     :key="item.id"
                                                     :label="item.name"
-                                                    :value="item.id"
-                                                ></el-option>
+                                                    :value="item.id"></el-option>
                                             </el-select>
                                         </el-form-item>
-                                        <el-form-item class="formRow" prop="bank_no" label="银行卡号">
-                                            <el-input
-                                                type="number"
+                                        <el-form-item class="formRow"
+                                            prop="bank_no"
+                                            label="银行卡号">
+                                            <el-input type="number"
                                                 class="form-control"
                                                 placeholder="转出银行卡号"
-                                                v-model="form.bank_no"
-                                            ></el-input>
+                                                v-model="form.bank_no"></el-input>
                                         </el-form-item>
-                                        <el-form-item class="formRow" prop="name" label="银行卡姓名">
-                                            <el-input
-                                                type="text"
+                                        <el-form-item class="formRow"
+                                            prop="name"
+                                            label="银行卡姓名">
+                                            <el-input type="text"
                                                 class="form-control"
                                                 placeholder="转出银行卡姓名"
-                                                v-model="form.name"
-                                            ></el-input>
+                                                v-model="form.name"></el-input>
                                         </el-form-item>
-                                        <el-form-item
-                                            class="formRow"
+                                        <el-form-item class="formRow"
                                             prop="cost_money"
-                                            label="转出金额"
-                                        >
-                                            <el-input
-                                                type="number"
+                                            label="转出金额">
+                                            <el-input type="number"
                                                 class="form-control"
                                                 placeholder="转出金额"
-                                                v-model="form.cost_money"
-                                            ></el-input>
+                                                v-model="form.cost_money"></el-input>
                                         </el-form-item>
                                     </el-col>
                                     <el-col :span="12">
-                                        <el-form-item class="formRow" prop="url" label="转账截图">
-                                            <el-upload
-                                                class="avatar-uploader"
+                                        <el-form-item class="formRow"
+                                            prop="url"
+                                            label="转账截图">
+                                            <el-upload class="avatar-uploader"
                                                 :action="`${url}/Public/upload_img`"
                                                 :show-file-list="false"
                                                 :on-success="handleAvatarSuccess"
-                                                :before-upload="beforeAvatarUpload"
-                                            >
-                                                <img v-if="form.url" :src="form.url" class="avatar">
-                                                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                                                :before-upload="beforeAvatarUpload">
+                                                <img v-if="form.url"
+                                                    :src="form.url"
+                                                    class="avatar">
+                                                <i v-else
+                                                    class="el-icon-plus avatar-uploader-icon"></i>
                                             </el-upload>
                                         </el-form-item>
                                         <el-form-item class="formRow">
-                                            <el-button
-                                                type="warning"
-                                                @click="subRecharge('form')"
-                                            >确认提交</el-button>
+                                            <el-button type="warning"
+                                                @click="subRecharge('form')">确认提交</el-button>
                                             <el-button @click="yjSub()">佣金充值</el-button>
                                         </el-form-item>
                                     </el-col>
@@ -107,160 +105,157 @@
                 <div class="tip clear">
                     <p>
                         充值记录
-                        <el-button class="ml20" type="warning" @click="onExport()" size="mini">导出</el-button>
+                        <el-button class="ml20"
+                            type="warning"
+                            @click="onExport()"
+                            size="mini">导出</el-button>
                     </p>
                 </div>
-                <el-table
-                    v-loading="loading"
+                <el-table v-loading="loading"
                     element-loading-text="拼命加载中！"
                     :data="tableData.list"
                     border
                     style="width: 100%"
-                    align="center"
-                >
-                    <el-table-column
-                        prop="cost_money"
+                    align="center">
+                    <el-table-column prop="cost_money"
                         sortable
                         label="转账金额（元）"
                         align="center"
-                        width="145"
-                    ></el-table-column>
-                    <el-table-column
-                        prop="account_type"
+                        width="145"></el-table-column>
+                    <el-table-column prop="account_type"
                         label="账户类型 "
                         align="center"
                         :formatter="formatterAccount"
-                        width="90"
-                    ></el-table-column>
-                    <el-table-column prop="bank_name" label="转账银行" align="center" width="auto"></el-table-column>
-                    <el-table-column prop="bank_no" label="转出银行卡号" align="center" width="auto"></el-table-column>
-                    <el-table-column prop="name" label="转出银行卡姓名" align="center" width="110"></el-table-column>
-                    <el-table-column
-                        prop="transfer_pic"
+                        width="90"></el-table-column>
+                    <el-table-column prop="bank_name"
+                        label="转账银行"
+                        align="center"
+                        width="auto"></el-table-column>
+                    <el-table-column prop="bank_no"
+                        label="转出银行卡号"
+                        align="center"
+                        width="auto"></el-table-column>
+                    <el-table-column prop="name"
+                        label="转出银行卡姓名"
+                        align="center"
+                        width="110"></el-table-column>
+                    <el-table-column prop="transfer_pic"
                         label="转账截图url"
                         align="center"
-                        width="auto"
-                    >
+                        width="auto">
                         <template slot-scope="scrow">
                             <a @click="openImg(scrow.row.transfer_pic)">
-                                <img :src="scrow.row.transfer_pic" alt height="40px">
+                                <img :src="scrow.row.transfer_pic"
+                                    alt
+                                    height="40px">
                             </a>
                         </template>
                     </el-table-column>
-                    <el-table-column
-                        prop="status"
+                    <el-table-column prop="status"
                         label="账户类型 "
                         align="center"
                         :formatter="formatterStatus"
-                        width="90"
-                    ></el-table-column>
-                    <el-table-column prop="site_bank_no" label="平台银行账号" align="center" width="auto"></el-table-column>
-                    <el-table-column prop="verify_content" label="驳回理由" align="center" width="150"></el-table-column>
-                    <el-table-column
-                        prop="created_at"
+                        width="90"></el-table-column>
+                    <el-table-column prop="site_bank_no"
+                        label="平台银行账号"
+                        align="center"
+                        width="auto"></el-table-column>
+                    <el-table-column prop="verify_content"
+                        label="驳回理由"
+                        align="center"
+                        width="150"></el-table-column>
+                    <el-table-column prop="created_at"
                         :formatter="created_atTime"
                         label="提交时间"
                         align="center"
-                        width="100"
-                    ></el-table-column>
-                    <el-table-column
-                        prop="audit_at"
+                        width="100"></el-table-column>
+                    <el-table-column prop="audit_at"
                         :formatter="audit_atTime"
                         label="审核时间"
                         align="center"
-                        width="100"
-                    ></el-table-column>
+                        width="100"></el-table-column>
                 </el-table>
                 <!--翻页-->
-                <div class="pageBox" v-show="pageShow">
-                    <el-pagination
-                        @current-change="handleCurrentChange"
+                <div class="pageBox"
+                    v-show="pageShow">
+                    <el-pagination @current-change="handleCurrentChange"
                         :current-page="selectData.p"
                         background
                         :page-size="selectData.limit"
                         layout="prev, pager, next, jumper"
-                        :total="tableData.count"
-                    ></el-pagination>
+                        :total="tableData.count"></el-pagination>
                 </div>
             </el-tab-pane>
-            <el-tab-pane label="提现" name="2">
+            <el-tab-pane label="提现"
+                name="2">
                 <div class="tip text-center">
                     <p>
                         本金余额（元）:
                         <strong class="f20 mr20">{{balance_capital_money}}</strong>
                         佣金余额（元）:
-                        <strong
-                            class="f20"
-                        >{{balance_commision_money}}</strong>
+                        <strong class="f20">{{balance_commision_money}}</strong>
                     </p>
                 </div>
                 <div class="box clearfix">
                     <el-col :span="24">
                         <div class="card">
                             <div class="formBox">
-                                <el-form
-                                    size="mini"
+                                <el-form size="mini"
                                     label-width="100px"
                                     class="form clearfix"
                                     v-loading="loading"
                                     element-loading-text="正在登录"
-                                    :model="form"
-                                    :rules="rule_data"
-                                    ref="form"
-                                >
+                                    :model="form2"
+                                    :rules="rule_data2"
+                                    ref="form2">
                                     <el-col :span="6">&nbsp;</el-col>
                                     <el-col :span="12">
-                                        <el-form-item class="formRow" prop="bank_id" label="转账银行">
-                                            <el-select v-model="form.bank_id" placeholder="请选择银行">
-                                                <el-option
-                                                    v-for="item in bankList"
+                                        <el-form-item class="formRow"
+                                            prop="bank_id"
+                                            label="转账银行">
+                                            <el-select v-model="form2.bank_id"
+                                                placeholder="请选择银行">
+                                                <el-option v-for="item in bankList"
                                                     :key="item.id"
                                                     :label="item.name"
-                                                    :value="item.id"
-                                                ></el-option>
+                                                    :value="item.id"></el-option>
                                             </el-select>
                                         </el-form-item>
-                                        <el-form-item class="formRow" prop="bank_no" label="银行卡号">
-                                            <el-input
-                                                type="number"
+                                        <el-form-item class="formRow"
+                                            prop="bank_no"
+                                            label="银行卡号">
+                                            <el-input type="number"
                                                 class="form-control"
                                                 placeholder="转出银行卡号"
-                                                v-model="form.bank_no"
-                                            ></el-input>
+                                                v-model="form2.bank_no"></el-input>
                                         </el-form-item>
-                                        <el-form-item class="formRow" prop="name" label="银行卡姓名">
-                                            <el-input
-                                                type="text"
+                                        <el-form-item class="formRow"
+                                            prop="name"
+                                            label="银行卡姓名">
+                                            <el-input type="text"
                                                 class="form-control"
                                                 placeholder="转出银行卡姓名"
-                                                v-model="form.name"
-                                            ></el-input>
+                                                v-model="form2.name"></el-input>
                                         </el-form-item>
-                                        <el-form-item
-                                            class="formRow"
+                                        <el-form-item class="formRow"
                                             prop="cost_money"
-                                            label="提现金额"
-                                        >
-                                            <el-input
-                                                type="number"
+                                            label="提现金额">
+                                            <el-input type="number"
                                                 class="form-control"
                                                 placeholder="提现金额"
-                                                v-model="form.cost_money"
-                                            ></el-input>
+                                                v-model="form2.cost_money"></el-input>
                                         </el-form-item>
-                                        <el-form-item class="formRow" prop="password" label="登录密码">
-                                            <el-input
-                                                type="text"
+                                        <el-form-item class="formRow"
+                                            prop="password"
+                                            label="登录密码">
+                                            <el-input type="text"
                                                 class="form-control"
                                                 placeholder="登录密码"
-                                                v-model="form.password"
-                                            ></el-input>
+                                                v-model="form2.password"></el-input>
                                         </el-form-item>
                                         <el-form-item class="formRow">
-                                            <el-button
-                                                type="warning"
-                                                @click="subRecharge('form')"
-                                            >立即提现</el-button>
+                                            <el-button type="warning"
+                                                @click="subRecharge('form2')">立即提现</el-button>
                                         </el-form-item>
                                     </el-col>
                                 </el-form>
@@ -271,80 +266,85 @@
                 <div class="tip clear">
                     <p>
                         提现记录
-                        <el-button class="ml20" type="warning" @click="onExport()" size="mini">导出</el-button>
+                        <el-button class="ml20"
+                            type="warning"
+                            @click="onExport()"
+                            size="mini">导出</el-button>
                     </p>
                 </div>
-                <el-table
-                    v-loading="loading"
+                <el-table v-loading="loading"
                     element-loading-text="拼命加载中！"
                     :data="tableData.list"
                     border
                     style="width: 100%"
-                    align="center"
-                >
-                    <el-table-column
-                        prop="cost_money"
+                    align="center">
+                    <el-table-column prop="cost_money"
                         sortable
                         label="转账金额（元）"
                         align="center"
-                        width="145"
-                    ></el-table-column>
-                    <el-table-column
-                        prop="account_type"
+                        width="145"></el-table-column>
+                    <el-table-column prop="account_type"
                         label="账户类型 "
                         align="center"
                         :formatter="formatterAccount"
-                        width="90"
-                    ></el-table-column>
-                    <el-table-column prop="bank_name" label="转账银行" align="center" width="auto"></el-table-column>
-                    <el-table-column prop="bank_no" label="转出银行卡号" align="center" width="auto"></el-table-column>
-                    <el-table-column prop="name" label="转出银行卡姓名" align="center" width="110"></el-table-column>
-                    <el-table-column
-                        prop="transfer_pic"
+                        width="90"></el-table-column>
+                    <el-table-column prop="bank_name"
+                        label="转账银行"
+                        align="center"
+                        width="auto"></el-table-column>
+                    <el-table-column prop="bank_no"
+                        label="转出银行卡号"
+                        align="center"
+                        width="auto"></el-table-column>
+                    <el-table-column prop="name"
+                        label="转出银行卡姓名"
+                        align="center"
+                        width="110"></el-table-column>
+                    <el-table-column prop="transfer_pic"
                         label="转账截图url"
                         align="center"
-                        width="auto"
-                    >
+                        width="auto">
                         <template slot-scope="scrow">
                             <a @click="openImg(scrow.row.transfer_pic)">
-                                <img :src="scrow.row.transfer_pic" alt height="40px">
+                                <img :src="scrow.row.transfer_pic"
+                                    alt
+                                    height="40px">
                             </a>
                         </template>
                     </el-table-column>
-                    <el-table-column
-                        prop="status"
+                    <el-table-column prop="status"
                         label="账户类型 "
                         align="center"
                         :formatter="formatterStatus"
-                        width="90"
-                    ></el-table-column>
-                    <el-table-column prop="site_bank_no" label="平台银行账号" align="center" width="auto"></el-table-column>
-                    <el-table-column prop="verify_content" label="驳回理由" align="center" width="150"></el-table-column>
-                    <el-table-column
-                        prop="created_at"
+                        width="90"></el-table-column>
+                    <el-table-column prop="site_bank_no"
+                        label="平台银行账号"
+                        align="center"
+                        width="auto"></el-table-column>
+                    <el-table-column prop="verify_content"
+                        label="驳回理由"
+                        align="center"
+                        width="150"></el-table-column>
+                    <el-table-column prop="created_at"
                         :formatter="created_atTime"
                         label="提交时间"
                         align="center"
-                        width="100"
-                    ></el-table-column>
-                    <el-table-column
-                        prop="audit_at"
+                        width="100"></el-table-column>
+                    <el-table-column prop="audit_at"
                         :formatter="audit_atTime"
                         label="审核时间"
                         align="center"
-                        width="100"
-                    ></el-table-column>
+                        width="100"></el-table-column>
                 </el-table>
                 <!--翻页-->
-                <div class="pageBox" v-show="pageShow">
-                    <el-pagination
-                        @current-change="handleCurrentChange"
+                <div class="pageBox"
+                    v-show="pageShow">
+                    <el-pagination @current-change="handleCurrentChange"
                         :current-page="selectData.p"
                         background
                         :page-size="selectData.limit"
                         layout="prev, pager, next, jumper"
-                        :total="tableData.count"
-                    ></el-pagination>
+                        :total="tableData.count"></el-pagination>
                 </div>
             </el-tab-pane>
         </el-tabs>

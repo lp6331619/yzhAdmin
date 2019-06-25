@@ -1,6 +1,6 @@
 <template>
     <div class="list">
-        <div class="titleBox relative">新增修改流量任务
+        <div class="titleBox relative">流量任务
             <el-button size="small"
                 icon="el-icon-arrow-left"
                 class="backDetail"
