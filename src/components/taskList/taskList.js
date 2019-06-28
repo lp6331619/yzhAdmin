@@ -442,24 +442,23 @@ export default {
          * @param {*} ref
          */
         sub2(ref) {
-            console.log(this.form2, 1111)
-            // this.$refs[ref].validate((valid) => {
-            //     if (valid) {
-            //         this.$$api_order_invitePraise({
-            //             data: this.form2,
-            //             fn: data => {
-            //                 this.loading = false;
-            //                 this.$message.success('恭喜您!审核成功!')
-            //                 this.dialogFormVisible2 = false
-            //                 this.getList()
-            //             },
-            //             errFn: (err) => {
-            //                 this.$message.error(err.info);
-            //                 this.loading = false;
-            //             }
-            //         });
-            //     }
-            // })
+            this.$refs[ref].validate((valid) => {
+                if (valid) {
+                    this.$$api_order_invitePraise({
+                        data: this.form2,
+                        fn: data => {
+                            this.loading = false;
+                            this.$message.success('恭喜您!审核成功!')
+                            this.dialogFormVisible2 = false
+                            this.getList()
+                        },
+                        errFn: (err) => {
+                            this.$message.error(err.info);
+                            this.loading = false;
+                        }
+                    });
+                }
+            })
         },
 
         /**
