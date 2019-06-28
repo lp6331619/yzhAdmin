@@ -341,6 +341,7 @@ export default {
         handleSuccess(response, file, fileList) {
 
             this.fileList = fileList
+            this.form2.pics = []
             this.fileList.forEach((item) => {
                 this.form2.pics.push(item.response.data.url)
             })
