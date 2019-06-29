@@ -169,7 +169,7 @@
                                 class="ml20"
                                 size="mini"
                                 plain
-                                :disabled="form.attgoods.length == 5"
+                                :disabled="form.attgoods.length == 2"
                                 @click="addAdditional()">+增加</el-button>
                             <small> （拖带产品，风格店适用）</small>
                         </p>

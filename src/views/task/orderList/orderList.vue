@@ -1,6 +1,6 @@
 <template>
     <div class="list">
-        <div class="titleBox">销售订单</div>
+        <div class="titleBox">销量订单</div>
         <taskList :pageList="true"
             :listStatus="''"></taskList>
     </div>

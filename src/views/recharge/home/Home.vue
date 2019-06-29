@@ -20,7 +20,7 @@
                         <div class="card">
                             <div class="title first">第一步：请先转账到以下账号</div>
                             <div class="cardBox">
-                                <div class="num">123123{{bankInfo.bank_no}}</div>
+                                <div class="num">{{bankInfo.bank_no}}</div>
                                 <p>户名：{{bankInfo.name}}</p>
                                 <p>开户行：{{bankInfo.bank_name}}</p>
                             </div>

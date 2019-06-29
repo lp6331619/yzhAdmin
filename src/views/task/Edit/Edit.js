@@ -296,7 +296,6 @@ export default {
                             is_time_out_cancel: this.form.is_time_out_cancel == '0' ? '2' : this.form.is_time_out_cancel,
                             is_only_allow_browse: this.form.task_service.is_only_allow_browse
                         })
-                        console.log(this.form.release_start_time, this.form.release_end_time)
                         this.form.attgoods.map((item) => {
                             item.product_pic2 = item.product_pic
                         })

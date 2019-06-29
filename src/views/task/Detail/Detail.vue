@@ -77,6 +77,14 @@
                                     <span>{{data.wait_opera_num}}</span>
                                 </li>
                                 <li>
+                                    待返款:
+                                    <span>{{data.wait_back_num}}</span>
+                                </li>
+                                <li>
+                                    待收货:
+                                    <span>{{data.wait_receive_num}}</span>
+                                </li>
+                                <li>
                                     待审核:
                                     <span>{{data.wait_verify_num}}</span>
                                 </li>
@@ -92,6 +100,7 @@
                                     已取消:
                                     <span>{{data.cancel_num}}</span>
                                 </li>
+
                                 <li>
                                     未接单:
                                     <span>{{data.wait_num}}</span>
