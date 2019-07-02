@@ -8,7 +8,7 @@ export default {
             loading: false,
             tableData: [],
             pageShow: false,
-            notice: require("../../../assets/images/notic.jpg"),
+            notice: require("../../../assets/logo-sm.png"),
             selectData: {//搜索条件
                 p: this.$route.query.p ? parseInt(this.$route.query.p) : 1,
             },
