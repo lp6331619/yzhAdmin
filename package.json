@@ -14,7 +14,7 @@
     "echarts": "^3.5.4",
     "element-ui": "^2.0.8",
     "file-saver": "^2.0.1",
-    "jquery": "^3.2.1",
+    "jquery": "^3.5.0",
     "nprogress": "^0.2.0",
     "underscore": "^1.8.3",
     "vue": "^2.3.1",
